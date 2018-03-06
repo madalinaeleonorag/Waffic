@@ -81,6 +81,28 @@
     </v-toolbar>
     <v-content>
       <v-container fluid>
+        <v-menu offset-y>
+         <v-btn slot="activator"> AN
+          </v-btn>
+          <v-list>
+            <v-list-tile :value="ani" v-for="(event,index) in events" :key="index" @click="">
+             <v-list-tile-title>
+              {{ani}}
+             </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+         </v-menu>
+          <v-menu offset-y>
+         <v-btn slot="activator"> LUNA
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="month in months" :key="month.nume" @click="">
+             <v-list-tile-title>
+                {{month.nume}}
+             </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+         </v-menu>
 
 
 <!-- ISTORIC CONT + ADD LOCATII FAVORITE -->
@@ -524,22 +546,52 @@ ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
       recoverpsw1: false,
       abonament: false,
       drawer: null,
+      years: [],
+      months: [
+        { nume: 'January' },
+        { nume: 'February' },
+        { nume: 'March' },
+        { nume: 'April' },
+        { nume: 'May' },
+        { nume: 'June' },
+        { nume: 'July' },
+        { nume: 'August' },
+        { nume: 'September' },
+        { nume: 'October' },
+        { nume: 'November' },
+        { nume: 'December' }
+      ],
+
       events: [
-          {
-            titlu: 'titlu1',
-            avatar: 'http://lorempixel.com/100/100/',
-            descriere: 'asdhihdckeckj',
-            data: new Date(),
-            prezenta: true
-          },
-          {
-            titlu: 'titlu2',
-            avatar: 'http://lorempixel.com/100/100/',
-            descriere: '<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>',
-            data: new Date((new Date()).setDate(25)),
-            prezenta: false
-          }
-        ],
+        {
+          titlu: 'titlu1',
+          avatar: 'http://lorempixel.com/100/100/',
+          descriere: 'asdhihdckeckj',
+          data: new Date('2017-04-11T10:20:30Z'),
+          prezenta: true
+        },
+        {
+          titlu: 'titlu2',
+          avatar: 'http://lorempixel.com/100/100/',
+          descriere: '<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>',
+          data: new Date((new Date()).setDate(25)),
+          prezenta: false
+        },
+        {
+          titlu: 'titlu3',
+          avatar: 'http://lorempixel.com/100/100/',
+          descriere: 'asdhihdckeckj',
+          data: new Date('2017-07-11T10:20:30Z'),
+          prezenta: true
+        },
+        {
+          titlu: 'titlu4',
+          avatar: 'http://lorempixel.com/100/100/',
+          descriere: 'asdhihdckeckj',
+          data: new Date(),
+          prezenta: true
+        }
+      ],
       items: [{
           icon: 'account_circle',
           text: 'Intră în cont',
@@ -594,6 +646,18 @@ ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         }
       ]
     }),
+computed : {
+  ani () {
+      let ani = []
+      this.events.forEach((event, index) => {
+        let an = event.data.getFullYear()
+        if (!ani.includes(an)) {
+          ani.push(an)
+        }
+      })
+      return ani
+    }
+},
 filters: {
   longtimeago (date) {
     return moment(date).fromNow()
