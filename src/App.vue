@@ -83,7 +83,7 @@
       <v-container fluid>
 
 
-<v-list two-line> 
+<v-list two-line>
         <v-menu offset-y>
          <v-btn slot="activator"> AN
           </v-btn>
@@ -408,7 +408,7 @@
       </v-card>
     </v-dialog>
 <!-- TERMENI SI CONDITII -->
-    <v-dialog v-model="termeni" width="800px">
+    <v-dialog v-model="termeni" fullscreen>
       <v-card>
         <v-card-title
           class="teal py-4 title"
@@ -418,8 +418,34 @@
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-flex xs12 align-center justify-space-between>
-
-TERMENI SI CONDITII
+<b><p>Bine ați venit la Waffic</p></b>
+<br>
+Acești Termeni de utilizare ("Termeni") vă guvernează drepturile și obligațiile privind utilizarea Software-ului <b>Waffic</b> ("Software") și a serviciului (denumite în cele mai multe cazuri " Serviciul ") pe Internet sau în mass-media celulară. Acești Termeni constituie un acord pe deplin obligatoriu între Waffic (inclusiv filialele sale). Prin urmare, vă recomandăm să citiți cu atenție acești Termeni.
+Folosind serviciul Waffic, indicați acordul dvs. pentru acești termeni: <br>
+- Politica de confidențialitate a Waffic  ("Politica de confidențialitate") și<br>
+- Politica privind drepturile de autor a Waffic  ("Politica privind drepturile de autor"),
+toți aceștia fiind parte integrantă a acestor Termeni.<br><br>
+Dacă nu sunteți de acord cu acești Termeni sau cu oricare dintre părțile sale, atunci trebuie să vă abțineți de la utilizarea Serviciului. <br>
+<br><p><b>Puncte cheie</b></p>
+Următoarele puncte-cheie ale Termenilor sunt evidențiate aici doar pentru comoditatea dvs. Aceste puncte cheie nu sunt făcute în locul termenilor deplini și prezența acestora în această secțiune nu înseamnă că acestea sunt destinate să înlocuiască sau să înlocuiască orice alți termeni sau condiții furnizate de Waffic.<br>
+<br>1. <b>Informațiile rutiere</b><br><br>
+Informațiile furnizate de Serviciu nu sunt destinate să înlocuiască informațiile furnizate pe șosea, cum ar fi direcția de deplasare, restricțiile bazate pe timp, restricțiile pe bandaje, blocajele rutiere, semnele de circulație, semafoarele, instrucțiunile poliției etc.<br>
+<br>2. <b>Călătoriți cu grijă</b><br><br>
+Acționați întotdeauna vigilent în funcție de condițiile rutiere și în conformitate cu legile privind traficul. Este strict interzis să trimiteți actualizări de trafic (cum ar fi actualizări privind accidentele rutiere și congestionarea traficului) sau să interacționați non-verbal cu Serviciul sau să utilizați Serviciul într-o manieră non-verbală pentru orice alt scop decât navigarea în timpul conducerii. Actualizările de trafic sau rapoartele non-verbale pe care doriți să le trimiteți Serviciului pot fi trimise numai după ce ați oprit autovehiculul într-o locație adecvată permisă de lege. În mod alternativ, astfel de actualizări pot fi trimise de un alt pasager decât șoferul, cu condiția ca acesta să nu interfereze cu parcursul de conducere și să nu distragă atenția conducătorului auto pe șosea.<br>
+<br>3. <b>Actualizări necontinuale</b><br><br>
+Informațiile furnizate de Serviciu provin de la alți utilizatori ai Serviciului. Aceste informații sunt fluctuante intrinsec și pot fi inexacte, incomplete sau depășite. Waffic nu oferă nicio garanție pentru credibilitatea sau fiabilitatea acestor informații.<br>
+<br>4. <b>Serviciu bazat pe locație</b><br><br>
+Unele caracteristici ale Serviciului utilizează informații detaliate privind locația și traseul, de exemplu sub formă de semnale GPS și alte informații trimise de dispozitivul dumneavoastră pe care este activată aplicația Waffic. Aceste caracteristici nu pot fi furnizate fără a utiliza această tehnologie. Rețineți, după cum este descris în detaliu în Politica de confidențialitate .<br>
+<br><b>(I)</b> Waffic utilizează informațiile despre locație și de ruta dvs. pentru a crea un istoric detaliat al localizării tuturor călătoriilor făcute atunci când utilizați Serviciul. Waffic folosește această istorie pentru a vă oferi Serviciu, pentru a îmbunătăți calitatea Serviciului pe care îl oferă dvs. și tuturor utilizatorilor săi și pentru a îmbunătăți acuratețea datelor sale de cartografiere și de navigare. Acest istoric este asociat cu contul dvs. și cu numele de utilizator (dacă ați ales să configurați un nume de utilizator). Acest istoric este reținut de Waffic pentru o perioadă limitată de timp și în conformitate cu Politica de confidențialitate.  <br>
+<b>(II)</b> Wafic vă permite să utilizați serviciul dacă doriți sau nu să vă configurați un nume de utilizator. Dacă alegeți să utilizați Serviciul fără a configura un nume de utilizator, puteți face acest lucru prin sări peste stadiul de configurare a numelui de utilizator. Waffic va conecta în continuare toate informațiile dvs. cu contul dvs. și un identificator unic generat de Waze în conformitate cu Politica de confidențialitate. Rețineți că pentru a accesa anumite caracteristici ale Serviciului (de exemplu, istoricul rutelor, destinații favorite), va trebui să configurați un nume de utilizator.<br>
+<br><p><b>Reclame </b></p> Anunțurile terță parte pot apărea periodic în cadrul Serviciului. <br>
+<br><p><b>Conexiunea la Internet</b></p>
+Este necesară pentru a utiliza Serviciul și eventualele costuri asociate (de exemplu, cheltuieli de transfer de date mobile) generate de utilizarea de către dvs. a Serviciului sunt responsabilitatea dvs. exclusivă și sunt efectuate exclusiv pe cheltuiala dumneavoastră . Transmiterea și primirea de actualizări în timp real către și de la serviciu necesită o conexiune online (de exemplu, Wi-Fi, 3G, 4G) între dispozitivul dvs. mobil și Internet.Cheltuielile unei astfel de conexiuni sunt cele prescrise în acordul dintre dvs. și furnizorul de servicii de comunicații (cum ar fi compania dvs. de telefonie mobilă) și în conformitate cu termenii de plată aplicabili.<br>
+<br><p><b>Software gratuit</b></p><br> Serviciul utilizează Software pentru afișarea hărților, actualizări și informații despre drum. În ceea ce privește unele dispozitive de telefonie mobilă care rulează Software-ul, Software-ul este un software gratuit. În astfel de cazuri, puteți redistribui Software-ul sau îl puteți modifica în conformitate cu Licența Publică GNU Generală publicată de Fundația pentru Software Liber, indiferent dacă este versiunea 2.0 a licenței sau orice versiune ulterioară aleasă de dvs. Pentru informații suplimentare, consultați Licența publică generală GNU. Serviciul, baza sa de date, mărcile comerciale ale Waffic, designul hărților serviciului și fișierele vocale integrate în Software.<br>
+<br><p><b>Vârsta ta</b></p> Serviciul este destinat utilizării de către utilizatorii care au vârsta legală necesară pentru a deține un permis de conducere. În orice caz, conturile utilizatorilor cu vârsta sub 13 ani vor fi anulate și șterse de Waze, după primirea notificării.<br>
+<br><p><b>Confidențialitate</b></p> Confidențialitatea dvs. este importantă pentru noi. În timpul utilizării Serviciului, informațiile personale pot fi furnizate de dvs. sau colectate de Waffic, așa cum este detaliat în Politica de confidențialitate. Politica de confidențialitate explică practicile noastre referitoare la utilizarea informațiilor dvs. personale și vă cerem să citiți cu atenție o astfel de Politică de confidențialitate. Prin acceptarea acestor Termeni, prin prezenta sunteți de acord cu colectarea, stocarea și utilizarea informațiilor dvs. personale de către Waffic, sub rezerva acestei secțiuni, a Politicii de confidențialitate și a tuturor legilor și regulamentelor aplicabile.
+<br><br><p><b>LICENȚĂ</b></p>
+Waffic vă acordă astfel o licență revocabilă, gratuită, neexclusivă, limitată în timp, netransferabilă, pentru a utiliza Serviciul (inclusiv Software-ul) în scopuri necomerciale, sub rezerva acestor Termeni.
            </v-flex>
           </v-layout>
         </v-container>
@@ -430,7 +456,7 @@ TERMENI SI CONDITII
       </v-card>
     </v-dialog>
 <!-- CONFIDENTIALITATE -->
-<v-dialog v-model="confidențialitate" width="800px">
+<v-dialog v-model="confidențialitate" fullscreen>
       <v-card>
         <v-card-title
           class="teal py-4 title"
@@ -478,7 +504,7 @@ Waffic utilizeaza metode si tehnologii de securitate avansate, impreuna cu polit
       </v-card>
     </v-dialog>
 <!-- DREPTURI DE AUTOR -->
-    <v-dialog v-model="drepturiautor" width="800px">
+    <v-dialog v-model="drepturiautor" fullscreen>
       <v-card>
         <v-card-title
           class="teal py-4 title"
@@ -521,29 +547,33 @@ Puteți să trimiteți o contra-notificare agentului pentru drepturile de autor.
         <v-card-title
           class="teal py-4 title"
         >
-          Adaugă un abonament
+          Ce îți oferă abonamentul?
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-flex xs12 align-center justify-space-between>
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+ <v-expansion-panel>
+    <v-expansion-panel-content v-for="(abonament, i) in abonamente" :key="i">
+      <div slot="header">{{abonament.titlu}}</div>
+      <v-card>
+        <v-card-text>
+          {{abonament.descriere}}
+        </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(abonament = true)&&(continuare=false)">Adaugă</v-btn>
+          <v-btn flat color="teal" @click="(abonamentplata = true)&&(continuare=false)">Adaugă</v-btn>
           <v-btn flat color="teal" @click="(login= true)&&(continuare=false)">Continuă fără abonament</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 <!-- FORMULAR ADAUGARE ABONAMENT (FORMA DE PLATA) -->
-    <v-dialog v-model="abonament" width="800px">
+    <v-dialog v-model="abonamentplata" width="800px">
       <v-card>
         <v-card-title
           class="teal py-4 title"
@@ -559,8 +589,8 @@ ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(continuare=true)&&(abonament = !abonament)">Anulare</v-btn>
-          <v-btn flat color="teal" @click="(login=true)&&(abonament = !abonament)">Adaugă</v-btn>
+          <v-btn flat color="teal" @click="(continuare=true)&&(abonamentplata = !abonamentplata)">Anulare</v-btn>
+          <v-btn flat color="teal" @click="(login=true)&&(abonamentplata = !abonamentplata)">Adaugă</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -615,7 +645,7 @@ export default {
     drepturiautor: false,
     pswnew: "parola noua aici",
     recoverpsw1: false,
-    abonament: false,
+    abonamentplata: false,
     drawer: null,
     years: [],
     date1: null,
@@ -668,6 +698,24 @@ export default {
         descriere: "asdhihdckeckj",
         data: new Date(),
         prezenta: true
+      }
+    ],
+    abonament: [
+      {
+        titlu: "Locații favorite",
+        descriere: "Poți salva mai mult de o locație favorită, pe care o poți accesa instant și activa ca următoarea destinație direct de pe pagina principală."
+      },
+      {
+        titlu:"Reclame?",
+        descriere: "Din păcate, reclamele sunt esențiale pentru a putea menține aplicația activă, însă poți contribui prin activarea abonamentului la buna funcționare a aplicației și nu vei mai fi deranjat de reclame."
+      },
+      {
+        titlu:"Istoric extins",
+        descriere: "Vrei să vezi destinațiile tale de când ai accesat prima oară aplicația și până astăzi? În acest caz, activarea abonamentului îți oferă un astfel de beneficiu."
+      },
+      {
+        titlu:"Modifică-ți datele oricând",
+        descriere: "Ai posibilitatea de modifica orice informație din contul tău oriunde ai fi și oricând ai nevoie."
       }
     ],
     items: [
