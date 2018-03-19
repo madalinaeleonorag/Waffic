@@ -552,16 +552,8 @@ Puteți să trimiteți o contra-notificare agentului pentru drepturile de autor.
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-flex xs12 align-center justify-space-between>
- <v-expansion-panel>
-    <v-expansion-panel-content v-for="(abonament, i) in abonamente" :key="i">
-      <div slot="header">{{abonament.titlu}}</div>
-      <v-card>
-        <v-card-text>
-          {{abonament.descriere}}
-        </v-card-text>
-      </v-card>
-    </v-expansion-panel-content>
-  </v-expansion-panel>
+
+<!-- ABONAMENTEEEEEEE-->
             </v-flex>
           </v-layout>
         </v-container>
