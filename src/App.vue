@@ -81,53 +81,124 @@
     </v-toolbar>
     <v-content>
       <v-container fluid>
+
+
+<v-list two-line> 
         <v-menu offset-y>
          <v-btn slot="activator"> AN
           </v-btn>
           <v-list>
-            <v-list-tile :value="ani" v-for="(event,index) in events" :key="index" @click="">
-             <v-list-tile-title>
-              {{ani}}
-             </v-list-tile-title>
+            <v-list-tile @click="filter.an = null">
+              <v-list-tile-title>
+                All years
+                <template v-if="filter.an === null">
+                  &#10004;
+                </template>
+              </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+          <v-list>
+            <v-list-tile v-for="an in ani" :key="an" @click="filter.an = an">
+              <v-list-tile-title>
+                {{an}}
+                <template v-if="an === filter.an">
+                  &#10004;
+                </template>
+              </v-list-tile-title>
             </v-list-tile>
           </v-list>
          </v-menu>
-          <v-menu offset-y>
+         <v-menu offset-y>
          <v-btn slot="activator"> LUNA
           </v-btn>
           <v-list>
-            <v-list-tile v-for="month in months" :key="month.nume" @click="">
+           <v-list-tile @click="filter.luna = null">
+            <v-list-tile-title>
+              All months
+              <template v-if="filter.luna === null">
+                &#10004;
+              </template>
+            </v-list-tile-title>
+          </v-list-tile>
+         </v-list>
+          <v-list>
+            <v-list-tile v-for="(month,index) in months" :key="index" @click="filter.luna = index"
+            >
              <v-list-tile-title>
                 {{month.nume}}
+                <template v-if="index === filter.luna">
+                  &#10004;
+                </template>
              </v-list-tile-title>
             </v-list-tile>
           </v-list>
          </v-menu>
+      <v-menu
+        ref="menu1"
+        lazy
+        :close-on-content-click="false"
+        v-model="menu1"
+        transition="scale-transition"
+        offset-y
+        :nudge-right="40"
+        min-width="290px"
+        :return-value.sync="date1"
+      >
+        <v-text-field
+          slot="activator"
+          label="Data de start"
+          v-model="date1"
+          readonly
+        ></v-text-field>
+        <v-date-picker v-model="date1" no-title scrollable @change="$refs.menu1.save(date1)">
+        </v-date-picker>
+      </v-menu>
+      <v-menu
+        ref="menu2"
+        :close-on-content-click="false"
+        v-model="menu2"
+        transition="scale-transition"
+        offset-y
+        :nudge-right="40"
+        min-width="290px"
+        :return-value.sync="date2"
+      >
+        <v-text-field
+          slot="activator"
+          label="Data de final"
+          v-model="date2"
+          readonly
+        ></v-text-field>
+        <v-date-picker v-model="date2" @change="$refs.menu2.save(date2)" no-title scrollable>
+          <v-spacer></v-spacer>
+        </v-date-picker>
+      </v-menu>
+               <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
+          </v-btn>
+        <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index" >
+        <v-list-tile-avatar>
+        <img :src="event.avatar">
+        </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>
+            {{event.titlu}}
+            </v-list-tile-title>
+            <v-list-tile-sub-title v-html="event.descriere">
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-list-tile-action-text>
+            {{event.data | longtimeago}}
+            </v-list-tile-action-text>
+            <v-icon :class="{'green--text':event.prezenta, 'red--text':!event.prezenta}" @click="event.prezenta=!event.prezenta">
+            {{event.prezenta ? 'star' : 'star_border'}}
+            </v-icon>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+      </v-layout>
+    </v-slide-y-transition>
 
-
-<!-- ISTORIC CONT + ADD LOCATII FAVORITE -->
-
-ISTORIC CONT + ADD LOCATII FAVORITE
-
-<v-list two-line>
-  <v-list-tile avatar v-for="(event,index) in events" :key="index">
-    <v-list-tile-content>
-      <v-list-tile-title>
-        {{event.titlu}}
-      </v-list-tile-title>
-      <v-list-tile-sub-title v-html="event.descriere">
-      </v-list-tile-sub-title>
-    </v-list-tile-content>
-    <v-list-tile-action>
-      <v-list-tile-action-text>
-        {{event.data | longtimeago}}
-      </v-list-tile-action-text>
-      <v-icon :class="{'green--text':event.prezenta, 'red--text':!event.prezenta}" @click="event.prezenta=!event.prezenta">
-        {{event.prezenta ? 'star' : 'star_border'}}
-      </v-icon>
-    </v-list-tile-action>
-  </v-list-tile>
-</v-list>
 
 
       </v-container>
@@ -147,7 +218,7 @@ ISTORIC CONT + ADD LOCATII FAVORITE
         <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title
-          class="teal py-4 title" 
+          class="teal py-4 title"
         >
           Creare cont nou
         </v-card-title>
@@ -192,9 +263,9 @@ ISTORIC CONT + ADD LOCATII FAVORITE
             </v-flex>
             <v-flex xs6>
               <v-text-field
-                placeholder="Repetă parolă"  
-                required             
-                color="teal" 
+                placeholder="Repetă parolă"
+                required
+                color="teal"
                 hint="Repetă parola pentru siguranță"
               ></v-text-field>
             </v-flex>
@@ -203,25 +274,25 @@ ISTORIC CONT + ADD LOCATII FAVORITE
             </v-flex>
             <v-flex xs4>
               <v-text-field
-                placeholder="Zi"  
-                required             
-                color="teal" 
+                placeholder="Zi"
+                required
+                color="teal"
                 hint="Ziua nașterii"
               ></v-text-field>
             </v-flex>
               <v-flex xs4>
               <v-text-field
-                placeholder="Lună"  
-                required             
-                color="teal" 
+                placeholder="Lună"
+                required
+                color="teal"
                 hint="Luna nașterii"
               ></v-text-field>
             </v-flex>
                         <v-flex xs4>
               <v-text-field
-                placeholder="An"  
-                required             
-                color="teal" 
+                placeholder="An"
+                required
+                color="teal"
                 hint="Anul nașterii"
               ></v-text-field>
             </v-flex>
@@ -252,7 +323,7 @@ ISTORIC CONT + ADD LOCATII FAVORITE
     <v-dialog v-model="login" width="800px">
       <v-card>
         <v-card-title
-          class="teal py-4 title" 
+          class="teal py-4 title"
         >
           Intră în cont
         </v-card-title>
@@ -288,7 +359,7 @@ ISTORIC CONT + ADD LOCATII FAVORITE
         <v-dialog v-model="recoverpsw" width="800px">
       <v-card>
         <v-card-title
-          class="teal py-4 title" 
+          class="teal py-4 title"
         >
           Recuperează parola
         </v-card-title>
@@ -528,149 +599,194 @@ ABONAMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 </template>
 
 <script>
-  import moment from 'moment'
-  export default {
-    name: 'profil',
-    data: () => ({
-      dialog: false,
-      dialog2: false,
-      agree: false,
-      login: false,
-      payment: false,
-      continuare: false,
-      termeni: false,
-      recoverpsw: false,
-      confidențialitate: false,
-      drepturiautor: false,
-      pswnew:'parola noua aici',
-      recoverpsw1: false,
-      abonament: false,
-      drawer: null,
-      years: [],
-      months: [
-        { nume: 'January' },
-        { nume: 'February' },
-        { nume: 'March' },
-        { nume: 'April' },
-        { nume: 'May' },
-        { nume: 'June' },
-        { nume: 'July' },
-        { nume: 'August' },
-        { nume: 'September' },
-        { nume: 'October' },
-        { nume: 'November' },
-        { nume: 'December' }
-      ],
-
-      events: [
-        {
-          titlu: 'titlu1',
-          avatar: 'http://lorempixel.com/100/100/',
-          descriere: 'asdhihdckeckj',
-          data: new Date('2017-04-11T10:20:30Z'),
-          prezenta: true
-        },
-        {
-          titlu: 'titlu2',
-          avatar: 'http://lorempixel.com/100/100/',
-          descriere: '<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>',
-          data: new Date((new Date()).setDate(25)),
-          prezenta: false
-        },
-        {
-          titlu: 'titlu3',
-          avatar: 'http://lorempixel.com/100/100/',
-          descriere: 'asdhihdckeckj',
-          data: new Date('2017-07-11T10:20:30Z'),
-          prezenta: true
-        },
-        {
-          titlu: 'titlu4',
-          avatar: 'http://lorempixel.com/100/100/',
-          descriere: 'asdhihdckeckj',
-          data: new Date(),
-          prezenta: true
-        }
-      ],
-      items: [{
-          icon: 'account_circle',
-          text: 'Intră în cont',
-          ceva: 'login'
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Detalii cont',
-          model: false,
-          children: [{
-              icon: 'person',
-              text: 'Date personale'
-            },
-            {
-              icon: 'alarm_on',
-              text: 'Alarme stabilite'
-            },
-            {
-              icon: 'mode_edit',
-              text: 'Modifică parola'
-            },
-            {
-              icon: 'directions',
-              text: 'Istoric rute'
-            },
-            {
-              icon: 'favorite',
-              text: 'Locații preferate'
-            },
-            {
-              icon: 'add_shopping_cart',
-              text: 'Abonamente'
-            }
-          ]
-        },
-        {
-          icon: 'chat',
-          text: 'Contact'
-        },
-        {
-          icon: 'announcement',
-          text: 'Știri'
-        },
-        {
-          icon: 'help',
-          text: 'Ajutor'
-        },
-        {
-          icon: 'block',
-          text: 'Ieșire cont'
-        }
-      ]
-    }),
-computed : {
-  ani () {
-      let ani = []
+import moment from "moment";
+export default {
+  name: "profil",
+  data: () => ({
+    dialog: false,
+    dialog2: false,
+    agree: false,
+    login: false,
+    payment: false,
+    continuare: false,
+    termeni: false,
+    recoverpsw: false,
+    confidențialitate: false,
+    drepturiautor: false,
+    pswnew: "parola noua aici",
+    recoverpsw1: false,
+    abonament: false,
+    drawer: null,
+    years: [],
+    date1: null,
+    menu1: false,
+    date2: null,
+    menu2: false,
+    filter: {
+      an: null,
+      luna: null
+    },
+    months: [
+      { clickable: false, nume: "January" },
+      { clickable: false, nume: "February" },
+      { clickable: false, nume: "March" },
+      { clickable: false, nume: "April" },
+      { clickable: false, nume: "May" },
+      { clickable: false, nume: "June" },
+      { clickable: false, nume: "July" },
+      { clickable: false, nume: "August" },
+      { clickable: false, nume: "September" },
+      { clickable: false, nume: "October" },
+      { clickable: false, nume: "November" },
+      { clickable: false, nume: "December" }
+    ],
+    events: [
+      {
+        titlu: "titlu1",
+        avatar: "http://lorempixel.com/100/100/",
+        descriere: "asdhihdckeckj",
+        data: new Date("2017-04-11T10:20:30Z"),
+        prezenta: true
+      },
+      {
+        titlu: "titlu2",
+        avatar: "http://lorempixel.com/100/100/",
+        descriere: "<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>",
+        data: new Date(new Date().setDate(25)),
+        prezenta: false
+      },
+      {
+        titlu: "titlu3",
+        avatar: "http://lorempixel.com/100/100/",
+        descriere: "asdhihdckeckj",
+        data: new Date("2017-07-11T10:20:30Z"),
+        prezenta: true
+      },
+      {
+        titlu: "titlu4",
+        avatar: "http://lorempixel.com/100/100/",
+        descriere: "asdhihdckeckj",
+        data: new Date(),
+        prezenta: true
+      }
+    ],
+    items: [
+      {
+        icon: "account_circle",
+        text: "Intră în cont",
+        ceva: "login"
+      },
+      {
+        icon: "keyboard_arrow_up",
+        "icon-alt": "keyboard_arrow_down",
+        text: "Detalii cont",
+        model: false,
+        children: [
+          {
+            icon: "person",
+            text: "Date personale"
+          },
+          {
+            icon: "alarm_on",
+            text: "Alarme stabilite"
+          },
+          {
+            icon: "mode_edit",
+            text: "Modifică parola"
+          },
+          {
+            icon: "directions",
+            text: "Istoric rute"
+          },
+          {
+            icon: "favorite",
+            text: "Locații preferate"
+          },
+          {
+            icon: "add_shopping_cart",
+            text: "Abonamente"
+          }
+        ]
+      },
+      {
+        icon: "chat",
+        text: "Contact"
+      },
+      {
+        icon: "announcement",
+        text: "Știri"
+      },
+      {
+        icon: "help",
+        text: "Ajutor"
+      },
+      {
+        icon: "block",
+        text: "Ieșire cont"
+      }
+    ]
+  }),
+  computed: {
+    ani() {
+      let ani = [];
       this.events.forEach((event, index) => {
-        let an = event.data.getFullYear()
+        let an = event.data.getFullYear();
         if (!ani.includes(an)) {
-          ani.push(an)
+          ani.push(an);
         }
-      })
-      return ani
+      });
+      return ani;
+    },
+    filterEvents() {
+      return this.events.filter(event => {
+        const an = event.data.getFullYear();
+        const month = event.data.getMonth();
+        let matchingYears = true;
+        let matchingMonths = true;
+        let dupadata = true;
+        let inaintedata = true;
+        let betweendata = true;
+        if (this.filter.an || this.filter.luna) {
+          matchingYears = this.filter.an ? this.filter.an === an : true;
+          matchingMonths = this.filter.luna ? this.filter.luna === month : true;
+        } else if (this.date1 || this.date2) {
+          const data = moment(event.data);
+          const dupa = moment(this.date1);
+          const inainte = moment(this.date2);
+          if (dupa === null && inainte) {
+            inaintedata = inainte ? data.isSameOrBefore(inainte) : true;
+          } else if (dupa && inainte === null) {
+            dupadata = dupa ? data.isSameOrAfter(dupa) : true;
+          } else if (dupa && inainte) {
+            betweendata =
+              inainte && dupa
+                ? data.isBetween(dupa, inainte, null, "[]")
+                : true;
+          }
+        }
+        return (
+          matchingYears &&
+          matchingMonths &&
+          inaintedata &&
+          dupadata &&
+          betweendata
+        );
+      });
     }
-},
-filters: {
-  longtimeago (date) {
-    return moment(date).fromNow()
+  },
+  filters: {
+    longtimeago(date) {
+      return moment(date).fromNow();
+    }
+  },
+  props: {
+    source: String
   }
-},
-props: {
-      source: String
-  }
-}
+};
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 </style>
