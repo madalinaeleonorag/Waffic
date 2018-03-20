@@ -3,60 +3,61 @@
     <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
       <v-list dense>
         <template v-for="item in items">
-                <v-layout
-                  row
-                  v-if="item.heading"
-                  align-center
-                  :key="item.heading"
-                >
-                  <v-flex xs6>
-                    <v-subheader v-if="item.heading">
-                      {{ item.heading }}
-                    </v-subheader>
-                  </v-flex>
-                  <v-flex xs6 class="text-xs-center">
-                  </v-flex>
-                </v-layout>
-                <v-list-group
-                  v-else-if="item.children"
-                  v-model="item.model"
-                  :key="item.text"
-                  :prepend-icon="item.model ? item.icon : item['icon-alt']"
-                  append-icon=""
-                >
-                  <v-list-tile slot="activator">
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ item.text }}
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                  <v-list-tile
-                    v-for="(child, i) in item.children"
-                    :key="i"
-                    @click=""
-                  >
-                    <v-list-tile-action v-if="child.icon">
-                      <v-icon>{{ child.icon }}</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ child.text }}
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list-group>
-                <v-list-tile v-else @click="" :key="item.text">
-                  <v-list-tile-action>
-                    <v-icon>{{ item.icon }}</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>
-                      {{ item.text }}
-                    </v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-</template>
+          <v-layout
+            row
+            v-if="item.heading"
+            align-center
+            :key="item.heading">
+            <v-flex xs6>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-flex>
+            <v-flex xs6 class="text-xs-center">
+            </v-flex>
+          </v-layout>
+          <v-list-group
+            v-else-if="item.children"
+            v-model="item.model"
+            :key="item.text"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon="">
+            <v-list-tile slot="activator">
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="i"
+              @click="">
+              <v-list-tile-action v-if="child.icon">
+                <v-icon>
+                  {{ child.icon }}
+                </v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ child.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
+          <v-list-tile v-else @click="" :key="item.text">
+            <v-list-tile-action>
+              <v-icon>
+                {{ item.icon }}
+              </v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -64,10 +65,10 @@
       dark
       app
       :clipped-left="$vuetify.breakpoint.mdAndUp"
-      fixed
-    >
+      fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer">
+        </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
       <v-text-field
@@ -75,132 +76,120 @@
         solo-inverted
         prepend-icon="search"
         label="Caută locația"
-        class="hidden-sm-and-down"
-      ></v-text-field>
+        class="hidden-sm-and-down">
+      </v-text-field>
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
       <v-container fluid>
-
-
-<v-list two-line>
-        <v-menu offset-y>
-         <v-btn slot="activator"> AN
+        <v-list two-line>
+          <v-menu offset-y>
+            <v-btn slot="activator"> AN
+            </v-btn>
+            <v-list>
+              <v-list-tile @click="filter.an = null">
+                <v-list-tile-title>
+                  All years
+                  <template v-if="filter.an === null">
+                    &#10004;
+                  </template>
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+            <v-list>
+              <v-list-tile v-for="an in ani" :key="an" @click="filter.an = an">
+                <v-list-tile-title>
+                  {{an}}
+                  <template v-if="an === filter.an">
+                    &#10004;
+                  </template>
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+          <v-menu offset-y>
+            <v-btn slot="activator"> LUNA </v-btn>
+            <v-list>
+              <v-list-tile @click="filter.luna = null">
+                <v-list-tile-title>
+                  All months
+                  <template v-if="filter.luna === null">
+                    &#10004;
+                  </template>
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+            <v-list>
+              <v-list-tile v-for="(month,index) in months" :key="index" @click="filter.luna = index">
+                <v-list-tile-title>
+                  {{month.nume}}
+                  <template v-if="index === filter.luna">
+                    &#10004;
+                  </template>
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+          <v-menu
+            ref="menu1"
+            lazy
+            :close-on-content-click="false"
+            v-model="menu1"
+            transition="scale-transition"
+            offset-y
+            :nudge-right="40"
+            :return-value.sync="date1">
+            <v-text-field
+              slot="activator"
+              label="Data de start"
+              v-model="date1"
+              readonly>
+            </v-text-field>
+            <v-date-picker v-model="date1" no-title scrollable @change="$refs.menu1.save(date1)">
+            </v-date-picker>
+          </v-menu>
+          <v-menu
+            ref="menu2"
+            lazy
+            :close-on-content-click="false"
+            v-model="menu2"
+            transition="scale-transition"
+            offset-y
+            :nudge-right="40"
+            :return-value.sync="date2">
+            <v-text-field
+              slot="activator"
+              label="Data de final"
+              v-model="date2"
+              readonly>
+            </v-text-field>
+            <v-date-picker v-model="date2" @change="$refs.menu2.save(date2)" no-title scrollable>
+              <v-spacer></v-spacer>
+            </v-date-picker>
+          </v-menu>
+          <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
           </v-btn>
-          <v-list>
-            <v-list-tile @click="filter.an = null">
+          <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index" >
+            <v-list-tile-avatar>
+              <img :src="event.avatar">
+            </v-list-tile-avatar>
+            <v-list-tile-content>
               <v-list-tile-title>
-                All years
-                <template v-if="filter.an === null">
-                  &#10004;
-                </template>
+                {{event.titlu}}
               </v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-          <v-list>
-            <v-list-tile v-for="an in ani" :key="an" @click="filter.an = an">
-              <v-list-tile-title>
-                {{an}}
-                <template v-if="an === filter.an">
-                  &#10004;
-                </template>
-              </v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-         </v-menu>
-         <v-menu offset-y>
-         <v-btn slot="activator"> LUNA
-          </v-btn>
-          <v-list>
-           <v-list-tile @click="filter.luna = null">
-            <v-list-tile-title>
-              All months
-              <template v-if="filter.luna === null">
-                &#10004;
-              </template>
-            </v-list-tile-title>
+              <v-list-tile-sub-title v-html="event.descriere">
+              </v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-list-tile-action-text>
+                {{event.data | longtimeago}}
+              </v-list-tile-action-text>
+              <v-icon :class="{'green--text':event.prezenta, 'red--text':!event.prezenta}" @click="event.prezenta=!event.prezenta">
+                {{event.prezenta ? 'star' : 'star_border'}}
+              </v-icon>
+            </v-list-tile-action>
           </v-list-tile>
-         </v-list>
-          <v-list>
-            <v-list-tile v-for="(month,index) in months" :key="index" @click="filter.luna = index"
-            >
-             <v-list-tile-title>
-                {{month.nume}}
-                <template v-if="index === filter.luna">
-                  &#10004;
-                </template>
-             </v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-         </v-menu>
-      <v-menu
-        ref="menu1"
-        lazy
-        :close-on-content-click="false"
-        v-model="menu1"
-        transition="scale-transition"
-        offset-y
-        :nudge-right="40"
-        min-width="290px"
-        :return-value.sync="date1"
-      >
-        <v-text-field
-          slot="activator"
-          label="Data de start"
-          v-model="date1"
-          readonly
-        ></v-text-field>
-        <v-date-picker v-model="date1" no-title scrollable @change="$refs.menu1.save(date1)">
-        </v-date-picker>
-      </v-menu>
-      <v-menu
-        ref="menu2"
-        :close-on-content-click="false"
-        v-model="menu2"
-        transition="scale-transition"
-        offset-y
-        :nudge-right="40"
-        min-width="290px"
-        :return-value.sync="date2"
-      >
-        <v-text-field
-          slot="activator"
-          label="Data de final"
-          v-model="date2"
-          readonly
-        ></v-text-field>
-        <v-date-picker v-model="date2" @change="$refs.menu2.save(date2)" no-title scrollable>
-          <v-spacer></v-spacer>
-        </v-date-picker>
-      </v-menu>
-               <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
-          </v-btn>
-        <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index" >
-        <v-list-tile-avatar>
-        <img :src="event.avatar">
-        </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>
-            {{event.titlu}}
-            </v-list-tile-title>
-            <v-list-tile-sub-title v-html="event.descriere">
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-list-tile-action-text>
-            {{event.data | longtimeago}}
-            </v-list-tile-action-text>
-            <v-icon :class="{'green--text':event.prezenta, 'red--text':!event.prezenta}" @click="event.prezenta=!event.prezenta">
-            {{event.prezenta ? 'star' : 'star_border'}}
-            </v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-      </v-layout>
-    </v-slide-y-transition>
-
-
-
+        </v-list>
       </v-container>
     </v-content>
     <v-btn
@@ -210,16 +199,16 @@
       color="teal"
       dark
       fixed
-      @click.stop="dialog = true"
-    >
-      <v-icon>add</v-icon>
+      @click.stop="dialog = true">
+      <v-icon>
+        add
+      </v-icon>
     </v-btn>
-    <!--  CONT NOU -->
-        <v-dialog v-model="dialog" width="800px">
+
+<!--  CONT NOU -->
+    <v-dialog v-model="dialog" width="800px">
       <v-card>
-        <v-card-title
-          class="teal py-4 title"
-        >
+        <v-card-title class="teal py-4 title">
           Creare cont nou
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -229,13 +218,12 @@
                 <v-avatar size="40px" class="mr-3">
                   <img
                     src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt=""
-                  >
+                    alt="">
                 </v-avatar>
                 <v-text-field
                   placeholder="Nume de utilizator"
-                  color="teal"
-                ></v-text-field>
+                  color="teal">
+                </v-text-field>
               </v-layout>
             </v-flex>
             <v-flex xs6>
@@ -243,58 +231,58 @@
                 placeholder="Nume"
                 required
                 color="teal"
-                hint="Numele de familie"
-              ></v-text-field>
+                hint="Numele de familie">
+              </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 placeholder="Prenume"
                 color="teal"
-                required
-              ></v-text-field>
+                required>
+              </v-text-field>
             </v-flex>
-               <v-flex xs6>
+            <v-flex xs6>
               <v-text-field
                 placeholder="Parolă"
                 required
                 color="teal"
-                hint="Minim 8 caractere"
-              ></v-text-field>
+                hint="Minim 8 caractere">
+              </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 placeholder="Repetă parolă"
                 required
                 color="teal"
-                hint="Repetă parola pentru siguranță"
-              ></v-text-field>
+                hint="Repetă parola pentru siguranță">
+              </v-text-field>
             </v-flex>
-              <v-flex xs12>
-            Data nașterii:
+            <v-flex xs12>
+              Data nașterii:
             </v-flex>
             <v-flex xs4>
               <v-text-field
                 placeholder="Zi"
                 required
                 color="teal"
-                hint="Ziua nașterii"
-              ></v-text-field>
+                hint="Ziua nașterii">
+              </v-text-field>
             </v-flex>
-              <v-flex xs4>
+            <v-flex xs4>
               <v-text-field
                 placeholder="Lună"
                 required
                 color="teal"
-                hint="Luna nașterii"
-              ></v-text-field>
+                hint="Luna nașterii">
+              </v-text-field>
             </v-flex>
-                        <v-flex xs4>
+            <v-flex xs4>
               <v-text-field
                 placeholder="An"
                 required
                 color="teal"
-                hint="Anul nașterii"
-              ></v-text-field>
+                hint="Anul nașterii">
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -302,20 +290,28 @@
                 placeholder="Email"
                 color="teal"
                 required
-                hint="Adresa de poștă electronică"
-              ></v-text-field>
+                hint="Adresa de poștă electronică">
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
-            <input type="checkbox" v-model="agree"/> Accept Termenii și condițiile de utilizare
+              <input type="checkbox" v-model="agree"/> Accept Termenii și condițiile de utilizare
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="teal" @click="termeni = true">Termeni și condiții</v-btn>
+          <v-btn flat color="teal" @click="termeni = true">
+            Termeni și condiții
+          </v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click=" (login=true) && (dialog = false)">Am deja cont</v-btn>
-          <v-btn flat @click="dialog = false">Anulare</v-btn>
-          <v-btn flat color="teal" @click="(continuare = true) && (dialog=false)">Continuare</v-btn>
+          <v-btn flat color="teal" @click=" (login=true) && (dialog = false)">
+            Am deja cont
+          </v-btn>
+          <v-btn flat @click="dialog = false">
+            Anulare
+          </v-btn>
+          <v-btn flat color="teal" @click="(continuare = true) && (dialog=false)">
+            Continuare
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -662,36 +658,36 @@ export default {
       { clickable: false, nume: "November" },
       { clickable: false, nume: "December" }
     ],
-    events: [
-      {
-        titlu: "titlu1",
-        avatar: "http://lorempixel.com/100/100/",
-        descriere: "asdhihdckeckj",
-        data: new Date("2017-04-11T10:20:30Z"),
-        prezenta: true
-      },
-      {
-        titlu: "titlu2",
-        avatar: "http://lorempixel.com/100/100/",
-        descriere: "<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>",
-        data: new Date(new Date().setDate(25)),
-        prezenta: false
-      },
-      {
-        titlu: "titlu3",
-        avatar: "http://lorempixel.com/100/100/",
-        descriere: "asdhihdckeckj",
-        data: new Date("2017-07-11T10:20:30Z"),
-        prezenta: true
-      },
-      {
-        titlu: "titlu4",
-        avatar: "http://lorempixel.com/100/100/",
-        descriere: "asdhihdckeckj",
-        data: new Date(),
-        prezenta: true
-      }
-    ],
+    // events: [
+    //   {
+    //     titlu: "titlu1",
+    //     avatar: "http://lorempixel.com/100/100/",
+    //     descriere: "asdhihdckeckj",
+    //     data: new Date("2017-04-11T10:20:30Z"),
+    //     prezenta: true
+    //   },
+    //   {
+    //     titlu: "titlu2",
+    //     avatar: "http://lorempixel.com/100/100/",
+    //     descriere: "<b>asdhihdckeckj bsdfjbhsdhfskkkf</b>",
+    //     data: new Date(new Date().setDate(25)),
+    //     prezenta: false
+    //   },
+    //   {
+    //     titlu: "titlu3",
+    //     avatar: "http://lorempixel.com/100/100/",
+    //     descriere: "asdhihdckeckj",
+    //     data: new Date("2017-07-11T10:20:30Z"),
+    //     prezenta: true
+    //   },
+    //   {
+    //     titlu: "titlu4",
+    //     avatar: "http://lorempixel.com/100/100/",
+    //     descriere: "asdhihdckeckj",
+    //     data: new Date(),
+    //     prezenta: true
+    //   }
+    // ],
     abonament: [
       {
         titlu: "Locații favorite",
@@ -714,7 +710,6 @@ export default {
       {
         icon: "account_circle",
         text: "Intră în cont",
-        ceva: "login"
       },
       {
         icon: "keyboard_arrow_up",
@@ -723,95 +718,79 @@ export default {
         model: false,
         children: [
           {
-            icon: "person",
-            text: "Date personale"
+            icon: "person", text: "Date personale"
           },
           {
-            icon: "alarm_on",
-            text: "Alarme stabilite"
+            icon: "alarm_on", text: "Alarme stabilite"
           },
           {
-            icon: "mode_edit",
-            text: "Modifică parola"
+            icon: "mode_edit", text: "Modifică parola"
           },
           {
-            icon: "directions",
-            text: "Istoric rute"
+            icon: "directions", text: "Istoric rute"
           },
           {
-            icon: "favorite",
-            text: "Locații preferate"
+            icon: "favorite", text: "Locații preferate"
           },
           {
-            icon: "add_shopping_cart",
-            text: "Abonamente"
+            icon: "add_shopping_cart", text: "Abonamente"
           }
         ]
       },
       {
-        icon: "chat",
-        text: "Contact"
+        icon: "chat", text: "Contact"
       },
       {
-        icon: "announcement",
-        text: "Știri"
+        icon: "announcement", text: "Știri"
       },
       {
-        icon: "help",
-        text: "Ajutor"
+        icon: "help", text: "Ajutor"
       },
       {
-        icon: "block",
-        text: "Ieșire cont"
+        icon: "block", text: "Ieșire cont"
       }
     ]
   }),
   computed: {
-    ani() {
-      let ani = [];
-      this.events.forEach((event, index) => {
-        let an = event.data.getFullYear();
-        if (!ani.includes(an)) {
-          ani.push(an);
-        }
-      });
-      return ani;
+    events () {
+      return this.$store.getters.events
     },
-    filterEvents() {
+    ani () {
+      let ani = []
+      this.events.forEach((event, index) => {
+        let an = event.data.getFullYear()
+        if (!ani.includes(an)) {
+          ani.push(an)
+        }
+      })
+      return ani
+    },
+    filterEvents () {
       return this.events.filter(event => {
-        const an = event.data.getFullYear();
-        const month = event.data.getMonth();
-        let matchingYears = true;
-        let matchingMonths = true;
-        let dupadata = true;
-        let inaintedata = true;
-        let betweendata = true;
+        const an = event.data.getFullYear()
+        const month = event.data.getMonth()
+        let matchingYears = true
+        let matchingMonths = true
+        let dupadata = true
+        let inaintedata = true
+        let betweendata = true
         if (this.filter.an || this.filter.luna) {
-          matchingYears = this.filter.an ? this.filter.an === an : true;
-          matchingMonths = this.filter.luna ? this.filter.luna === month : true;
+          matchingYears = this.filter.an ? this.filter.an === an : true
+          matchingMonths = this.filter.luna ? this.filter.luna === month : true
         } else if (this.date1 || this.date2) {
-          const data = moment(event.data);
-          const dupa = moment(this.date1);
-          const inainte = moment(this.date2);
+          const data = moment(event.data)
+          const dupa = moment(this.date1)
+          const inainte = moment(this.date2)
           if (dupa === null && inainte) {
-            inaintedata = inainte ? data.isSameOrBefore(inainte) : true;
+            inaintedata = inainte ? data.isSameOrBefore(inainte) : true
           } else if (dupa && inainte === null) {
-            dupadata = dupa ? data.isSameOrAfter(dupa) : true;
+            dupadata = dupa ? data.isSameOrAfter(dupa) : true
           } else if (dupa && inainte) {
-            betweendata =
-              inainte && dupa
-                ? data.isBetween(dupa, inainte, null, "[]")
-                : true;
+            betweendata = (inainte && dupa) ? data.isBetween(dupa, inainte, null, '[]') : true
           }
         }
-        return (
-          matchingYears &&
-          matchingMonths &&
-          inaintedata &&
-          dupadata &&
-          betweendata
-        );
-      });
+        return matchingYears && matchingMonths && inaintedata && dupadata && betweendata
+      })
     }
   },
   filters: {
