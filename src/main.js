@@ -7,6 +7,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import store from './store'
 import Vuex from 'vuex'
+import * as firebase from '@/firebase'
 
 Vue.use(Vuex)
 Vue.use(Vuetify)
@@ -19,5 +20,6 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  store: store
+  store: store,
+  firebase
 })

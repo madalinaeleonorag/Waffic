@@ -2,66 +2,196 @@
   <v-app id="inspire">
     <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
       <v-list dense>
-        <template v-for="item in items">
-          <v-layout
-            row
-            v-if="item.heading"
-            align-center
-            :key="item.heading">
-            <v-flex xs6>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-flex>
-            <v-flex xs6 class="text-xs-center">
-            </v-flex>
-          </v-layout>
-          <v-list-group
-            v-else-if="item.children"
-            v-model="item.model"
-            :key="item.text"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon="">
-            <v-list-tile slot="activator">
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ item.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile
-              v-for="(child, i) in item.children"
-              :key="i"
-              @click="">
-              <v-list-tile-action v-if="child.icon">
-                <v-icon>
-                  {{ child.icon }}
+
+        <!-- INTRARE CONT / CREARE CONT NOU -->
+
+          <v-list-tile>
+            <router-link to="/Auth" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon color="primary"> account_circle
                 </v-icon>
               </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ child.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list-group>
-          <v-list-tile v-else @click="" :key="item.text">
-            <v-list-tile-action>
-              <v-icon>
-                {{ item.icon }}
-              </v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
+            </router-link>
+            <router-link to="/Auth" tag="li" style="cursor:pointer">
               <v-list-tile-title>
-                {{ item.text }}
+                Intră în cont / Creează cont nou
               </v-list-tile-title>
-            </v-list-tile-content>
+            </router-link>
           </v-list-tile>
-        </template>
+
+          <!-- HARTA -->
+
+          <v-list-tile>
+            <router-link to="/Map" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon color="primary"> directions_car
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Map" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Hartă
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <v-divider inset></v-divider>
+
+          <!-- DETALII CONT -->
+
+          <v-subheader inset>Detalii cont</v-subheader>
+
+          <!-- DATE PERSONALE -->
+
+          <v-list-tile>
+            <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> person
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Date personale
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- MODIFICA PAROLA -->
+
+          <v-list-tile>
+            <router-link to="/ChangePassword/:uid" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> mode_edit
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/ChangePassword/:uid" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Modifică parola
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- ISTORIC RUTE -->
+
+          <v-list-tile>
+            <router-link to="/History/:uid" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> directions
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/History" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Călătoriile tale
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- LOCATII PREFERATE -->
+
+          <v-list-tile>
+            <router-link to="/FavLocations/:uid" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> favorite
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/FavLocations/:uid" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Locații preferate
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <v-divider inset></v-divider>
+
+          <!-- ABONAMENTE -->
+
+          <v-list-tile>
+            <router-link to="/Subscriptions" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon color="primary"> add_shopping_cart
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Subscriptions" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Abonamente
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- CONTACT -->
+
+          <v-list-tile>
+            <router-link to="/Contact" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> chat
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Contact" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Contact
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- STIRI -->
+
+          <v-list-tile>
+            <router-link to="/News" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> announcement
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/News" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Știri
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- AJUTOR -->
+
+          <v-list-tile>
+            <router-link to="/Help" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> help
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Help" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Ajutor
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- IESIRE CONT -->
+
+          <v-list-tile>
+            <router-link to="/" style="cursor:pointer">
+              <v-list-tile-action @click="onSignOut" style="cursor:pointer">
+                <v-icon> block
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/" tag="li" style="cursor:pointer">
+              <v-list-tile-title @click="onSignOut" style="cursor:pointer">
+                Ieșire cont
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar
-      color="teal darken-3"
+      color="primary"
       dark
       app
       :clipped-left="$vuetify.breakpoint.mdAndUp"
@@ -71,341 +201,12 @@
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <v-text-field
-        flat
-        solo-inverted
-        prepend-icon="search"
-        label="Caută locația"
-        class="hidden-sm-and-down">
-      </v-text-field>
       <v-spacer></v-spacer>
     </v-toolbar>
+
     <v-content>
-      <v-container fluid>
-        <v-list two-line>
-          <v-menu offset-y>
-            <v-btn slot="activator"> AN
-            </v-btn>
-            <v-list>
-              <v-list-tile @click="filter.an = null">
-                <v-list-tile-title>
-                  All years
-                  <template v-if="filter.an === null">
-                    &#10004;
-                  </template>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-            <v-list>
-              <v-list-tile v-for="an in ani" :key="an" @click="filter.an = an">
-                <v-list-tile-title>
-                  {{an}}
-                  <template v-if="an === filter.an">
-                    &#10004;
-                  </template>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-          <v-menu offset-y>
-            <v-btn slot="activator"> LUNA </v-btn>
-            <v-list>
-              <v-list-tile @click="filter.luna = null">
-                <v-list-tile-title>
-                  All months
-                  <template v-if="filter.luna === null">
-                    &#10004;
-                  </template>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-            <v-list>
-              <v-list-tile v-for="(month,index) in months" :key="index" @click="filter.luna = index">
-                <v-list-tile-title>
-                  {{month.nume}}
-                  <template v-if="index === filter.luna">
-                    &#10004;
-                  </template>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-          <v-menu
-            ref="menu1"
-            lazy
-            :close-on-content-click="false"
-            v-model="menu1"
-            transition="scale-transition"
-            offset-y
-            :nudge-right="40"
-            :return-value.sync="date1">
-            <v-text-field
-              slot="activator"
-              label="Data de start"
-              v-model="date1"
-              readonly>
-            </v-text-field>
-            <v-date-picker v-model="date1" no-title scrollable @change="$refs.menu1.save(date1)">
-            </v-date-picker>
-          </v-menu>
-          <v-menu
-            ref="menu2"
-            lazy
-            :close-on-content-click="false"
-            v-model="menu2"
-            transition="scale-transition"
-            offset-y
-            :nudge-right="40"
-            :return-value.sync="date2">
-            <v-text-field
-              slot="activator"
-              label="Data de final"
-              v-model="date2"
-              readonly>
-            </v-text-field>
-            <v-date-picker v-model="date2" @change="$refs.menu2.save(date2)" no-title scrollable>
-              <v-spacer></v-spacer>
-            </v-date-picker>
-          </v-menu>
-          <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
-          </v-btn>
-          <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index" >
-            <v-list-tile-avatar>
-              <img :src="event.avatar">
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{event.titlu}}
-              </v-list-tile-title>
-              <v-list-tile-sub-title v-html="event.descriere">
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-list-tile-action-text>
-                {{event.data | longtimeago}}
-              </v-list-tile-action-text>
-              <v-icon :class="{'green--text':event.prezenta, 'red--text':!event.prezenta}" @click="event.prezenta=!event.prezenta">
-                {{event.prezenta ? 'star' : 'star_border'}}
-              </v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
-      </v-container>
+      <router-view/>
     </v-content>
-    <v-btn
-      fab
-      bottom
-      right
-      color="teal"
-      dark
-      fixed
-      @click.stop="dialog = true">
-      <v-icon>
-        add
-      </v-icon>
-    </v-btn>
-
-    <!--  CONT NOU -->
-
-    <v-dialog v-model="dialog" width="800px">
-      <v-card>
-        <v-card-title class="teal py-4 title">
-          Creare cont nou
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt="">
-                </v-avatar>
-                <v-text-field
-                  placeholder="Nume de utilizator"
-                  color="teal">
-                </v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                placeholder="Nume"
-                required
-                color="teal"
-                hint="Numele de familie">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                placeholder="Prenume"
-                color="teal"
-                required>
-                </v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                placeholder="Parolă"
-                required
-                color="teal"
-                hint="Minim 8 caractere">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                placeholder="Repetă parolă"
-                required
-                color="teal"
-                hint="Repetă parola pentru siguranță">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              Data nașterii:
-            </v-flex>
-            <v-flex xs4>
-              <v-text-field
-                placeholder="Zi"
-                required
-                color="teal"
-                hint="Ziua nașterii">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs4>
-              <v-text-field
-                placeholder="Lună"
-                required
-                color="teal"
-                hint="Luna nașterii">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs4>
-              <v-text-field
-                placeholder="An"
-                required
-                color="teal"
-                hint="Anul nașterii">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                prepend-icon="mail"
-                placeholder="Email"
-                color="teal"
-                required
-                hint="Adresa de poștă electronică">
-              </v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <input type="checkbox" v-model="agree"/> Accept Termenii și condițiile de utilizare
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-btn flat color="teal" @click="termeni = true">
-            Termeni și condiții
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click=" (login=true) && (dialog = false)">
-            Am deja cont
-          </v-btn>
-          <v-btn flat @click="dialog = false">
-            Anulare
-          </v-btn>
-          <v-btn flat color="teal" @click="(continuare = true) && (dialog=false)">
-            Continuare
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- LOGIN -->
-
-    <v-dialog v-model="login" width="800px">
-      <v-card>
-        <v-card-title
-          class="teal py-4 title">
-          Intră în cont
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <v-layout align-center>
-                <v-text-field
-                  placeholder="Nume de utilizator"
-                  color="teal">
-                  </v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12>
-                <v-text-field
-                  placeholder="Parolă"
-                  required
-                  color="teal"
-                  hint="Minim 8 caractere">
-                  </v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(recoverpsw = true)&&(login=false)">Am uitat parola</v-btn>
-          <v-btn flat @click="login = false">Anulare</v-btn>
-          <v-btn flat color="teal" @click="(login = false)">Intră în cont</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- RECUPEREAZA PAROLA -->
-
-    <v-dialog v-model="recoverpsw" width="800px">
-      <v-card>
-        <v-card-title
-          class="teal py-4 title">
-          Recuperează parola
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <v-layout align-center>
-                <v-text-field
-                  placeholder="Nume de utilizator"
-                  color="teal">
-                  </v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                placeholder="Care este luna nașterii?"
-                required
-                color="teal"
-                hint="Doar cifre">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                placeholder="Care este anul nașterii?"
-                required
-                color="teal"
-                hint="Doar cifre">
-                </v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                placeholder="Care este adresa de email a contului?"
-                required
-                color="teal"
-                hint="Este obligatorie extensia @">
-                </v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-btn flat color="teal" @click="(login=true)&&(recoverpsw = false)">Mi-am amintit parola</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn flat @click="recoverpsw = false">Anulare</v-btn>
-          <v-btn flat color="teal" @click="(recoverpsw1 = true)&&(recoverpsw = false)">Continuă</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <!-- TERMENI SI CONDITII -->
 
@@ -543,83 +344,14 @@
       </v-card>
     </v-dialog>
 
-    <!-- ADAUGA ABONAMENT (PAS2 - INREGISTRARE) -->
-
-    <v-dialog v-model="continuare" width="800px">
-      <v-card>
-        <v-card-title
-          class="teal py-4 title">
-          Ce îți oferă abonamentul?
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <!-- TEXT ABNAMENTE  -->
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(abonamentplata = true)&&(continuare=false)">Adaugă</v-btn>
-          <v-btn flat color="teal" @click="(login= true)&&(continuare=false)">Continuă fără abonament</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- FORMULAR ADAUGARE ABONAMENT (FORMA DE PLATA) -->
-
-    <v-dialog v-model="abonamentplata" width="800px">
-      <v-card>
-        <v-card-title
-          class="teal py-4 title">
-        Formular de plată
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              ascascsdc
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(continuare=true)&&(abonamentplata = !abonamentplata)">Anulare</v-btn>
-          <v-btn flat color="teal" @click="(login=true)&&(abonamentplata = !abonamentplata)">Adaugă</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- AFISARE NOUA PAROLA -->
-
-    <v-dialog v-model="recoverpsw1" width="800px">
-      <v-card>
-        <v-card-title
-          class="teal py-4 title">
-          Noua ta parolă este
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              {{pswnew}}
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="teal" @click="(recoverpsw1=false)">Ieșire</v-btn>
-          <v-btn flat color="teal" @click="(login=true)&&(recoverpsw1 = false)">Continuă către autentificare</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <!-- FOOTER -->
 
     <v-footer app font-size="3px">
       <v-spacer></v-spacer>
-      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat color="teal">Mădălina-Eleonora Gheorghe</v-btn>
-      - <v-btn flat color="teal" @click="drepturiautor = true">Drepturi de autor</v-btn>
-      - <v-btn flat color="teal" @click="termeni = true">Termeni și condiții</v-btn>
-      - <v-btn flat color="teal" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
+      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat color="primary">Mădălina-Eleonora Gheorghe</v-btn>
+      - <v-btn flat color="primary" @click="drepturiautor = true">Drepturi de autor</v-btn>
+      - <v-btn flat color="primary" @click="termeni = true">Termeni și condiții</v-btn>
+      - <v-btn flat color="primary" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
       <v-spacer></v-spacer>
     </v-footer>
 
@@ -631,151 +363,20 @@ import moment from "moment";
 export default {
   name: "profil",
   data: () => ({
-    dialog: false,
-    dialog2: false,
-    agree: false,
-    login: false,
-    payment: false,
-    continuare: false,
     termeni: false,
-    recoverpsw: false,
     confidențialitate: false,
     drepturiautor: false,
-    pswnew: "parola noua aici",
-    recoverpsw1: false,
-    abonamentplata: false,
-    drawer: null,
-    years: [],
-    date1: null,
-    menu1: false,
-    date2: null,
-    menu2: false,
-    filter: {
-      an: null,
-      luna: null
-    },
-    months: [
-      { clickable: false, nume: "January" },
-      { clickable: false, nume: "February" },
-      { clickable: false, nume: "March" },
-      { clickable: false, nume: "April" },
-      { clickable: false, nume: "May" },
-      { clickable: false, nume: "June" },
-      { clickable: false, nume: "July" },
-      { clickable: false, nume: "August" },
-      { clickable: false, nume: "September" },
-      { clickable: false, nume: "October" },
-      { clickable: false, nume: "November" },
-      { clickable: false, nume: "December" }
-    ],
-    abonament: [
-      {
-        titlu: "Locații favorite",
-        descriere: "Poți salva mai mult de o locație favorită, pe care o poți accesa instant și activa ca următoarea destinație direct de pe pagina principală."
-      },
-      {
-        titlu:"Reclame?",
-        descriere: "Din păcate, reclamele sunt esențiale pentru a putea menține aplicația activă, însă poți contribui prin activarea abonamentului la buna funcționare a aplicației și nu vei mai fi deranjat de reclame."
-      },
-      {
-        titlu:"Istoric extins",
-        descriere: "Vrei să vezi destinațiile tale de când ai accesat prima oară aplicația și până astăzi? În acest caz, activarea abonamentului îți oferă un astfel de beneficiu."
-      },
-      {
-        titlu:"Modifică-ți datele oricând",
-        descriere: "Ai posibilitatea de modifica orice informație din contul tău oriunde ai fi și oricând ai nevoie."
-      }
-    ],
-    items: [
-      {
-        icon: "account_circle",
-        text: "Intră în cont",
-      },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Detalii cont",
-        model: false,
-        children: [
-          {
-            icon: "person", text: "Date personale"
-          },
-          {
-            icon: "alarm_on", text: "Alarme stabilite"
-          },
-          {
-            icon: "mode_edit", text: "Modifică parola"
-          },
-          {
-            icon: "directions", text: "Istoric rute"
-          },
-          {
-            icon: "favorite", text: "Locații preferate"
-          },
-          {
-            icon: "add_shopping_cart", text: "Abonamente"
-          }
-        ]
-      },
-      {
-        icon: "chat", text: "Contact"
-      },
-      {
-        icon: "announcement", text: "Știri"
-      },
-      {
-        icon: "help", text: "Ajutor"
-      },
-      {
-        icon: "block", text: "Ieșire cont"
-      }
-    ]
+    clipped: false,
+    drawer: null
   }),
   computed: {
-    events () {
-      return this.$store.getters.events
-    },
-    ani () {
-      let ani = []
-      this.events.forEach((event, index) => {
-        let an = event.data.getFullYear()
-        if (!ani.includes(an)) {
-          ani.push(an)
-        }
-      })
-      return ani
-    },
-    filterEvents () {
-      return this.events.filter(event => {
-        const an = event.data.getFullYear()
-        const month = event.data.getMonth()
-        let matchingYears = true
-        let matchingMonths = true
-        let dupadata = true
-        let inaintedata = true
-        let betweendata = true
-        if (this.filter.an || this.filter.luna) {
-          matchingYears = this.filter.an ? this.filter.an === an : true
-          matchingMonths = this.filter.luna ? this.filter.luna === month : true
-        } else if (this.date1 || this.date2) {
-          const data = moment(event.data)
-          const dupa = moment(this.date1)
-          const inainte = moment(this.date2)
-          if (dupa === null && inainte) {
-            inaintedata = inainte ? data.isSameOrBefore(inainte) : true
-          } else if (dupa && inainte === null) {
-            dupadata = dupa ? data.isSameOrAfter(dupa) : true
-          } else if (dupa && inainte) {
-            betweendata = (inainte && dupa) ? data.isBetween(dupa, inainte, null, '[]') : true
-          }
-        }
-        return matchingYears && matchingMonths && inaintedata && dupadata && betweendata
-      })
+    user () {
+      return this.$store.getters.user
     }
   },
-  filters: {
-    longtimeago(date) {
-      return moment(date).fromNow();
+  methods: {
+    onSignOut () {
+      this.$store.dispatch('signOut')
     }
   },
   props: {
@@ -784,8 +385,9 @@ export default {
 };
 </script>
 
-<style scoped>
-a {
+<style>
+a, ul, li {
   text-decoration: none;
+  list-style-type: none;
 }
 </style>
