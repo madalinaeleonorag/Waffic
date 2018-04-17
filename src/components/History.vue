@@ -93,16 +93,12 @@
         <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
         </v-btn>
         <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index">
-          <router-link :to="{ name: 'Events', params: { id: index }}" tag="li" style="cursor:pointer">
             <v-list-tile-avatar>
                 <img :src="event.avatar">
             </v-list-tile-avatar>
-          </router-link>
           <v-list-tile-content>
             <v-list-tile-title>
-              <router-link :to="{ name: 'Events', params: { id: index }}" tag="li" style="cursor:pointer">
                 {{event.titlu}}
-              </router-link>
             </v-list-tile-title>
             <v-list-tile-sub-title v-html="event.descriere">
             </v-list-tile-sub-title>

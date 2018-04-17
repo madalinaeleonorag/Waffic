@@ -457,6 +457,10 @@ export default {
       }
     }
   }),
+  created: function () {
+    this.$store.dispatch('getData')
+    this.$store.dispatch('AuthChange')
+  },
   computed: {
     user () {
       return this.$store.getters.user
@@ -475,6 +479,16 @@ export default {
     },
     userRecover () {
       //
+    },
+    onLoad () {
+      if (this.userIsAuthenticated) {
+        this.$router.push('/')
+      } else {
+        this.$router.push('/Auth')
+      }
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
     userSignUp () {
       this.$store.dispatch('signIn', {email: this.email, password: this.password})      

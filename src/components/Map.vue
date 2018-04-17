@@ -1,7 +1,6 @@
 <template>
   <v-layout>
     <v-flex>
-
       <div id="map"></div>
     </v-flex>
   </v-layout>
@@ -18,6 +17,9 @@
       coords () {
         return this.$store.getters.location
       },
+      location () {
+        return this.$store.getters.location
+      }
     },
     created: function () {
       console.log('map: ', window.google.maps)
