@@ -5,23 +5,22 @@
 
         <!-- INTRARE CONT / CREARE CONT NOU -->
 
-          <v-list-tile>
-            <router-link to="/Auth" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
+          <v-list-tile v-if="!user">
+              <v-list-tile-action @click="signin=true" style="cursor:pointer">
                 <v-icon color="primary"> account_circle
                 </v-icon>
               </v-list-tile-action>
-            </router-link>
-            <router-link to="/Auth" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
+            <!-- </router-link>
+            <router-link to="/Auth" tag="li" style="cursor:pointer"> -->
+              <v-list-tile-title @click="signin=true" style="cursor:pointer">
                 Intră în cont / Creează cont nou
               </v-list-tile-title>
-            </router-link>
+            <!-- </router-link> -->
           </v-list-tile>
 
           <!-- HARTA -->
 
-          <v-list-tile>
+          <v-list-tile v-if="user">
             <router-link to="/Map" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon color="primary"> directions_car
@@ -39,11 +38,11 @@
 
           <!-- DETALII CONT -->
 
-          <v-subheader inset>Detalii cont</v-subheader>
+          <v-subheader inset v-if="user">Detalii cont</v-subheader>
 
           <!-- DATE PERSONALE -->
 
-          <v-list-tile>
+          <v-list-tile v-if="user">
             <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> person
@@ -59,7 +58,7 @@
 
           <!-- MODIFICA PAROLA -->
 
-          <v-list-tile>
+          <v-list-tile v-if="user">
             <router-link to="/ChangePassword/:uid" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> mode_edit
@@ -75,7 +74,7 @@
 
           <!-- ISTORIC RUTE -->
 
-          <v-list-tile>
+          <v-list-tile v-if="user">
             <router-link to="/History/:uid" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> directions
@@ -88,24 +87,6 @@
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
-
-          <!-- LOCATII PREFERATE -->
-
-          <v-list-tile>
-            <router-link to="/FavLocations/:uid" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> favorite
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/FavLocations/:uid" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Locații preferate
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
 
           <!-- ABONAMENTE -->
 
@@ -122,6 +103,8 @@
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
+
+          <v-divider inset></v-divider>
 
           <!-- CONTACT -->
 
@@ -173,7 +156,7 @@
 
           <!-- IESIRE CONT -->
 
-          <v-list-tile>
+          <v-list-tile v-if="user">
             <router-link to="/" style="cursor:pointer">
               <v-list-tile-action @click="onSignOut" style="cursor:pointer">
                 <v-icon> block
@@ -207,6 +190,97 @@
     <v-content>
       <router-view/>
     </v-content>
+
+    <!-- LOGIN -->
+
+    <v-dialog v-model="signin" max-width="490">
+      <v-card>
+        <v-card-title
+          class="teal py-4 title">
+          Intră în cont
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex xs12 align-center justify-space-between>
+            <v-text-field
+            label="Email"
+            v-model="email"
+            :rules="[rules.required, rules.email]"
+            >
+            </v-text-field>
+            <v-text-field
+              name="input-10-1"
+              label="Parola"
+              hint="Minim 8 caractere"
+              v-model="password"
+              min="8"
+              :append-icon="e1 ? 'visibility' : 'visibility_off'"
+              :append-icon-cb="() => (e1 = !e1)"
+              :type="e1 ? 'password' : 'text'"
+              :rules="[rules.required]"
+              counter
+            >
+            </v-text-field>
+           </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-btn color="primary" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
+          <v-btn color="primary" type="submit" @click="userSignin">Intră în cont</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- SIGNUP -->
+
+    <v-dialog v-model="signup" max-width="490">
+      <v-card>
+        <v-card-title
+          class="teal py-4 title">
+          Intră în cont
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex xs12 align-center justify-space-between>
+              <v-text-field
+                label="Enter your E-mail"
+                v-model="email"
+                :rules="[rules.required, rules.email]"
+              >
+              </v-text-field>
+              <v-text-field
+                name="input-10-1"
+                label="Enter your password"
+                hint="At least 8 characters"
+                v-model="password"
+                min="8"
+                :append-icon-cb="() => (e1 = !e1)"
+                :type="e1 ? 'password' : 'text'"
+                :rules="[rules.required]"
+                counter
+              >
+              </v-text-field>
+              <v-text-field
+                name="input-10-1"
+                label="Confirm password"
+                hint="At least 8 characters"
+                v-model="confirmPassword"
+                min="8"
+                :type="e1 ? 'password' : 'text'"
+                :rules="[comparePasswords]"
+              >
+              </v-text-field>
+           </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+          <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <!-- TERMENI SI CONDITII -->
 
@@ -367,17 +441,44 @@ export default {
     confidențialitate: false,
     drepturiautor: false,
     clipped: false,
-    drawer: null
+    signin: false,
+    signup: false,
+    drawer: null,
+    e1: true,
+    password: '',
+    email: '',
+    confirmPassword: '',
+    rules: {
+      required: (value) => !!value || 'Obligatoriu.',
+      email: (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Email invalid.'
+      }
+    }
   }),
   computed: {
     user () {
       return this.$store.getters.user
-    }
+    },
+    comparePasswords () {
+      return this.password !== this.confirmPassword ? 'Parolele nu corespund' : ''
+    },
   },
   methods: {
     onSignOut () {
       this.$store.dispatch('signOut')
-    }
+    },
+    userSignin () {
+        this.$store.dispatch('signIn', {email: this.email, password: this.password})
+        this.signin=false
+    },
+    userRecover () {
+      //
+    },
+    userSignUp () {
+      this.$store.dispatch('signIn', {email: this.email, password: this.password})      
+      this.signup=false
+    },
   },
   props: {
     source: String
