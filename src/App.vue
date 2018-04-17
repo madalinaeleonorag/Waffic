@@ -277,6 +277,7 @@
         </v-container>
         <v-card-actions>
           <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+          <v-spacer></v-spacer>
           <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
         </v-card-actions>
       </v-card>

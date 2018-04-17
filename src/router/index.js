@@ -9,9 +9,7 @@ import History from '@/components/History'
 import News from '@/components/News'
 import Subscriptions from '@/components/Subscriptions'
 import Map from '@/components/Map'
-import Auth from '@/components/Auth'
-import RecoverPsw from '@/components/RecoverPsw'
-import SignUp from '@/components/SignUp'
+import AuthGuard from '@/store/authGuard'
 
 Vue.use(Router)
 
@@ -20,27 +18,20 @@ export default new Router({
     {
       path: '/AccountDetails/:uid',
       name: 'AccountDetails',
-      component: AccountDetails
-    },
-    {
-      path: '/RecoverPsw',
-      name: 'RecoverPsw',
-      component: RecoverPsw
-    },
-    {
-      path: '/SignUp',
-      name: 'SignUp',
-      component: SignUp
+      component: AccountDetails,
+      beforeEnter: AuthGuard
     },
     {
       path: '/ChangePassword/:uid',
       name: 'ChangePassword',
-      component: ChangePassword
+      component: ChangePassword,
+      beforeEnter: AuthGuard
     },
     {
       path: '/Map',
       name: 'Map',
-      component: Map
+      component: Map,
+      beforeEnter: AuthGuard
     },
     {
       path: '/Contact',
@@ -53,11 +44,6 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/Auth',
-      name: 'Auth',
-      component: Auth
-    },
-    {
       path: '/Help',
       name: 'Help',
       component: Help
@@ -65,7 +51,8 @@ export default new Router({
     {
       path: '/History',
       name: 'History',
-      component: History
+      component: History,
+      beforeEnter: AuthGuard
     },
     {
       path: '/News',

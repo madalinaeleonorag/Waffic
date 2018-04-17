@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-list two-line>
         <v-menu offset-y>
-          <v-btn slot="activator" color="primary"> AN
+          <v-btn slot="activator"> AN
           </v-btn>
           <v-list>
             <v-list-tile @click="filter.an = null">
@@ -27,7 +27,7 @@
           </v-list>
         </v-menu>
         <v-menu offset-y>
-          <v-btn slot="activator" color="primary"> LUNA </v-btn>
+          <v-btn slot="activator"> LUNA </v-btn>
           <v-list>
             <v-list-tile @click="filter.luna = null">
               <v-list-tile-title>
@@ -39,7 +39,11 @@
             </v-list-tile>
           </v-list>
           <v-list>
-            <v-list-tile v-for="(month,index) in months" :key="index" @click="filter.luna = index">
+            <v-list-tile
+            v-for="(month,index) in months"
+            :key="index"
+            @click="filter.luna = index"
+            :disabled="months.clickable">
               <v-list-tile-title>
                 {{month.nume}}
                 <template v-if="index === filter.luna">
@@ -86,19 +90,19 @@
             <v-spacer></v-spacer>
           </v-date-picker>
         </v-menu>
-        <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null " color="primary"> RESET
+        <v-btn @click.native="filter.luna = null, filter.an = null, date1 = null, date2 = null "> RESET
         </v-btn>
-        <v-btn @click.native="favorite" color="primary">
-          <v-icon>star</v-icon>
-          FAVORITE
-        </v-btn>
-        <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index" >
-          <v-list-tile-avatar>
-            <img :src="event.avatar">
-          </v-list-tile-avatar>
+        <v-list-tile avatar v-for="(event,index) in filterEvents" :key="index">
+          <router-link :to="{ name: 'Events', params: { id: index }}" tag="li" style="cursor:pointer">
+            <v-list-tile-avatar>
+                <img :src="event.avatar">
+            </v-list-tile-avatar>
+          </router-link>
           <v-list-tile-content>
             <v-list-tile-title>
-              {{event.titlu}}
+              <router-link :to="{ name: 'Events', params: { id: index }}" tag="li" style="cursor:pointer">
+                {{event.titlu}}
+              </router-link>
             </v-list-tile-title>
             <v-list-tile-sub-title v-html="event.descriere">
             </v-list-tile-sub-title>
