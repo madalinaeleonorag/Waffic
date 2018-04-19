@@ -21,8 +21,7 @@
         return this.$store.getters.location
       }
     },
-    created: function () {
-      console.log('map: ', window.google.maps)
+    mounted: function () {
       const map = new window.google.maps.Map(document.getElementById('map'), {
         center: {lat: +this.coords.lat, lng: +this.coords.long},
         zoom: 16

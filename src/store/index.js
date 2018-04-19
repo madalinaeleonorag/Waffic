@@ -83,7 +83,7 @@ export default new Vuex.Store({
               id: user.uid
             }
             commit('setUser', newUser)
-            // router.push({ path: '/' })
+            router.push({ path: '/Map' })
           }
         )
         .catch(
@@ -109,6 +109,7 @@ export default new Vuex.Store({
     signOut ({commit}) {
       firebase.auth().signOut().then(function () {
         commit('setUser', null)
+        router.push({ path: '/' })
       }).catch(
         error => {
           window.alert(error.message)

@@ -461,6 +461,9 @@ export default {
     this.$store.dispatch('getData')
     this.$store.dispatch('AuthChange')
   },
+  mounted: function () {
+    this.$store.dispatch('getLocation')
+  },
   computed: {
     user () {
       return this.$store.getters.user
@@ -468,6 +471,9 @@ export default {
     comparePasswords () {
       return this.password !== this.confirmPassword ? 'Parolele nu corespund' : ''
     },
+    location () {
+      return this.$store.getters.location
+    }
   },
   methods: {
     onSignOut () {
