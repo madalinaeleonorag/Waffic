@@ -11,6 +11,7 @@ export default new Vuex.Store({
       db: firebase.database()
     },
     user: null,
+    keysEvents: [],
     events: [],
     location: {
       lat: null,
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     getLocation: (state, payload) => {
       state.location = payload
+    },
+    getKeys: (state, payload) => {
+      state.keysEvents = payload
     }
   },
   actions: {
@@ -45,6 +49,7 @@ export default new Vuex.Store({
             eventdetails.data = new Date(myObj[key].data)
             commit('gotEvents', eventdetails)
           })
+          commit('getKeys', keys)
         }, function (error) {
           console.log('Error: ' + error.message)
         })
