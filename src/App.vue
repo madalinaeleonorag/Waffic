@@ -239,40 +239,92 @@
       <v-card>
         <v-card-title
           class="teal lighten-1 py-4 title">
-          Intră în cont
+          Crează cont nou
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
+          <v-layout wrap>
             <v-flex xs12 align-center justify-space-between>
               <v-text-field
-                label="Enter your E-mail"
+                label="Email"
                 v-model="email"
                 :rules="[rules.required, rules.email]"
               >
-              </v-text-field>
-              <v-text-field
-                name="input-10-1"
-                label="Enter your password"
-                hint="At least 8 characters"
-                v-model="password"
-                min="8"
-                :append-icon-cb="() => (e1 = !e1)"
-                :type="e1 ? 'password' : 'text'"
-                :rules="[rules.required]"
-                counter
-              >
-              </v-text-field>
-              <v-text-field
-                name="input-10-1"
-                label="Confirm password"
-                hint="At least 8 characters"
-                v-model="confirmPassword"
-                min="8"
-                :type="e1 ? 'password' : 'text'"
-                :rules="[comparePasswords]"
-              >
-              </v-text-field>
-           </v-flex>
+            </v-text-field>
+            </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  label="Nume"
+                  v-model="nume"
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  label="Prenume"
+                  v-model="prenume"
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  label="Localitate"
+                  v-model="localitate"
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex xs6>
+                <v-menu
+                  ref="datanamenu"
+                  lazy
+                  :close-on-content-click="false"
+                  v-model="datanamenu"
+                  transition="scale-transition"
+                  offset-y
+                  full-width
+                  :nudge-right="40"
+                  min-width="290px"
+                  :return-value.sync="datana"
+                >
+                  <v-text-field
+                    slot="activator"
+                    label="Data nașterii"
+                    v-model="datana"
+                    prepend-icon="event"
+                    readonly
+                  >
+                  </v-text-field>
+                  <v-date-picker v-model="datana" no-title scrollable @change="$refs.datanamenu.save(datana)">
+                    <v-spacer>
+                    </v-spacer>
+                  </v-date-picker>
+                </v-menu>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  name="input-10-1"
+                  label="Parolă"
+                  hint="Minim 8 caractere"
+                  v-model="password"
+                  min="8"
+                  :append-icon-cb="() => (e1 = !e1)"
+                  :type="e1 ? 'password' : 'text'"
+                  :rules="[rules.required]"
+                  counter
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  name="input-10-1"
+                  label="Confirmă parolă"
+                  hint="Minim 8 caractere"
+                  v-model="confirmPassword"
+                  min="8"
+                  :type="e1 ? 'password' : 'text'"
+                  :rules="[comparePasswords]"
+                >
+                </v-text-field>
+              </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -438,6 +490,11 @@ import moment from "moment";
 export default {
   name: "profil",
   data: () => ({
+    nume: null,
+    prenume: null,
+    localitate: null,
+    datana: null,
+    datanamenu: false,
     termeni: false,
     confidențialitate: false,
     drepturiautor: false,
@@ -488,16 +545,16 @@ export default {
     },
     onLoad () {
       if (this.userIsAuthenticated) {
-        this.$router.push('/')
+        this.$router.push('/map')
       } else {
-        this.$router.push('/Auth')
+        this.$router.push('/')
       }
     },
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
     userSignUp () {
-      this.$store.dispatch('signIn', {email: this.email, password: this.password})      
+      this.$store.dispatch('signUp', {email: this.email, password: this.password, nume: this.nume, prenume: this.prenume, localitate: this.localitate, datana: this.datana})
       this.signup=false
     },
   },

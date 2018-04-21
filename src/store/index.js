@@ -57,17 +57,23 @@ export default new Vuex.Store({
     signUp ({commit}, payload) {
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
-          user => {
+        user => {
             const newUser = {
               id: user.uid
             }
             commit('setUser', newUser)
-            router.push({path: '/'})
+            router.push({path: '/map'})
+            firebase.database().ref('/users/' + newUser.id).set({
+              nume: payload.nume,
+              prenume: payload.prenume,
+              localitate: payload.localitate,
+              datana: payload.datana
+            })
           }
         )
         .catch(
           error => {
-            console.log(error)
+            window.alert(error)
           }
         )
     },
@@ -87,7 +93,7 @@ export default new Vuex.Store({
             const newUser = {
               id: user.uid
             }
-            commit('setUser', newUser)
+            commit('setUser', user.uid)
             router.push({ path: '/Map' })
           }
         )

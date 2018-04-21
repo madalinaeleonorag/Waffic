@@ -1,12 +1,12 @@
 import * as firebase from 'firebase'
 
 const config = {
-  apiKey: 'AIzaSyAiCkqtVVlfkM_vFPB1phmx7vLQuIN2tRI',
-  authDomain: 'proiectdev.firebaseapp.com',
-  databaseURL: 'https://proiectdev.firebaseio.com',
-  projectId: 'proiectdev',
-  storageBucket: 'proiectdev.appspot.com',
-  messagingSenderId: '683092230042'
+  apiKey: "AIzaSyCnKJYJPDPPKIwcf8fnDC7FXvUhRgPg1Gc",
+  authDomain: "waffic1997.firebaseapp.com",
+  databaseURL: "https://waffic1997.firebaseio.com",
+  projectId: "waffic1997",
+  storageBucket: "waffic1997.appspot.com",
+  messagingSenderId: "967640093583"
 }
 
 export default firebase.initializeApp(config)

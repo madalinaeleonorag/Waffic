@@ -1,6 +1,7 @@
 <template>
   <v-layout>
     <v-container fluid>
+      EROAREA CU NULL E DE AICI , NU MAI EXISTAL EGATURA CU DB EVENTS
       <v-list two-line>
         <v-menu offset-y>
           <v-btn slot="activator"> AN
