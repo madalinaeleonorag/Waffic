@@ -185,6 +185,27 @@
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-text-field
+        flat
+        solo-inverted
+        prepend-icon="search"
+        label="Caută destinație"
+        class="hidden-sm-and-down"
+         v-if="user"
+      ></v-text-field>
+      <v-btn color="teal lighten-1" v-if="user">
+        Start
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-icon v-if="user">
+        wb_sunny
+      </v-icon>
+      <v-icon v-if="user">
+        arrow_forward
+      </v-icon>
+      <v-icon v-if="user">
+        wb_sunny
+      </v-icon>
     </v-toolbar>
 
     <v-content>
