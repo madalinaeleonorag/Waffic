@@ -11,7 +11,7 @@ export default new Vuex.Store({
       db: firebase.database()
     },
     user: null,
-    keysEvents: [],
+    keysUsers: [],
     events: [],
     location: {
       lat: null,
@@ -30,7 +30,7 @@ export default new Vuex.Store({
       state.location = payload
     },
     getKeys: (state, payload) => {
-      state.keysEvents = payload
+      state.keysUsers = payload
     }
   },
   actions: {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
           keys.forEach(key => {
-            var eventdetails = {}
+            const eventdetails = {}
             eventdetails.avatar = myObj[key].avatar
             eventdetails.descriere = myObj[key].descriere
             eventdetails.id = myObj[key].id
