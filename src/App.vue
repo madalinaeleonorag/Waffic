@@ -43,13 +43,13 @@
           <!-- DATE PERSONALE -->
 
           <v-list-tile v-if="user">
-            <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
+            <router-link to="/AccountDetails/:uid" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> person
                 </v-icon>
               </v-list-tile-action>
             </router-link>
-            <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
+            <router-link to="/AccountDetails/:uid" tag="li" style="cursor:pointer">
               <v-list-tile-title>
                 Date personale
               </v-list-tile-title>

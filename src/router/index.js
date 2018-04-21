@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import AccountDetails from '@/components/AccountDetails'
 import ChangePassword from '@/components/ChangePassword'
-import Contact from '@/components/Contact'
 import Help from '@/components/Help'
 import History from '@/components/History'
 import News from '@/components/News'
@@ -32,11 +31,6 @@ export default new Router({
       name: 'Map',
       component: Map,
       beforeEnter: AuthGuard
-    },
-    {
-      path: '/Contact',
-      name: 'Contact',
-      component: Contact
     },
     {
       path: '/',
