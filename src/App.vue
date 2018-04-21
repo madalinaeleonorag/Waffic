@@ -109,17 +109,13 @@
           <!-- CONTACT -->
 
           <v-list-tile>
-            <router-link to="/Contact" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
+              <v-list-tile-action @click="contactform=true" style="cursor:pointer">
                 <v-icon> chat
                 </v-icon>
               </v-list-tile-action>
-            </router-link>
-            <router-link to="/Contact" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
+              <v-list-tile-title @click="contactform=true" style="cursor:pointer">
                 Contact
               </v-list-tile-title>
-            </router-link>
           </v-list-tile>
 
           <!-- STIRI -->
@@ -190,8 +186,8 @@
         solo-inverted
         prepend-icon="search"
         label="Caută destinație"
+        v-if="user"
         class="hidden-sm-and-down"
-         v-if="user"
       ></v-text-field>
       <v-btn color="teal lighten-1" v-if="user">
         Start
@@ -492,6 +488,47 @@
       </v-card>
     </v-dialog>
 
+    <!-- CONTACT -->
+
+    <v-dialog v-model="contactform" max-width="490">
+      <v-card>
+        <v-card-title
+          class="teal lighten-1 py-4 title">
+          Trimite-ne un mesaj
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex xs12 align-center justify-space-between>
+            <v-text-field
+            label="Email"
+            v-model="emailcontact"
+            :rules="[rules.required, rules.email]"
+            >
+            </v-text-field>
+            <v-text-field
+            label="Nume"
+            v-model="numecontact"
+            :rules="[rules.required]"
+            >
+            </v-text-field>
+            <v-text-field
+            label="Mesaj"
+            v-model="mesajcontact"
+            :rules="[rules.required]"
+            multi-line
+            >
+            </v-text-field>
+           </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-btn color="teal lighten-1" type="submit" @click="contact=false">Anulează</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="teal lighten-1" type="submit" @click="contactForm">Trimite</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- FOOTER -->
 
     <v-footer app font-size="3px">
@@ -507,11 +544,16 @@
 </template>
 
 <script>
+import firebase from '@/firebase'
 import moment from "moment";
 export default {
   name: "profil",
   data: () => ({
     nume: null,
+    numecontact: null,
+    emailcontact: null,
+    mesajcontact: null,
+    contactform: false,
     prenume: null,
     localitate: null,
     datana: null,
@@ -537,6 +579,7 @@ export default {
   }),
   created: function () {
     this.$store.dispatch('getData')
+    this.$store.dispatch('getUserData')
     this.$store.dispatch('AuthChange')
   },
   mounted: function () {
@@ -560,6 +603,15 @@ export default {
     userSignin () {
         this.$store.dispatch('signIn', {email: this.email, password: this.password})
         this.signin=false
+    },
+    contactForm () {
+      firebase.database().ref('/contactFormMessages/').push({
+        email: this.emailcontact,
+        mesaj: this.mesajcontact,
+        nume: this.numecontact,
+        responded: false
+      })
+      this.contactform=false
     },
     userRecover () {
       //

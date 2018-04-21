@@ -42,9 +42,12 @@
         vremeaStatus.open("GET","http://dataservice.accuweather.com/currentconditions/v1/"+key1+"?apikey=VSbxFwm7S4kz8tyvaBiFAVxCbsBlnvtm&details=true", true)
         vremeaStatus.send();
         vremeaStatus.onload = function(){
-        console.log(vremeaStatus.responseURL)
         const stareVreme = JSON.parse(vremeaStatus.responseText)
-        console.log(stareVreme)
+        console.log(stareVreme);
+        var iconVreme = stareVreme[0].WeatherIcon;
+        console.log(iconVreme);
+        var tempVreme = stareVreme[0].Temperature.Metric.Value;
+        console.log(tempVreme);
         }
         }
         vremea.send()

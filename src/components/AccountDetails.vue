@@ -33,6 +33,12 @@
     computed: {
       events () {
         return this.$store.getters.events
+      },
+      userdetails () {
+        return this.$store.getters.userdetails
+      },
+      keyUsers () {
+        return this.$store.getters.keyUsers
       }
     }
   }

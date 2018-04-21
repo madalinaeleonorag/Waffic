@@ -11,13 +11,15 @@ export default new Vuex.Store({
       db: firebase.database()
     },
     user: null,
+    keysHistory: [],
     keysUsers: [],
     events: [],
     location: {
       lat: null,
       long: null,
       accu: null
-    }
+    },
+    userdetails: []
   },
   mutations: {
     setUser: (state, payload) => {
@@ -26,10 +28,16 @@ export default new Vuex.Store({
     gotEvents: (state, payload) => {
       state.events.push(payload)
     },
+    gotUsers: (state, payload) => {
+      state.userdetails.push(payload)
+    },
     getLocation: (state, payload) => {
       state.location = payload
     },
     getKeys: (state, payload) => {
+      state.keysHistory = payload
+    },
+    getKeysUsers: (state, payload) => {
       state.keysUsers = payload
     }
   },
@@ -50,6 +58,24 @@ export default new Vuex.Store({
             commit('gotEvents', eventdetails)
           })
           commit('getKeys', keys)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
+    getUserData ({commit}, payload) {
+      return firebase.database().ref('users')
+        .on('value', snap => {
+          const myObj = snap.val()
+          const keysUsers = Object.keys(snap.val())
+          keysUsers.forEach(key => {
+            const userdetails = {}
+            userdetails.datana = new Date(myObj[key].datana)
+            userdetails.localitate = myObj[key].localitate
+            userdetails.nume = myObj[key].nume
+            userdetails.prenume = myObj[key].prenume
+            commit('gotUsers', userdetails)
+          })
+          commit('getKeysUsers', keysUsers)
         }, function (error) {
           console.log('Error: ' + error.message)
         })
@@ -130,6 +156,8 @@ export default new Vuex.Store({
   getters: {
     events: state => state.events,
     user: state => state.user,
-    location: state => state.location
+    location: state => state.location,
+    userdetails: state => state.userdetails,
+    keysUsers: state => state.keysUsers
   }
 })
