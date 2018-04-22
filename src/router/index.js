@@ -15,7 +15,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/AccountDetails/:uid',
+      path: '/AccountDetails',
       name: 'AccountDetails',
       component: AccountDetails,
       beforeEnter: AuthGuard
