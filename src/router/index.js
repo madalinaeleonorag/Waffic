@@ -21,12 +21,6 @@ export default new Router({
       beforeEnter: AuthGuard
     },
     {
-      path: '/ChangePassword/:uid',
-      name: 'ChangePassword',
-      component: ChangePassword,
-      beforeEnter: AuthGuard
-    },
-    {
       path: '/Map',
       name: 'Map',
       component: Map,

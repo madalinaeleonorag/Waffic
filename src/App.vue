@@ -56,22 +56,6 @@
             </router-link>
           </v-list-tile>
 
-          <!-- MODIFICA PAROLA -->
-
-          <v-list-tile v-if="user">
-            <router-link to="/ChangePassword/:uid" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> mode_edit
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/ChangePassword/:uid" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Modifică parola
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
           <!-- ISTORIC RUTE -->
 
           <v-list-tile v-if="user">
@@ -614,7 +598,12 @@ export default {
       this.contactform=false
     },
     userRecover () {
-      //
+      const emailprompt = prompt("Introdu emailul pentru care dorești recuperarea parolei", "");
+      firebase.auth().sendPasswordResetEmail(emailprompt).then(function() {
+        window.alert("A fost trimis un email de recuperare a parolei la adresa: "+ emailprompt)
+      }).catch(function(error) {
+        window.alert(error.message)
+      })
     },
     onLoad () {
       if (this.userIsAuthenticated) {

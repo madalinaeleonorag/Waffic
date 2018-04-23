@@ -114,6 +114,7 @@
 
 <script>
   import firebase from '@/firebase'
+  import router from '@/router'
   export default {
     name: 'AccountDetails',
     data () {
@@ -126,6 +127,7 @@
         oldpassword: '',
         confirmPassword: '',
         oldpass: 'a',
+        user1: null,
         rules: {
           email: (value) => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -158,19 +160,25 @@
     },
     methods: {
       savenewdetails () {
+        debugger
+        const user = this.user
+        console.log("user :"+ user.uid)
+        const nume = document.getElementById('nume').value
+        const prenume = document.getElementById('prenume').value
+        const email = document.getElementById('email').value
+        const localitate = document.getElementById('localitate').value
+        const datana = document.getElementById('datana').value
+        const parolanoua = document.getElementById('newpsw').value
+        const cale = firebase.database().ref('users/' + this.user.uid)
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.oldpass).then( function () {
-            const user = this.user.uid
-            console.log("user :"+user)
-            const nume = document.getElementById('nume').value
-            const prenume = document.getElementById('prenume').value
-            const email = document.getElementById('email').value
-            const localitate = document.getElementById('localitate').value
-            const datana = document.getElementById('datana').value
-            const parolanoua = document.getElementById('newpsw').value
-            // const cale = firebase.database().ref('users/' + this.user.uid)
-            // cale.update({nume: nume, prenume: prenume, localitate: localitate, datana: datana})
-            // cale.updatePassword(parolanoua)
-            console.loh(nume,prenume,email,localitate,datana,parolanoua,cale)
+          debugger
+          cale.update({nume: nume, prenume: prenume, localitate: localitate, datana: datana})
+          firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
+            window.alert("Parola a fost schimbată")
+          }).catch(function(error) {
+            console.log(error.message)
+          });
+          console.log(nume,prenume,email,localitate,datana,parolanoua,cale)
         }).catch(function(error){
             console.log(error.message)
           })
