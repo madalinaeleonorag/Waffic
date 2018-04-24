@@ -13,7 +13,7 @@ export default new Vuex.Store({
     user: null,
     keysHistory: [],
     keysUsers: [],
-    events: [],
+    userHistory: [],
     location: {
       lat: null,
       long: null,
@@ -25,8 +25,8 @@ export default new Vuex.Store({
     setUser: (state, payload) => {
       state.user = payload
     },
-    gotEvents: (state, payload) => {
-      state.events.push(payload)
+    gotuserHistory: (state, payload) => {
+      state.userHistory.push(payload)
     },
     gotUsers: (state, payload) => {
       state.userdetails.push(payload)
@@ -43,19 +43,19 @@ export default new Vuex.Store({
   },
   actions: {
     getData ({commit}, payload) {
-      return firebase.database().ref('events')
+      return firebase.database().ref('history')
         .on('value', snap => {
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
           keys.forEach(key => {
-            const eventdetails = {}
-            eventdetails.avatar = myObj[key].avatar
-            eventdetails.descriere = myObj[key].descriere
-            eventdetails.id = myObj[key].id
-            eventdetails.prezenta = myObj[key].prezenta
-            eventdetails.titlu = myObj[key].titlu
-            eventdetails.data = new Date(myObj[key].data)
-            commit('gotEvents', eventdetails)
+            const userHistoryDetails = {}
+            userHistoryDetails.locfinish = myObj[key].locfinish
+            userHistoryDetails.locstart = myObj[key].locstart
+            userHistoryDetails.tfinish = myObj[key].tfinish
+            userHistoryDetails.tstart = myObj[key].tstart
+            userHistoryDetails.data = new Date(myObj[key].data)
+            commit('gotuserHistory', userHistoryDetails)
+            console.log(userHistoryDetails)
           })
           commit('getKeys', keys)
         }, function (error) {
@@ -154,10 +154,11 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    events: state => state.events,
+    userHistory: state => state.userHistory,
     user: state => state.user,
     location: state => state.location,
     userdetails: state => state.userdetails,
-    keysUsers: state => state.keysUsers
+    keysUsers: state => state.keysUsers,
+    keysHistory: state => state.keysHistory
   }
 })

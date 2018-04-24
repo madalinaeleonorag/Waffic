@@ -126,7 +126,7 @@
         e1: true,
         oldpassword: '',
         confirmPassword: '',
-        oldpass: 'a',
+        oldpass: '',
         user1: null,
         rules: {
           email: (value) => {
@@ -139,9 +139,6 @@
     computed: {
       user () {
         return this.$store.getters.user
-      },
-      events () {
-        return this.$store.getters.events
       },
       userdetails () {
         return this.$store.getters.userdetails
@@ -160,9 +157,7 @@
     },
     methods: {
       savenewdetails () {
-        debugger
         const user = this.user
-        console.log("user :"+ user.uid)
         const nume = document.getElementById('nume').value
         const prenume = document.getElementById('prenume').value
         const email = document.getElementById('email').value
@@ -171,16 +166,19 @@
         const parolanoua = document.getElementById('newpsw').value
         const cale = firebase.database().ref('users/' + this.user.uid)
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.oldpass).then( function () {
-          debugger
           cale.update({nume: nume, prenume: prenume, localitate: localitate, datana: datana})
-          firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
-            window.alert("Parola a fost schimbată")
-          }).catch(function(error) {
-            console.log(error.message)
-          });
-          console.log(nume,prenume,email,localitate,datana,parolanoua,cale)
-        }).catch(function(error){
-            console.log(error.message)
+            firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
+              window.alert("Parola a fost schimbată")
+            }).catch(function(error) {
+              window.alert(error.message)
+            })
+            // firebase.auth().currentUser.updateEmail("email").then(function() {
+            //   window.alert("Emailul a fost schimbat")
+            // }).catch(function(error) {
+            //   window.alert(error.message)
+            // })
+          }).catch(function(error){
+            window.alert(error.message)
           })
       }
     }
