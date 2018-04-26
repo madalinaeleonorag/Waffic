@@ -45,8 +45,7 @@
           full-width
           :nudge-right="40"
           min-width="290px"
-          :return-value.sync="datana"
-        >
+          :return-value.sync="datana">
           <v-text-field
             label="Data nașterii"
             slot="activator"
@@ -54,8 +53,7 @@
             v-model="datana"
             prepend-icon="event"
             readonly
-            id = "datana"
-          >
+            id = "datana">
           </v-text-field>
           <v-date-picker v-model="datana" no-title scrollable @change="$refs.datanamenu.save(datana)">
             <v-spacer>
@@ -63,26 +61,25 @@
           </v-date-picker>
         </v-menu>
       </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            name="parolaactuala"
-            label="Parolă actuală"
-            hint="Minim 8 caractere"
-            v-model="oldpass"
-            min="8"
-            :type="e1 ? 'password' : 'text'"
-            id = "oldpsw"
-            required
-          >
+      <v-flex xs12>
+        <v-text-field
+          name="parolaactuala"
+          label="Parolă actuală"
+          hint="Minim 6 caractere"
+          v-model="oldpass"
+          min="6"
+          :type="e1 ? 'password' : 'text'"
+          id = "oldpsw"
+          required>
         </v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-text-field
             label="Parolă nouă"
             name="parolanoua"
-            hint="Minim 8 caractere"
+            hint="Minim 6 caractere"
             v-model="password"
-            min="8"
+            min="6"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
             counter
@@ -93,9 +90,9 @@
           <v-text-field
             name="parolanouaconfirm"
             label="Confirmă parolă nouă"
-            hint="Minim 8 caractere"
+            hint="Minim 6 caractere"
             v-model="confirmPassword"
-            min="8"
+            min="6"
             :type="e1 ? 'password' : 'text'"
             :rules="[comparePasswords]"
             id = "newpsw"
@@ -157,6 +154,7 @@
     },
     methods: {
       savenewdetails () {
+        // REVIZUIESTE
         const user = this.user
         const nume = document.getElementById('nume').value
         const prenume = document.getElementById('prenume').value
@@ -165,21 +163,27 @@
         const datana = document.getElementById('datana').value
         const parolanoua = document.getElementById('newpsw').value
         const cale = firebase.database().ref('users/' + this.user.uid)
+        console.log(email)
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.oldpass).then( function () {
           cale.update({nume: nume, prenume: prenume, localitate: localitate, datana: datana})
-            firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
-              window.alert("Parola a fost schimbată")
-            }).catch(function(error) {
-              window.alert(error.message)
-            })
-            // firebase.auth().currentUser.updateEmail("email").then(function() {
-            //   window.alert("Emailul a fost schimbat")
-            // }).catch(function(error) {
-            //   window.alert(error.message)
-            // })
-          }).catch(function(error){
-            window.alert(error.message)
+          if(parolanoua !== null) {
+          firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
+            window.alert("Parola a fost schimbată")
+          }).catch(function(error) {
+            console.log(error.message)
           })
+          }
+           if(email !== null) {
+          firebase.auth().currentUser.updateEmail(email).then(function () {
+            window.alert('Emailul a fost schimbat')
+            cale.update({email: email})
+          }).catch(function (error) {
+            console.log(error.message)
+          })
+        }
+        }).catch(function(error){
+          console.log(error.message)
+        });
       }
     }
   }

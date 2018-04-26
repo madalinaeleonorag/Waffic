@@ -65,6 +65,7 @@
         ]
       }
     },
+    // COMPLETEAZA
     computed: {
       user () {
         return this.$store.getters.user

@@ -73,6 +73,7 @@ export default new Vuex.Store({
             userdetails.localitate = myObj[key].localitate
             userdetails.nume = myObj[key].nume
             userdetails.prenume = myObj[key].prenume
+            userdetails.email = myObj[key].email
             commit('gotUsers', userdetails)
           })
           commit('getKeysUsers', keysUsers)
@@ -93,7 +94,8 @@ export default new Vuex.Store({
               nume: payload.nume,
               prenume: payload.prenume,
               localitate: payload.localitate,
-              datana: payload.datana
+              datana: payload.datana,
+              email: payload.email
             })
           }
         )
