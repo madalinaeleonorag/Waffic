@@ -19,7 +19,8 @@ export default new Vuex.Store({
       long: null,
       accu: null
     },
-    userdetails: []
+    userdetails: [],
+    Destination: null
   },
   mutations: {
     setUser: (state, payload) => {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     getKeysUsers: (state, payload) => {
       state.keysUsers = payload
+    },
+    getDestination: (state, payload) => {
+      state.Destination = payload
     }
   },
   actions: {
@@ -153,6 +157,9 @@ export default new Vuex.Store({
         error => {
           window.alert(error.message)
         })
+    },
+    getDestination ({commit}, payload) {
+      commit('getDestination', payload)
     }
   },
   getters: {
@@ -161,6 +168,7 @@ export default new Vuex.Store({
     location: state => state.location,
     userdetails: state => state.userdetails,
     keysUsers: state => state.keysUsers,
-    keysHistory: state => state.keysHistory
+    keysHistory: state => state.keysHistory,
+    Destination: state => state.Destination
   }
 })

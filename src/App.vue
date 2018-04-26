@@ -164,18 +164,13 @@
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-text-field
-        flat
-        solo-inverted
-        prepend-icon="search"
-        label="Caută destinație"
-        v-if="user"
-        class="hidden-sm-and-down"
-      ></v-text-field>
-      <v-btn color="teal lighten-1" v-if="user">
-        Start
-      </v-btn>
+      <vue-google-autocomplete
+        id="searchMap"
+        type= "text"
+        classname="input"
+        placeholder="Caută destinația"
+        v-on:placechanged="getAddressData">
+      </vue-google-autocomplete>
       <v-spacer></v-spacer>
       <v-icon v-if="user">
         wb_sunny
@@ -529,10 +524,13 @@
 
 <script>
 import firebase from '@/firebase'
+import VueGoogleAutocomplete from 'vue-google-autocomplete'
 import moment from "moment";
 export default {
+  components: { VueGoogleAutocomplete },
   name: "profil",
   data: () => ({
+    address: '',
     nume: null,
     numecontact: null,
     emailcontact: null,
@@ -570,6 +568,12 @@ export default {
     this.$store.dispatch('getLocation')
   },
   computed: {
+    /**
+    * When the location found
+    * @param {Object} addressData Data of the found location
+    * @param {Object} placeResultData PlaceResult object
+    * @param {String} id Input container ID
+    */
     user () {
       return this.$store.getters.user
     },
@@ -618,12 +622,18 @@ export default {
     userSignUp () {
       this.$store.dispatch('signUp', {email: this.email, password: this.password, nume: this.nume, prenume: this.prenume, localitate: this.localitate, datana: this.datana})
       this.signup=false
+    },
+    getAddressData (addressData, placeResultData, id) {
+      this.address = addressData
+      console.log(placeResultData)
+      this.$store.dispatch('getDestination', placeResultData)
+      this.$router.push('/map')
     }
   },
   props: {
     source: String
   }
-};
+}
 </script>
 
 <style>
