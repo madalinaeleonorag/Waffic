@@ -59,27 +59,33 @@
           }
         })
 // WEATHER
-        const latlong = this.location.lat + ',' + this.location.long
-        console.log("Latlong: "+ latlong)
-        const vremea = new XMLHttpRequest()
-        vremea.open("GET","http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN&q="+latlong+"&details=true", true)
-        vremea.onload = function () {
-        const locationKey = JSON.parse(vremea.responseText)
-        const key1 = locationKey.Key
-        const vremeaStatus = new XMLHttpRequest()
-        vremeaStatus.open("GET","http://dataservice.accuweather.com/currentconditions/v1/"+key1+"?apikey=VSbxFwm7S4kz8tyvaBiFAVxCbsBlnvtm&details=true", true)
-        vremeaStatus.send();
-        vremeaStatus.onload = function(){
-        const stareVreme = JSON.parse(vremeaStatus.responseText)
-        console.log("stareVreme: " + stareVreme);
-        var iconVreme = stareVreme[0].WeatherIcon;
-        console.log("iconVreme: " + iconVreme);
-        var tempVreme = stareVreme[0].Temperature.Metric.Value;
-        console.log("tempVreme: " + tempVreme);
-        }
-        }
-        vremea.send()
-        console.log(vremea)
+        // const latlong = this.location.lat + ',' + this.location.long
+        // console.log("Latlong: "+ latlong)
+        // const vremea = new XMLHttpRequest()
+        // console.log("Request response XMLHTTPRequest" + vremea)
+        // vremea.open("GET","http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN&q="+latlong+"&details=true", true)
+        // vremea.onload = function () {
+        // const locationKey = JSON.parse(vremea.responseText)
+        // const key1 = locationKey.Key
+        // const vremeaStatus = new XMLHttpRequest()
+        // vremeaStatus.open("GET","http://dataservice.accuweather.com/currentconditions/v1/"+key1+"?apikey=VSbxFwm7S4kz8tyvaBiFAVxCbsBlnvtm&details=true", true)
+        // vremeaStatus.send();
+        // vremeaStatus.onload = function(){
+        // const stareVreme = JSON.parse(vremeaStatus.responseText)
+        // console.log("stareVreme: " + stareVreme)
+        // var iconVreme = stareVreme[0].WeatherIcon
+        // console.log("iconVreme: " + iconVreme)
+        // var tempVreme = stareVreme[0].Temperature.Metric.Value
+        // console.log("tempVreme: " + tempVreme)
+        // var iconVreme = stareVreme[0].WeatherIcon
+        // var tempVreme = stareVreme[0].Temperature.Metric.Value
+        // this.$store.dispatch('getWeather', {icon: iconVreme, temperature: tempVreme})
+        // }
+        // }
+        // vremea.send()
+        var iconVreme = 1
+        var tempVreme = 10
+        this.$store.dispatch('getWeather', {icon: iconVreme, temperature: tempVreme})
       }
   }
 </script>

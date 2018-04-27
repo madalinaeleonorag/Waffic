@@ -172,15 +172,7 @@
         v-on:placechanged="getAddressData">
       </vue-google-autocomplete>
       <v-spacer></v-spacer>
-      <v-icon v-if="user">
-        wb_sunny
-      </v-icon>
-      <v-icon v-if="user">
-        arrow_forward
-      </v-icon>
-      <v-icon v-if="user">
-        wb_sunny
-      </v-icon>
+
     </v-toolbar>
 
     <v-content>
@@ -582,7 +574,10 @@ export default {
     },
     location () {
       return this.$store.getters.location
-    }
+    },
+    Weather () {
+      return this.$store.getters.Weather
+    },
   },
   methods: {
     onSignOut () {
