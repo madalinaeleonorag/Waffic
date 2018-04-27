@@ -172,7 +172,17 @@
         v-on:placechanged="getAddressData">
       </vue-google-autocomplete>
       <v-spacer></v-spacer>
-
+      <img v-if="this.Weather.icon" :src="require('./assets/' + Weather.icon + '.png')"/>
+      <v-toolbar-title v-if="this.Weather.temperature">
+        {{Weather.temperature}} &ordm;C
+      </v-toolbar-title>
+      <v-icon>
+        play_arrow
+      </v-icon>
+      <v-toolbar-title v-if="this.destinationWeather.temperature">
+        {{destinationWeather.temperature}} &ordm;C
+      </v-toolbar-title>
+      <img v-if="this.destinationWeather.icon" :src="require('./assets/' + destinationWeather.icon + '.png')"/>
     </v-toolbar>
 
     <v-content>
@@ -578,6 +588,9 @@ export default {
     Weather () {
       return this.$store.getters.Weather
     },
+    destinationWeather () {
+      return this.$store.getters.destinationWeather
+    }
   },
   methods: {
     onSignOut () {
@@ -620,8 +633,8 @@ export default {
     },
     getAddressData (addressData, placeResultData, id) {
       this.address = addressData
-      console.log(placeResultData)
       this.$store.dispatch('getDestination', placeResultData)
+      const resultVicinity = placeResultData.vicinity
       this.$router.push('/map')
     }
   },

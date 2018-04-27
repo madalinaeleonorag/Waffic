@@ -24,6 +24,10 @@ export default new Vuex.Store({
     Weather: {
       icon: null,
       temperature: null
+    },
+    destinationWeather: {
+      icon: null,
+      temperature: null
     }
   },
   mutations: {
@@ -51,6 +55,10 @@ export default new Vuex.Store({
     getWeather: (state, payload) => {
       state.Weather.icon = payload.icon
       state.Weather.temperature = payload.temperature
+    },
+    getDestinationWeather: (state, payload) => {
+      state.destinationWeather.icon = payload.icon
+      state.destinationWeather.temperature = payload.temperature
     }
   },
   actions: {
@@ -171,9 +179,10 @@ export default new Vuex.Store({
     },
     getWeather ({commit}, payload) {
       commit('getWeather', payload)
-      console.log(payload.icon)
-      console.log(payload.temperature)
-    }
+    },
+    getDestinationWeather ({commit}, payload) {
+      commit('getDestinationWeather', payload)
+    },
   },
   getters: {
     userHistory: state => state.userHistory,
@@ -183,6 +192,7 @@ export default new Vuex.Store({
     keysUsers: state => state.keysUsers,
     keysHistory: state => state.keysHistory,
     Destination: state => state.Destination,
-    Weather: state => state.Weather
+    Weather: state => state.Weather,
+    destinationWeather: state => state.destinationWeather
   }
 })

@@ -8,9 +8,11 @@
 
 <script>
   export default {
-    name: 'events',
+    name: 'Map',
     data () {
       return {
+        icon: null,
+        ceva: null
       }
     },
     computed: {
@@ -22,6 +24,9 @@
       },
       location () {
         return this.$store.getters.location
+      },
+      destinationWeather () {
+        return this.$store.getters.destinationWeather
       }
     },
     mounted:
@@ -59,33 +64,57 @@
           }
         })
 // WEATHER
-        // const latlong = this.location.lat + ',' + this.location.long
-        // console.log("Latlong: "+ latlong)
-        // const vremea = new XMLHttpRequest()
-        // console.log("Request response XMLHTTPRequest" + vremea)
-        // vremea.open("GET","http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN&q="+latlong+"&details=true", true)
-        // vremea.onload = function () {
-        // const locationKey = JSON.parse(vremea.responseText)
-        // const key1 = locationKey.Key
-        // const vremeaStatus = new XMLHttpRequest()
-        // vremeaStatus.open("GET","http://dataservice.accuweather.com/currentconditions/v1/"+key1+"?apikey=VSbxFwm7S4kz8tyvaBiFAVxCbsBlnvtm&details=true", true)
-        // vremeaStatus.send();
-        // vremeaStatus.onload = function(){
-        // const stareVreme = JSON.parse(vremeaStatus.responseText)
-        // console.log("stareVreme: " + stareVreme)
-        // var iconVreme = stareVreme[0].WeatherIcon
-        // console.log("iconVreme: " + iconVreme)
-        // var tempVreme = stareVreme[0].Temperature.Metric.Value
-        // console.log("tempVreme: " + tempVreme)
-        // var iconVreme = stareVreme[0].WeatherIcon
-        // var tempVreme = stareVreme[0].Temperature.Metric.Value
-        // this.$store.dispatch('getWeather', {icon: iconVreme, temperature: tempVreme})
-        // }
-        // }
-        // vremea.send()
-        var iconVreme = 1
-        var tempVreme = 10
+        const starevreme100 = null
+        var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
+        const latlong = this.location.lat + ',' + this.location.long
+// ACTUAL LOCATION WEATHER
+        const vremea = new XMLHttpRequest()
+        vremea.open("GET","http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=" + apikey + "&q=" + latlong + "&details=true", true)
+        vremea.onload = function () {
+        const locationKey = JSON.parse(vremea.responseText)
+        const key1 = locationKey.Key
+        const vremeaStatus = new XMLHttpRequest()
+        vremeaStatus.open("GET","http://dataservice.accuweather.com/currentconditions/v1/" + key1 + "?apikey=" + apikey + "&details=true", true)
+        vremeaStatus.send();
+        vremeaStatus.onload = function(){
+        const stareVreme = JSON.parse(vremeaStatus.responseText)
+        stareVreme100 = JSON.parse(vremeaStatus.responseText)
+        console.log(starevreme100)
+        const iconVreme = stareVreme[0].WeatherIcon
+        console.log("iconVreme actual: " + iconVreme)
+        const tempVreme = stareVreme[0].Temperature.Metric.Value
+        console.log("tempVreme actual: " + tempVreme)
+        }
+        }
+        vremea.send()
+        // test
+        const iconVreme = 1
+        const tempVreme = 10
         this.$store.dispatch('getWeather', {icon: iconVreme, temperature: tempVreme})
+// DESTINATION WEATHER
+        const vremea2 = new XMLHttpRequest()
+        console.log("Request response XMLHTTPRequest" + vremea2)
+        vremea2.open("GET","http://dataservice.accuweather.com/locations/v1/cities/adminareas/search?apikey=" + apikey + "&q=" + this.Destination.vicinity + "&details=true", true)
+        vremea2.onload = function () {
+        const locationKey2 = JSON.parse(vremea2.responseText)
+        const key1 = locationKey2.Key
+        const vremea2Status = new XMLHttpRequest()
+        vremea2Status.open("GET","http://dataservice.accuweather.com/currentconditions/v1/" + key1 + "?apikey=" + apikey + "&details=true", true)
+        vremea2Status.send();
+        vremea2Status.onload = function(){
+        const stareVreme2 = JSON.parse(vremea2Status.responseText)
+        console.log("stareVreme2 destinatie: " + stareVreme2)
+        const iconVreme2 = stareVreme2[0].WeatherIcon
+        console.log("iconVreme2 destinatie: " + iconVreme2)
+        const tempVreme2 = stareVreme2[0].Temperature.Metric.Value
+        console.log("tempVreme2 destinatie: " + tempVreme2)
+        }
+        }
+        vremea2.send()
+        // test
+        const iconVreme2 = 13
+        const tempVreme2 = 25
+        this.$store.dispatch('getDestinationWeather', {icon: iconVreme2, temperature: tempVreme2})
       }
   }
 </script>
@@ -93,7 +122,7 @@
 <style scoped>
  #map {
    width: 100%;
-   height: 550px;
+   height: 600px;
    background-color: grey;
  }
 </style>
