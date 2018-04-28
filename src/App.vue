@@ -562,7 +562,6 @@ export default {
     }
   }),
   created: function () {
-    this.$store.dispatch('getData')
     this.$store.dispatch('getUserData')
     this.$store.dispatch('AuthChange')
   },

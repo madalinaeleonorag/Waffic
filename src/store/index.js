@@ -63,19 +63,12 @@ export default new Vuex.Store({
   },
   actions: {
     getData ({commit}, payload) {
-      return firebase.database().ref('history')
+      return firebase.database().ref('history/' + this.state.user.uid)
         .on('value', snap => {
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
           keys.forEach(key => {
-            const userHistoryDetails = {}
-            userHistoryDetails.locfinish = myObj[key].locfinish
-            userHistoryDetails.locstart = myObj[key].locstart
-            userHistoryDetails.tfinish = myObj[key].tfinish
-            userHistoryDetails.tstart = myObj[key].tstart
-            userHistoryDetails.data = new Date(myObj[key].data)
-            commit('gotuserHistory', userHistoryDetails)
-            console.log(userHistoryDetails)
+            commit('gotuserHistory', myObj[key])
           })
           commit('getKeys', keys)
         }, function (error) {
@@ -89,7 +82,7 @@ export default new Vuex.Store({
           const keysUsers = Object.keys(snap.val())
           keysUsers.forEach(key => {
             const userdetails = {}
-            userdetails.datana = new Date(myObj[key].datana)
+            userdetails.datana = myObj[key].datana
             userdetails.localitate = myObj[key].localitate
             userdetails.nume = myObj[key].nume
             userdetails.prenume = myObj[key].prenume

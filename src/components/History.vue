@@ -37,48 +37,31 @@
     name: 'profil',
     data () {
       return {
-        date1: null,
-        menu1: false,
-        date2: null,
         headers: [
           { text: 'Pornire', align: 'left', value: 'locstart'},
           { text: 'Destinație', value: 'locfinish'},
           { text: 'Data', value: 'data'},
           { text: 'Șterge', sortable: false, value: ''}
         ],
-        menu2: false,
-        filter: {
-          an: null,
-          luna: null
-        },
-        items: [
-          {
-            locstart: 'Frozen Yogurt',
-            locfinish: 159,
-            data: '1%'
-          },
-          {
-            locstart: 'Ice cream sandwich',
-            locfinish: 237,
-            data: '1%'
-          }
-        ]
+        items: []
       }
+    },
+    created: function () {
+      this.$store.dispatch('getData')
+      this.items = this.$store.getters.userHistory
     },
     // COMPLETEAZA
     computed: {
       user () {
         return this.$store.getters.user
       },
-      userHistory () {
-        return this.$store.getters.userHistory
-      },
       keysHistory () {
         return this.$store.getters.keysrHistory
       },
       user1 () {
-        keysHistory.indexOf(user.uid)
-        console.log(x)
+
+          const x = keysHistory.indexOf(user.uid)
+        console.log("index of : " + x)
       }
     }
   }
