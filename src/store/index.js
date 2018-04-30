@@ -35,7 +35,12 @@ export default new Vuex.Store({
       state.user = payload
     },
     gotuserHistory: (state, payload) => {
-      state.userHistory.push(payload)
+      const index = state.userHistory.findIndex(obj => obj.key === payload.key)
+      if (index !== -1) {
+        Vue.set(state.userHistory, index, payload)
+      } else {
+        state.userHistory.push(payload)
+      }
     },
     gotUsers: (state, payload) => {
       state.userdetails.push(payload)
@@ -45,6 +50,10 @@ export default new Vuex.Store({
     },
     getKeys: (state, payload) => {
       state.keysHistory = payload
+      state.userHistory
+        .map((obj, idx) => !payload.includes(obj.key) ? idx : -1)
+        .filter(idx => idx !== -1)
+        .forEach(idx => (state.userHistory.splice(idx, 1)))
     },
     getKeysUsers: (state, payload) => {
       state.keysUsers = payload
@@ -68,7 +77,7 @@ export default new Vuex.Store({
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
           keys.forEach(key => {
-            commit('gotuserHistory', myObj[key])
+            commit('gotuserHistory', {'key': key, ...myObj[key]})
           })
           commit('getKeys', keys)
         }, function (error) {
@@ -175,6 +184,7 @@ export default new Vuex.Store({
     },
     getDestinationWeather ({commit}, payload) {
       commit('getDestinationWeather', payload)
+      console.log(payload)
     },
   },
   getters: {

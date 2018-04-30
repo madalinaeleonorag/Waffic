@@ -48,20 +48,21 @@
     },
     created: function () {
       this.$store.dispatch('getData')
-      this.items = this.$store.getters.userHistory
     },
-    // COMPLETEAZA
+    watch: {
+      userHistory (value) {
+        this.items = value
+      }
+    },
     computed: {
+      userHistory () {
+        return this.$store.getters.userHistory
+      },
       user () {
         return this.$store.getters.user
       },
       keysHistory () {
         return this.$store.getters.keysrHistory
-      },
-      user1 () {
-
-          const x = keysHistory.indexOf(user.uid)
-        console.log("index of : " + x)
       }
     }
   }

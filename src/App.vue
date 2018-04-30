@@ -7,7 +7,7 @@
 
           <v-list-tile v-if="!user">
               <v-list-tile-action @click="signin=true" style="cursor:pointer">
-                <v-icon color="teal lighten-1"> account_circle
+                <v-icon color="primary"> account_circle
                 </v-icon>
               </v-list-tile-action>
             <!-- </router-link>
@@ -23,7 +23,7 @@
           <v-list-tile v-if="user">
             <router-link to="/Map" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon color="teal lighten-1"> directions_car
+                <v-icon color="primary"> directions_car
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -77,7 +77,7 @@
           <v-list-tile>
             <router-link to="/Subscriptions" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon color="teal lighten-1"> add_shopping_cart
+                <v-icon color="primary"> add_shopping_cart
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -154,35 +154,37 @@
     </v-navigation-drawer>
 
     <v-toolbar
-      color="teal lighten-1"
+      color="primary"
       dark
       app
       :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+      <v-toolbar-title style="width: 20%" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer">
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <vue-google-autocomplete
-        id="searchMap"
-        type= "text"
-        classname="input"
-        placeholder="Caută destinația"
-        v-on:placechanged="getAddressData">
-      </vue-google-autocomplete>
-      <v-spacer></v-spacer>
-      <img v-if="this.Weather.icon" :src="require('./assets/' + Weather.icon + '.png')"/>
-      <v-toolbar-title v-if="this.Weather.temperature">
+      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/' + Weather.icon + '.png')"/>
+      <v-toolbar-title style="width: 10%" v-if="this.Weather.temperature">
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
-      <v-icon>
+      <v-icon v-if="this.user">
         play_arrow
       </v-icon>
-      <v-toolbar-title v-if="this.destinationWeather.temperature">
+      <vue-google-autocomplete
+        id="searchMap"
+        v-if="this.user"
+        type= "text"
+        style="width: 40%"
+        classname="input"
+        placeholder="Caută destinația"
+        @placechanged="getAddressData">
+      </vue-google-autocomplete>
+      <v-spacer></v-spacer>
+      <v-toolbar-title style="width: 10%" v-if="this.destinationWeather.temperature">
         {{destinationWeather.temperature}} &ordm;C
-      </v-toolbar-title>
-      <img v-if="this.destinationWeather.icon" :src="require('./assets/' + destinationWeather.icon + '.png')"/>
+        </v-toolbar-title>
+      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/' + destinationWeather.icon + '.png')"/>
     </v-toolbar>
 
     <v-content>
@@ -194,7 +196,7 @@
     <v-dialog v-model="signin" max-width="490">
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Intră în cont
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -223,10 +225,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="teal lighten-1" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
+          <v-btn color="primary" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
-          <v-btn color="teal lighten-1" type="submit" @click="userSignin">Intră în cont</v-btn>
+          <v-btn color="primary" type="submit" @click="userSignin">Intră în cont</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -236,7 +238,7 @@
     <v-dialog v-model="signup" max-width="490">
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Crează cont nou
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -326,9 +328,9 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="teal lighten-1" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+          <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="teal lighten-1" type="submit" @click="userSignUp">Înregistrare</v-btn>
+          <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -338,7 +340,7 @@
     <v-dialog v-model="termeni" fullscreen>
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Termeni și condiții de utilizare
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -376,7 +378,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal lighten-1" @click="termeni = false">Înapoi</v-btn>
+          <v-btn flat color="primary" @click="termeni = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -386,7 +388,7 @@
     <v-dialog v-model="confidențialitate" fullscreen>
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Politica de confidențialitate
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -425,7 +427,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal lighten-1" @click="confidențialitate = false">Înapoi</v-btn>
+          <v-btn flat color="primary" @click="confidențialitate = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -435,7 +437,7 @@
     <v-dialog v-model="drepturiautor" fullscreen>
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Politica privind drepturile de autor
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -464,7 +466,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="teal lighten-1" @click="drepturiautor = false">Înapoi</v-btn>
+          <v-btn flat color="primary" @click="drepturiautor = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -474,7 +476,7 @@
     <v-dialog v-model="contactform" max-width="490">
       <v-card>
         <v-card-title
-          class="teal lighten-1 py-4 title">
+          class="primary">
           Trimite-ne un mesaj
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -503,9 +505,9 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="teal lighten-1" type="submit" @click="contact=false">Anulează</v-btn>
+          <v-btn color="primary" type="submit" @click="contact=false">Anulează</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="teal lighten-1" type="submit" @click="contactForm">Trimite</v-btn>
+          <v-btn color="primary" type="submit" @click="contactForm">Trimite</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -514,10 +516,10 @@
 
     <v-footer app font-size="3px">
       <v-spacer></v-spacer>
-      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat color="teal lighten-1">Mădălina-Eleonora Gheorghe</v-btn>
-      - <v-btn flat color="teal lighten-1" @click="drepturiautor = true">Drepturi de autor</v-btn>
-      - <v-btn flat color="teal lighten-1" @click="termeni = true">Termeni și condiții</v-btn>
-      - <v-btn flat color="teal lighten-1" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
+      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat color="primary">Mădălina-Eleonora Gheorghe</v-btn>
+      - <v-btn flat color="primary" @click="drepturiautor = true">Drepturi de autor</v-btn>
+      - <v-btn flat color="primary" @click="termeni = true">Termeni și condiții</v-btn>
+      - <v-btn flat color="primary" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
       <v-spacer></v-spacer>
     </v-footer>
 
