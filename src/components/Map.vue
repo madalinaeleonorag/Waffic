@@ -68,7 +68,7 @@
             }
           })
           // WEATHER
-          var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
+          var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
           const latlong = this.location.lat + ',' + this.location.long
           // ACTUAL LOCATION WEATHER
           const vremea = new XMLHttpRequest()
@@ -113,6 +113,7 @@
           setTimeout(() => {
             this.sendWeather()
           }, 3000)
+          setTimeout(this.renderDirections, 600000)
         }
       },
       sendWeather () {
