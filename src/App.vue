@@ -164,7 +164,7 @@
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/' + Weather.icon + '.png')"/>
+      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
       <v-toolbar-title style="width: 10%" v-if="this.Weather.temperature">
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
@@ -175,6 +175,7 @@
         id="searchMap"
         v-if="this.user"
         type= "text"
+        types="(cities)"
         style="width: 40%"
         classname="input"
         placeholder="Caută destinația"
@@ -184,7 +185,7 @@
       <v-toolbar-title style="width: 10%" v-if="this.destinationWeather.temperature">
         {{destinationWeather.temperature}} &ordm;C
         </v-toolbar-title>
-      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/' + destinationWeather.icon + '.png')"/>
+      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
     </v-toolbar>
 
     <v-content>

@@ -1,6 +1,7 @@
 <template>
   <v-layout>
-    <v-flex>
-    </v-flex>
+    <v-container fluid>
+      Urmează a fi implementat
+    </v-container>
   </v-layout>
 </template>
