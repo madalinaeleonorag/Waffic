@@ -68,7 +68,7 @@
             }
           })
           // WEATHER
-          var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
+          var apikey = "Hl2mLAz2LxmKsiGn9YNJyKqlhbH69mJr"
           const latlong = this.location.lat + ',' + this.location.long
           // ACTUAL LOCATION WEATHER
           const vremea = new XMLHttpRequest()
