@@ -103,7 +103,7 @@
           </v-list-tile>
 
           <!-- STIRI -->
-
+<!--
           <v-list-tile>
             <router-link to="/News" tag="li" style="cursor:pointer">
               <v-list-tile-action>
@@ -117,7 +117,7 @@
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
-
+-->
           <!-- AJUTOR -->
 
           <v-list-tile>

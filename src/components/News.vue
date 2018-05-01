@@ -1,7 +1,9 @@
 <template>
   <v-layout>
     <v-container fluid>
-      Urmează a fi implementat
+      <div id="rss">
+      </div>
     </v-container>
   </v-layout>
 </template>
+
