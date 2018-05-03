@@ -5,7 +5,7 @@ import AccountDetails from '@/components/AccountDetails'
 import Help from '@/components/Help'
 import History from '@/components/History'
 import News from '@/components/News'
-import Subscriptions from '@/components/Subscriptions'
+import Collaborations from '@/components/Collaborations'
 import Map from '@/components/Map'
 import AuthGuard from '@/store/authGuard'
 
@@ -47,9 +47,9 @@ export default new Router({
       component: News
     },
     {
-      path: '/Subscriptions',
-      name: 'Subscriptions',
-      component: Subscriptions
+      path: '/Collaborations',
+      name: 'Collaborations',
+      component: Collaborations
     }
   ]
 })

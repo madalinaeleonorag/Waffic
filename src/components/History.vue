@@ -1,6 +1,9 @@
 <template>
   <v-layout>
     <v-container fluid>
+      <v-card>
+        aifi cu v-for locatiile favorite
+      </v-card>
       <v-data-table
     :headers="headers"
     :items="items"

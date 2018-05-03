@@ -75,13 +75,13 @@
           <!-- ABONAMENTE -->
 
           <v-list-tile>
-            <router-link to="/Subscriptions" tag="li" style="cursor:pointer">
+            <router-link to="/Collaborations" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon color="primary"> add_shopping_cart
                 </v-icon>
               </v-list-tile-action>
             </router-link>
-            <router-link to="/Subscriptions" tag="li" style="cursor:pointer">
+            <router-link to="/Collaborations" tag="li" style="cursor:pointer">
               <v-list-tile-title>
                 Abonamente
               </v-list-tile-title>
