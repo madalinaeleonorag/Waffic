@@ -15,22 +15,22 @@
         md4
         lg3>
         <v-card>
-          <v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">
+          <v-card-media v-if="this.item.icon" :src="require('./assets/CollaborationsPictures/' + collaboration.Picture + '.png')">
           </v-card-media>
-          <v-card-title><h4>{{ props.item.denumire }}</h4></v-card-title>
+          <v-card-title><h4>{{ props.item.Name }}</h4></v-card-title>
           <v-divider></v-divider>
           <v-list dense>
             <v-list-tile>
               <v-list-tile-content>Durată:</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{ props.item.durata }}</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.Duration }}</v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content>Preț:</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{ props.item.pret }}</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.Price }}</v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content>Descriere:</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{ props.item.descriere }}</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.Description }}</v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-spacer></v-spacer>
