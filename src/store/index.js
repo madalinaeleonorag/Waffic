@@ -14,6 +14,7 @@ export default new Vuex.Store({
     keysHistory: [],
     keysUsers: [],
     userHistory: [],
+    collaborations: [],
     location: {
       lat: null,
       long: null,
@@ -40,6 +41,14 @@ export default new Vuex.Store({
         Vue.set(state.userHistory, index, payload)
       } else {
         state.userHistory.push(payload)
+      }
+    },
+    gotCollaborations: (state, payload) => {
+      const index = state.collaborations.findIndex(obj => obj.key === payload.key)
+      if (index !== -1) {
+        Vue.set(state.collaborations, index, payload)
+      } else {
+        state.collaborations.push(payload)
       }
     },
     gotUsers: (state, payload) => {
@@ -72,7 +81,7 @@ export default new Vuex.Store({
   },
   actions: {
     getData ({commit}, payload) {
-      return firebase.database().ref('history/' + this.state.user.uid)
+      return firebase.database().ref('userDestinationsHistory/' + this.state.user.uid)
         .on('value', snap => {
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
@@ -84,18 +93,30 @@ export default new Vuex.Store({
           console.log('Error: ' + error.message)
         })
     },
+    getCollaborations ({commit}, payload) {
+      return firebase.database().ref('Collaborations/')
+        .on('value', snap => {
+          const myObj = snap.val()
+          const keys = Object.keys(snap.val())
+          keys.forEach(key => {
+            commit('gotCollaborations', {'key': key, ...myObj[key]})
+          })
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
     getUserData ({commit}, payload) {
-      return firebase.database().ref('users')
+      return firebase.database().ref('UserDetails')
         .on('value', snap => {
           const myObj = snap.val()
           const keysUsers = Object.keys(snap.val())
           keysUsers.forEach(key => {
             const userdetails = {}
-            userdetails.datana = myObj[key].datana
-            userdetails.localitate = myObj[key].localitate
-            userdetails.nume = myObj[key].nume
-            userdetails.prenume = myObj[key].prenume
-            userdetails.email = myObj[key].email
+            userdetails.BirthDate = myObj[key].BirthDate
+            userdetails.Locality = myObj[key].Locality
+            userdetails.Name = myObj[key].Name
+            userdetails.Surname = myObj[key].Surname
+            userdetails.Email = myObj[key].Email
             commit('gotUsers', userdetails)
           })
           commit('getKeysUsers', keysUsers)
@@ -112,7 +133,7 @@ export default new Vuex.Store({
             }
             commit('setUser', newUser)
             router.push({path: '/map'})
-            firebase.database().ref('/users/' + newUser.id).set({
+            firebase.database().ref('/UserDetails/' + newUser.id).set({
               nume: payload.nume,
               prenume: payload.prenume,
               localitate: payload.localitate,
@@ -196,6 +217,7 @@ export default new Vuex.Store({
     keysHistory: state => state.keysHistory,
     Destination: state => state.Destination,
     Weather: state => state.Weather,
-    destinationWeather: state => state.destinationWeather
+    destinationWeather: state => state.destinationWeather,
+    collaborations: state => state.collaborations
   }
 })

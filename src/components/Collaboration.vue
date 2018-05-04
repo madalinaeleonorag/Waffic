@@ -15,9 +15,8 @@
         md4
         lg3>
         <v-card>
-          <v-card-media v-if="this.item.icon" :src="require('./assets/CollaborationsPictures/' + collaboration.Picture + '.png')">
-          </v-card-media>
           <v-card-title><h4>{{ props.item.Name }}</h4></v-card-title>
+          <img v-if="this.item.icon" :src="require('../assets/CollaborationsPictures/' + collaboration.Picture + '.png')"/>
           <v-divider></v-divider>
           <v-list dense>
             <v-list-tile>
@@ -29,8 +28,13 @@
               <v-list-tile-content class="align-end">{{ props.item.Price }}</v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content>Descriere:</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{ props.item.Description }}</v-list-tile-content>
+              <v-list-tile-content>
+                <!-- <v-list-tile-sub-title class="align-end"> -->
+                  <div>
+                  {{ props.item.Description }}
+                  </div>
+                  <!-- </v-list-tile-sub-title> -->
+              </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-spacer></v-spacer>
@@ -47,46 +51,27 @@
 
 <script>
   export default {
-    data: () => ({
-      rowsPerPageItems: [4, 8, 12],
-      pagination: {
-        rowsPerPage: 4
-      },
-      items: [
-        {
-          value: false,
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: '14%',
-          iron: '1%'
+    data () {
+      return {
+        rowsPerPageItems: [4, 8, 12],
+        pagination: {
+          rowsPerPage: 8
         },
-        {
-          value: false,
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          sodium: 326,
-          calcium: '2%',
-          iron: '22%'
-        },
-        {
-          value: false,
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          sodium: 54,
-          calcium: '12%',
-          iron: '6%'
-        }
-      ]
-    })
+        items: []
+      }
+    },
+    created: function () {
+      this.$store.dispatch('getCollaborations')
+    },
+    watch: {
+      getCollaborations (value) {
+        this.items = value
+      }
+    },
+    computed: {
+      getCollaborations () {
+        return this.$store.getters.collaborations
+      }
+    }
   }
 </script>

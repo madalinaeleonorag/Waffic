@@ -5,8 +5,8 @@
         <v-text-field
           label="Email"
           name="email"
-          :value= getuserdetails.email
-          id="email"
+          :value= getuserdetails.Email
+          id="Email"
           :rules="[rules.email]"
         ></v-text-field>
       </v-flex>
@@ -14,48 +14,48 @@
         <v-text-field
           label="Nume"
           name="nume"
-          :value= getuserdetails.nume
-          id="nume"
+          :value= getuserdetails.Name
+          id="Name"
         ></v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-text-field
           label="Prenume"
           name="prenume"
-          :value= getuserdetails.prenume
-          id="prenume"
+          :value= getuserdetails.Surname
+          id="Surname"
         ></v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-text-field
           label="Localitate"
           name="localitate"
-          :value= getuserdetails.localitate
-          id="localitate"
+          :value= getuserdetails.Locality
+          id="Locality"
         ></v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-menu
-          ref="datanamenu"
+          ref="BirthDateMenu"
           lazy
           :close-on-content-click="false"
-          v-model="datanamenu"
+          v-model="BirthDateMenu"
           transition="scale-transition"
           offset-y
           full-width
           :nudge-right="40"
           min-width="290px"
-          :return-value.sync="datana">
+          :return-value.sync="BirthDate">
           <v-text-field
-            label="Data nașterii"
+            :label= userBirthDate
+            name="Data nașterii"
             slot="activator"
-            :value= getuserdetails.datana
-            v-model="datana"
+            v-model="BirthDate"
             prepend-icon="event"
             readonly
-            id = "datana">
+            id = "BirthDate">
           </v-text-field>
-          <v-date-picker v-model="datana" no-title scrollable @change="$refs.datanamenu.save(datana)">
+          <v-date-picker v-model="BirthDate" no-title scrollable @change="$refs.BirthDateMenu.save(BirthDate)">
             <v-spacer>
             </v-spacer>
           </v-date-picker>
@@ -66,17 +66,17 @@
           name="parolaactuala"
           label="Parolă actuală"
           hint="Minim 6 caractere"
-          v-model="oldpass"
+          v-model="OldPassword"
           min="6"
           :type="e1 ? 'password' : 'text'"
-          id = "oldpsw"
+          id = "OldPassword"
           required>
         </v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-text-field
             label="Parolă nouă"
-            name="parolanoua"
+            name="NewPassword"
             hint="Minim 6 caractere"
             v-model="password"
             min="6"
@@ -88,14 +88,14 @@
         </v-flex>
         <v-flex xs6>
           <v-text-field
-            name="parolanouaconfirm"
+            name="NewPasswordconfirm"
             label="Confirmă parolă nouă"
             hint="Minim 6 caractere"
             v-model="confirmPassword"
             min="6"
             :type="e1 ? 'password' : 'text'"
             :rules="[comparePasswords]"
-            id = "newpsw"
+            id = "NewPassword"
           >
         </v-text-field>
       </v-flex>
@@ -111,19 +111,20 @@
 
 <script>
   import firebase from '@/firebase'
+  import moment from 'moment'
   import router from '@/router'
   export default {
     name: 'AccountDetails',
     data () {
       return {
-        datana: null,
-        datanamenu: false,
+        BirthDate: null,
+        BirthDateMenu: false,
         password: '',
         email: '',
         e1: true,
         oldpassword: '',
         confirmPassword: '',
-        oldpass: '',
+        OldPassword: '',
         user1: null,
         rules: {
           email: (value) => {
@@ -150,33 +151,37 @@
       },
       comparePasswords () {
         return this.password !== this.confirmPassword ? 'Parolele nu corespund' : ''
-      }
+      },
+      userBirthDate () {
+        return moment(String(this.getuserdetails.BirthDate)).format('YYYY-MM-DD')
+      },
     },
     methods: {
       savenewdetails () {
-        // REVIZUIESTE
-        const user = this.user
-        const nume = document.getElementById('nume').value
-        const prenume = document.getElementById('prenume').value
-        const email = document.getElementById('email').value
-        const localitate = document.getElementById('localitate').value
-        const datana = document.getElementById('datana').value
-        const parolanoua = document.getElementById('newpsw').value
-        const cale = firebase.database().ref('users/' + this.user.uid)
-        console.log(email)
-        firebase.auth().signInWithEmailAndPassword(this.user.email,this.oldpass).then( function () {
-          cale.update({nume: nume, prenume: prenume, localitate: localitate, datana: datana})
-          if(parolanoua !== null) {
-          firebase.auth().currentUser.updatePassword(parolanoua).then(function() {
-            window.alert("Parola a fost schimbată")
+        const user = this.user.uid
+        const Name = document.getElementById('Name').value
+        const Surname = document.getElementById('Surname').value
+        const Email = document.getElementById('Email').value
+        const Locality = document.getElementById('Locality').value
+        const BirthDate = this.BirthDate
+        debugger
+        const NewPassword = document.getElementById('NewPassword').value
+        debugger
+        const cale = firebase.database().ref('UserDetails/' + user)
+        debugger
+        firebase.auth().signInWithEmailAndPassword(this.user.email,this.OldPassword).then( function () {
+          cale.update({Name: Name, Surname: Surname, Locality: Locality, BirthDate: BirthDate})
+          if(NewPassword !== null) {
+          firebase.auth().currentUser.updatePassword(NewPassword).then(function() {
+            console.log("Parola a fost schimbată")
           }).catch(function(error) {
             console.log(error.message)
           })
           }
-           if(email !== null) {
-          firebase.auth().currentUser.updateEmail(email).then(function () {
-            window.alert('Emailul a fost schimbat')
-            cale.update({email: email})
+           if(Email !== null) {
+          firebase.auth().currentUser.updateEmail(Email).then(function () {
+            console.log('Emailul a fost schimbat')
+            cale.update({Email: Email})
           }).catch(function (error) {
             console.log(error.message)
           })

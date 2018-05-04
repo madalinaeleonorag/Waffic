@@ -20,9 +20,9 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-      <td class="text-xs-left">{{ props.item.locstart }}</td>
-      <td class="text-xs-left">{{ props.item.locfinish }}</td>
-      <td class="text-xs-left">{{ props.item.data }}</td>
+      <td class="text-xs-left">{{ props.item.Start }}</td>
+      <td class="text-xs-left">{{ props.item.Finish }}</td>
+      <td class="text-xs-left">{{ props.item.Date }}</td>
       <td>
         <v-icon class="text-xs-right" @click="deleteEvent(index)" style="cursor:pointer">
           delete
@@ -65,7 +65,7 @@
         return this.$store.getters.user
       },
       keysHistory () {
-        return this.$store.getters.keysrHistory
+        return this.$store.getters.keysHistory
       }
     }
   }

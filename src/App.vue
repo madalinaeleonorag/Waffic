@@ -603,11 +603,11 @@ export default {
         this.signin=false
     },
     contactForm () {
-      firebase.database().ref('/contactFormMessages/').push({
-        email: this.emailcontact,
-        mesaj: this.mesajcontact,
-        nume: this.numecontact,
-        responded: false
+      firebase.database().ref('/ContactMessages/').push({
+        Email: this.emailcontact,
+        Message: this.mesajcontact,
+        Name: this.numecontact,
+        Responded: false
       })
       this.contactform=false
     },
