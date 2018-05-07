@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from '@/firebase'
 import router from '@/router'
+import moment from "moment"
 
 Vue.use(Vuex)
 
@@ -213,7 +214,20 @@ export default new Vuex.Store({
     },
     toogleFavourite ({state}, payload) {
       console.log(payload)
-
+//////////////////////
+    },
+    saveInHistory ({state}, payload) {
+      console.log()
+      var day = new Date()
+      var dayWrapper = moment(day)
+      var dayString = dayWrapper.format("YYYY-MM-DD")
+      console.log(dayString)
+      firebase.database().ref('/userDestinationsHistory/' + this.state.user.uid).push({
+        Start: payload,
+        Finish: payload,
+        Date: dayString,
+        Favourite: false
+      })
     }
   },
   getters: {

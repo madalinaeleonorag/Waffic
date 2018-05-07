@@ -514,7 +514,7 @@
 <script>
 import firebase from '@/firebase'
 import VueGoogleAutocomplete from 'vue-google-autocomplete'
-import moment from "moment";
+import moment from "moment"
 export default {
   components: { VueGoogleAutocomplete },
   name: "profil",
@@ -621,6 +621,7 @@ export default {
       this.address = addressData
       this.$store.dispatch('getDestination', placeResultData)
       const resultVicinity = placeResultData.vicinity
+      this.$store.dispatch('saveInHistory', resultVicinity)
       this.$router.push('/map')
     }
   },
