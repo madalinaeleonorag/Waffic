@@ -14,7 +14,7 @@ export default new Vuex.Store({
     keysHistory: [],
     keysUsers: [],
     userHistory: [],
-    collaborations: [],
+    TypesOfCollaborations: [],
     location: {
       lat: null,
       long: null,
@@ -43,12 +43,12 @@ export default new Vuex.Store({
         state.userHistory.push(payload)
       }
     },
-    gotCollaborations: (state, payload) => {
-      const index = state.collaborations.findIndex(obj => obj.key === payload.key)
+    gotTypesOfCollaborations: (state, payload) => {
+      const index = state.TypesOfCollaborations.findIndex(obj => obj.key === payload.key)
       if (index !== -1) {
-        Vue.set(state.collaborations, index, payload)
+        Vue.set(state.TypesOfCollaborations, index, payload)
       } else {
-        state.collaborations.push(payload)
+        state.TypesOfCollaborations.push(payload)
       }
     },
     gotUsers: (state, payload) => {
@@ -93,13 +93,13 @@ export default new Vuex.Store({
           console.log('Error: ' + error.message)
         })
     },
-    getCollaborations ({commit}, payload) {
-      return firebase.database().ref('Collaborations/')
+    getTypesOfCollaborations ({commit}, payload) {
+      return firebase.database().ref('TypesOfCollaborations/')
         .on('value', snap => {
           const myObj = snap.val()
           const keys = Object.keys(snap.val())
           keys.forEach(key => {
-            commit('gotCollaborations', {'key': key, ...myObj[key]})
+            commit('gotTypesOfCollaborations', {'key': key, ...myObj[key]})
           })
         }, function (error) {
           console.log('Error: ' + error.message)
@@ -222,6 +222,6 @@ export default new Vuex.Store({
     Destination: state => state.Destination,
     Weather: state => state.Weather,
     destinationWeather: state => state.destinationWeather,
-    collaborations: state => state.collaborations
+    TypesOfCollaborations: state => state.TypesOfCollaborations
   }
 })
