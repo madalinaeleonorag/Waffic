@@ -207,6 +207,10 @@ export default new Vuex.Store({
       commit('getDestinationWeather', payload)
       console.log(payload)
     },
+    deleteHistory ({state}, payload) {
+      console.log(payload)
+      firebase.database().ref('/userDestinationsHistory/' + this.state.user.uid + '/' + this.state.keysHistory[payload]).remove()
+    }
   },
   getters: {
     userHistory: state => state.userHistory,
