@@ -1,9 +1,6 @@
 <template>
   <v-layout>
     <v-container fluid>
-      <v-card>
-        aici cu v-for locatiile favorite
-      </v-card>
       <v-data-table
     :headers="headers"
     :items="items"
@@ -28,6 +25,10 @@
           <v-icon>delete</v-icon>
         </v-btn>
       </td>
+      <td>
+        <v-icon v-if="props.item.Favourite === true" @click="toogleFavourite(props.item)">star</v-icon>
+        <v-icon v-if="props.item.Favourite === false" @click="toogleFavourite(props.item)">star_border</v-icon>
+      </td>
     </template>
   </v-data-table>
     </v-container>
@@ -44,7 +45,8 @@
           { text: 'Pornire', align: 'left', value: 'locstart'},
           { text: 'Destinație', value: 'locfinish'},
           { text: 'Data', value: 'data'},
-          { text: 'Șterge', sortable: false, value: ''}
+          { text: 'Șterge', sortable: false, value: ''},
+          { text: '', sortable: false, value: ''}
         ],
         items: []
       }
@@ -72,8 +74,12 @@
       deleteItem (item) {
         var index = this.items.indexOf(item)
         confirm('Are you sure you want to delete this item?')
-        console.log(index)
         this.$store.dispatch('deleteHistory', index)
+      },
+      toogleFavourite (item) {
+        var index = this.items.indexOf(item)
+        console.log(index)
+        this.$store.dispatch('toogleFavourite', index)
       }
     }
   }

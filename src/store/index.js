@@ -210,6 +210,10 @@ export default new Vuex.Store({
     deleteHistory ({state}, payload) {
       console.log(payload)
       firebase.database().ref('/userDestinationsHistory/' + this.state.user.uid + '/' + this.state.keysHistory[payload]).remove()
+    },
+    toogleFavourite ({state}, payload) {
+      console.log(payload)
+
     }
   },
   getters: {

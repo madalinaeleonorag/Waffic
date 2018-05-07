@@ -18,24 +18,6 @@
             <!-- </router-link> -->
           </v-list-tile>
 
-          <!-- HARTA -->
-
-          <v-list-tile v-if="user">
-            <router-link to="/Map" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon color="primary"> directions_car
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/Map" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Hartă
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
-
           <!-- DETALII CONT -->
 
           <v-subheader inset v-if="user">Detalii cont</v-subheader>
@@ -164,10 +146,12 @@
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
       <v-toolbar-title style="width: 10%" v-if="this.Weather.temperature">
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
+      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
+      <v-icon v-if="this.user"> directions_car
+      </v-icon>
       <v-icon v-if="this.user">
         play_arrow
       </v-icon>
@@ -182,10 +166,10 @@
         @placechanged="getAddressData">
       </vue-google-autocomplete>
       <v-spacer></v-spacer>
+      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
       <v-toolbar-title style="width: 10%" v-if="this.destinationWeather.temperature">
         {{destinationWeather.temperature}} &ordm;C
-        </v-toolbar-title>
-      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
+      </v-toolbar-title>
     </v-toolbar>
 
     <v-content>
