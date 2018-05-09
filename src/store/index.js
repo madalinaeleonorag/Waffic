@@ -228,6 +228,9 @@ export default new Vuex.Store({
         Date: dayString,
         Favourite: false
       })
+    },
+    BuyColaboration ({state}, payload) {
+      //
     }
   },
   getters: {
