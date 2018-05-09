@@ -30,7 +30,7 @@ export default new Vuex.Store({
     destinationWeather: {
       icon: null,
       temperature: null
-    }
+    },
   },
   mutations: {
     setUser: (state, payload) => {
@@ -133,7 +133,7 @@ export default new Vuex.Store({
               id: user.uid
             }
             commit('setUser', newUser)
-            router.push({path: '/map'})
+            router.push({path: '/'})
             firebase.database().ref('/UserDetails/' + newUser.id).set({
               nume: payload.nume,
               prenume: payload.prenume,
@@ -166,7 +166,7 @@ export default new Vuex.Store({
               id: user.uid
             }
             commit('setUser', user.uid)
-            router.push({ path: '/Map' })
+            router.push({ path: '/' })
           }
         )
         .catch(
@@ -206,25 +206,25 @@ export default new Vuex.Store({
     },
     getDestinationWeather ({commit}, payload) {
       commit('getDestinationWeather', payload)
-      console.log(payload)
     },
     deleteHistory ({state}, payload) {
-      console.log(payload)
       firebase.database().ref('/userDestinationsHistory/' + this.state.user.uid + '/' + this.state.keysHistory[payload]).remove()
     },
-    toogleFavourite ({state}, payload) {
-      console.log(payload)
-//////////////////////
+    toogleFavouriteAdd ({state}, payload) {
+      var keyHistory = this.state.userHistory[payload].key
+      return firebase.database().ref('userDestinationsHistory/' + this.state.user.uid + '/' + keyHistory).update({Favourite: true})
+    },
+    toogleFavouriteDelete ({state}, payload) {
+      var keyHistory = this.state.userHistory[payload].key
+      return firebase.database().ref('userDestinationsHistory/' + this.state.user.uid + '/' + keyHistory).update({Favourite: false})
     },
     saveInHistory ({state}, payload) {
-      console.log()
       var day = new Date()
       var dayWrapper = moment(day)
       var dayString = dayWrapper.format("YYYY-MM-DD")
-      console.log(dayString)
       firebase.database().ref('/userDestinationsHistory/' + this.state.user.uid).push({
         Start: payload,
-        Finish: payload,
+        Finish: this.state.Destination.vicinity,
         Date: dayString,
         Favourite: false
       })

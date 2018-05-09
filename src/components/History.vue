@@ -26,8 +26,8 @@
         </v-btn>
       </td>
       <td>
-        <v-icon v-if="props.item.Favourite === true" @click="toogleFavourite(props.item)">star</v-icon>
         <v-icon v-if="props.item.Favourite === false" @click="toogleFavourite(props.item)">star_border</v-icon>
+        <v-icon v-else @click="toogleFavourite(props.item)">star</v-icon>
       </td>
     </template>
   </v-data-table>
@@ -78,8 +78,13 @@
       },
       toogleFavourite (item) {
         var index = this.items.indexOf(item)
-        console.log(index)
-        this.$store.dispatch('toogleFavourite', index)
+        var index = this.items.indexOf(item)
+        var thisHistory = this.userHistory[index]
+        if(thisHistory.Favourite === false) {
+          this.$store.dispatch('toogleFavouriteAdd', index) }
+          else {
+            this.$store.dispatch('toogleFavouriteDelete', index)
+          }
       }
     }
   }

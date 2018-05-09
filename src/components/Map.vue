@@ -52,6 +52,7 @@
     },
     methods: {
       renderDirections () {
+        this.getCity()
         if (this.Destination && this.directions.service) {
           this.directions.start = new google.maps.LatLng(this.location.lat, this.location.long)
           this.directions.end = this.Destination.geometry.location
@@ -68,8 +69,8 @@
             }
           })
           // WEATHER
-          var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
-          // var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
+          // var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
+          var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
           // var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
           // var apikey = "Hl2mLAz2LxmKsiGn9YNJyKqlhbH69mJr"
           // var apikey = "FhkABGhGW6SPZDZFxamNnyK9j2gz4EhG"
@@ -86,10 +87,8 @@
             vremeaStatus.onload = () => {
               const stareVreme = JSON.parse(vremeaStatus.responseText)
               const iconVreme = stareVreme[0].WeatherIcon
-              console.log("iconVreme actual: " + iconVreme)
               this.vremeStart.icon = iconVreme
               const tempVreme = stareVreme[0].Temperature.Metric.Value
-              console.log("tempVreme actual: " + tempVreme)
               this.vremeStart.temperatura = tempVreme
               }
           }
@@ -106,10 +105,8 @@
             vremea2Status.onload = () => {
               const stareVreme2 = JSON.parse(vremea2Status.responseText)
               const iconVreme2 = stareVreme2[0].WeatherIcon
-              console.log("iconVreme2 destinatie: " + iconVreme2)
               this.vremeFinish.icon = iconVreme2
               const tempVreme2 = stareVreme2[0].Temperature.Metric.Value
-              console.log("tempVreme2 destinatie: " + tempVreme2)
               this.vremeFinish.temperatura = tempVreme2
               }
             }
@@ -123,6 +120,46 @@
       sendWeather () {
         this.$store.dispatch('getDestinationWeather', {icon: this.vremeFinish.icon, temperature: this.vremeFinish.temperatura})
         this.$store.dispatch('getWeather', {icon: this.vremeStart.icon, temperature: this.vremeStart.temperatura})
+      },
+      getCity () {
+        var latlng
+        latlng = new google.maps.LatLng(this.location.lat, this.location.long); // New York, US
+        new google.maps.Geocoder().geocode({'latLng' : latlng}, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    var country = null, countryCode = null, city = null, cityAlt = null;
+                    var c, lc, component
+                    for (var r = 0, rl = results.length; r < rl; r += 1) {
+                        var result = results[r]
+                        if (!city && result.types[0] === 'locality') {
+                            for (c = 0, lc = result.address_components.length; c < lc; c += 1) {
+                                component = result.address_components[c]
+                                if (component.types[0] === 'locality') {
+                                    city = component.long_name;
+                                    break
+                                }
+                            }
+                        }
+                        else if (!city && !cityAlt && result.types[0] === 'administrative_area_level_1') {
+                            for (c = 0, lc = result.address_components.length; c < lc; c += 1) {
+                                component = result.address_components[c]
+                                if (component.types[0] === 'administrative_area_level_1') {
+                                    cityAlt = component.long_name
+                                    break
+                                }
+                            }
+                        } else if (!country && result.types[0] === 'country') {
+                            country = result.address_components[0].long_name
+                            countryCode = result.address_components[0].short_name
+                        }
+                        if (city && country) {
+                            break
+                        }
+                    }
+                    this.$store.dispatch('saveInHistory', city)
+                }
+            }
+        })
       }
     },
     mounted () {

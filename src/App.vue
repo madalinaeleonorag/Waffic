@@ -620,8 +620,6 @@ export default {
     getAddressData (addressData, placeResultData, id) {
       this.address = addressData
       this.$store.dispatch('getDestination', placeResultData)
-      const resultVicinity = placeResultData.vicinity
-      this.$store.dispatch('saveInHistory', resultVicinity)
       this.$router.push('/map')
     }
   },
