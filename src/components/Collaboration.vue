@@ -29,7 +29,7 @@
             </v-list-tile>
           </v-list>
           <v-card-actions>
-            <v-icon @click="BuyColaboration(props.item)" style="cursor:pointer"> shopping_cart </v-icon>
+            <v-icon @click="BuyColaboration()" style="cursor:pointer"> shopping_cart </v-icon>
               <v-spacer></v-spacer>
               <v-btn icon @click.native="show = !show">
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -183,6 +183,74 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!-- formBuy -->
+    <v-dialog v-model="buy" max-width="490">
+      <v-card>
+        <v-card-title
+          class="primary">
+          Achiziționează colaborarea
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout wrap>
+            <v-flex xs12>
+              <v-text-field
+                label="Denumire companie"
+                v-model="DenumireCompanie">
+              </v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                label="Descriere companie"
+                v-model="DescriereCompanie">
+              </v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="Coordonata latitudine"
+                v-model="CoordonataLatitudine">
+              </v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="Coordonata longitudine"
+                v-model="CoordonataLongitudine">
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-btn color="primary" type="submit" @click="buy=false">Înapoi</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" type="submit" @click="(payment=true) && (buy=false)">Continuare</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- PAYMENT -->
+    <v-dialog v-model="payment" max-width="250">
+      <v-card>
+       <v-flex xs12>
+          <form action="https://www.paypal.com/cgi-bin/webscr" @click="Payment()" target="_blank" method="post">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="L9NBSYBQH32T4">
+          <table>
+            <tr><td><input type="hidden" name="on0" value="Alege tipul de colaborare">Alege tipul de colaborare</td></tr>
+            <tr><td>
+              <select name="os0">
+                <option value="1week">1week : €1.07 EUR</option>
+                <option value="HappyMonth">HappyMonth : €3.23 EUR</option>
+                <option value="BeOnline">BeOnline : €6.47 EUR</option>
+                <option value="What about six?">What about six? : €10.78 EUR</option>
+                <option value="Forget about payment">Forget about payment : €16.18 EUR</option>
+              </select>
+            </td></tr>
+          </table>
+          <input type="hidden" name="currency_code" value="EUR">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit">
+          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+        </v-flex>
+      </v-card>
+    </v-dialog>
 
   </v-container>
 </template>
@@ -193,6 +261,10 @@
   export default {
     data () {
       return {
+        DenumireCompanie: null,
+        DescriereCompanie: null,
+        CoordonataLatitudine: null,
+        CoordonataLongitudine: null,
         show: false,
         rowsPerPageItems: [4, 8, 12],
         pagination: {
@@ -206,6 +278,8 @@
         address: '',
         nume: null,
         prenume: null,
+        buy: false,
+        payment: false,
         localitate: null,
         datana: null,
         datanamenu: false,
@@ -237,15 +311,15 @@
       },
       comparePasswords () {
         return this.password !== this.confirmPassword ? 'Parolele nu corespund' : ''
-      },
+      }
     },
     methods: {
-      BuyColaboration (item) {
-        if(!this.user) {
-          this.signin = true
-        } else {
-          this.$store.dispatch('BuyColaboration', item)
-        }
+      BuyColaboration () {
+        this.buy = true
+      },
+      Payment() {
+        this.buy = false
+        console.log("sadfcasef")
       },
       userSignin () {
         this.$store.dispatch('signIn', {email: this.email, password: this.password})

@@ -12,6 +12,7 @@ export default new Vuex.Store({
       db: firebase.database()
     },
     user: null,
+    admin:null,
     keysHistory: [],
     keysUsers: [],
     userHistory: [],
@@ -78,6 +79,9 @@ export default new Vuex.Store({
     getDestinationWeather: (state, payload) => {
       state.destinationWeather.icon = payload.icon
       state.destinationWeather.temperature = payload.temperature
+    },
+    getAdmin: (state, payload) => {
+      state.admin = payload
     }
   },
   actions: {
@@ -139,7 +143,8 @@ export default new Vuex.Store({
               prenume: payload.prenume,
               localitate: payload.localitate,
               datana: payload.datana,
-              email: payload.email
+              email: payload.email,
+              Collaborations: ''
             })
           }
         )
@@ -166,6 +171,14 @@ export default new Vuex.Store({
               id: user.uid
             }
             commit('setUser', user.uid)
+            firebase.database().ref('UserDetails/' + newUser.id)
+              .on('value', snap => {
+                const myObj = snap.val()
+                var admin = myObj.Admin
+                commit('getAdmin', admin)
+              }, function (error) {
+                console.log('Error: ' + error.message)
+              })
             router.push({ path: '/' })
           }
         )
@@ -228,9 +241,6 @@ export default new Vuex.Store({
         Date: dayString,
         Favourite: false
       })
-    },
-    BuyColaboration ({state}, payload) {
-      //
     }
   },
   getters: {
@@ -243,6 +253,7 @@ export default new Vuex.Store({
     Destination: state => state.Destination,
     Weather: state => state.Weather,
     destinationWeather: state => state.destinationWeather,
-    TypesOfCollaborations: state => state.TypesOfCollaborations
+    TypesOfCollaborations: state => state.TypesOfCollaborations,
+    admin: state => state.admin
   }
 })
