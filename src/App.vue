@@ -146,10 +146,10 @@
         </v-toolbar-side-icon>
         <span class="hidden-sm-and-down">WAFFIC</span>
       </v-toolbar-title>
-      <v-toolbar-title style="width: 10%" v-if="this.Weather.temperature">
+      <v-toolbar-title style="width: 10%" v-if="(this.Weather.temperature) && (this.user)">
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
-      <img style="width: 10%" v-if="this.Weather.icon" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
+      <img style="width: 10%" v-if="(this.Weather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
       <v-icon v-if="this.user"> directions_car
       </v-icon>
       <v-icon v-if="this.user">
@@ -166,8 +166,8 @@
         @placechanged="getAddressData">
       </vue-google-autocomplete>
       <v-spacer></v-spacer>
-      <img style="width: 10%" v-if="this.destinationWeather.icon" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
-      <v-toolbar-title style="width: 10%" v-if="this.destinationWeather.temperature">
+      <img style="width: 10%" v-if="(this.destinationWeather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
+      <v-toolbar-title style="width: 10%" v-if="(this.destinationWeather.temperature) && (this.user)">
         {{destinationWeather.temperature}} &ordm;C
       </v-toolbar-title>
     </v-toolbar>
