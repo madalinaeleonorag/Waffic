@@ -142,7 +142,6 @@
     created: function () {
       this.$store.dispatch('getCollaborationData')
       this.$store.dispatch('getTypesOfCollaborations')
-
     },
     computed: {
       user () {

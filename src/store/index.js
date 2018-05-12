@@ -32,7 +32,8 @@ export default new Vuex.Store({
       icon: null,
       temperature: null
     },
-    getCollaborationData: []
+    getCollaborationData: [],
+    collaborationsData: []
   },
   mutations: {
     setUser: (state, payload) => {
@@ -86,6 +87,14 @@ export default new Vuex.Store({
     },
     getCollaboration: (state, payload) => {
       state.getCollaborationData = payload
+    },
+    getCollaborations: (state, payload) => {
+      const index = state.collaborationsData.findIndex(obj => obj.key === payload.key)
+      if (index !== -1) {
+        Vue.set(state.collaborationsData, index, payload)
+      } else {
+        state.collaborationsData.push(payload)
+      }
     }
   },
   actions: {
@@ -256,6 +265,26 @@ export default new Vuex.Store({
       }, function (error) {
         console.log('Error: ' + error.message)
       })
+    },
+    getCollaborations ({commit, state}) {
+      return firebase.database().ref('Collaborations')
+      .on('value', snap => {
+        const myObj = snap.val()
+        const keysCollaborations = Object.keys(snap.val())
+        keysCollaborations.forEach(key => {
+          const collaborations = {}
+          collaborations.CoordonataLatitudine = myObj[key].CoordonataLatitudine
+          collaborations.CoordonataLongitudine = myObj[key].CoordonataLongitudine
+          collaborations.DenumireCompanie = myObj[key].DenumireCompanie
+          collaborations.DescriereCompanie = myObj[key].DescriereCompanie
+          collaborations.StartDate = myObj[key].StartDate
+          collaborations.TypesOfCollaboration = myObj[key].TypesOfCollaboration
+          commit('getCollaborations', collaborations)
+          console.log(collaborations)
+        })
+      }, function (error) {
+        console.log('Error: ' + error.message)
+      })
     }
   },
   getters: {
@@ -270,6 +299,7 @@ export default new Vuex.Store({
     destinationWeather: state => state.destinationWeather,
     TypesOfCollaborations: state => state.TypesOfCollaborations,
     admin: state => state.admin,
-    getCollaborationData: state => state.getCollaborationData
+    getCollaborationData: state => state.getCollaborationData,
+    collaborationsData: state => state.collaborationsData
   }
 })

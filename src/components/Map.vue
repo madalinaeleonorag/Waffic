@@ -37,7 +37,10 @@
       },
       location () {
         return this.$store.getters.location
-      }
+      },
+      collaborationsData () {
+        return this.$store.getters.collaborationsData
+      },
     },
     watch: {
       Destination: {
@@ -136,7 +139,7 @@
                                 component = result.address_components[c]
                                 if (component.types[0] === 'locality') {
                                     city = component.long_name;
-                                    break
+                                    break;
                                 }
                             }
                         }
@@ -145,7 +148,7 @@
                                 component = result.address_components[c]
                                 if (component.types[0] === 'administrative_area_level_1') {
                                     cityAlt = component.long_name
-                                    break
+                                    break;
                                 }
                             }
                         } else if (!country && result.types[0] === 'country') {
@@ -153,7 +156,7 @@
                             countryCode = result.address_components[0].short_name
                         }
                         if (city && country) {
-                            break
+                            break;
                         }
                     }
                     this.$store.dispatch('saveInHistory', city)
@@ -163,6 +166,7 @@
       }
     },
     mounted () {
+      this.$store.dispatch('getCollaborations')
       // INIT MAP
       this.map = new window.google.maps.Map(document.getElementById('map'), {
         center: {lat: +this.coords.lat, lng: +this.coords.long},
