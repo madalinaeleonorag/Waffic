@@ -42,6 +42,12 @@ export default new Router({
       beforeEnter: AuthGuard
     },
     {
+      path: '/AllUsers',
+      name: 'AllUsers',
+      component: AllUsers,
+      beforeEnter: AuthGuard
+    },
+    {
       path: '/News',
       name: 'News',
       component: News
