@@ -164,11 +164,8 @@
         const Email = document.getElementById('Email').value
         const Locality = document.getElementById('Locality').value
         const BirthDate = this.BirthDate
-        debugger
         const NewPassword = document.getElementById('NewPassword').value
-        debugger
         const cale = firebase.database().ref('UserDetails/' + user)
-        debugger
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.OldPassword).then( function () {
           cale.update({Name: Name, Surname: Surname, Locality: Locality, BirthDate: BirthDate})
           if(NewPassword !== null) {

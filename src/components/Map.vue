@@ -123,7 +123,7 @@
       },
       getCity () {
         var latlng
-        latlng = new google.maps.LatLng(this.location.lat, this.location.long); // New York, US
+        latlng = new google.maps.LatLng(this.location.lat, this.location.long)
         new google.maps.Geocoder().geocode({'latLng' : latlng}, (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {

@@ -123,6 +123,7 @@ export default new Vuex.Store({
             userdetails.Surname = myObj[key].Surname
             userdetails.Email = myObj[key].Email
             commit('gotUsers', userdetails)
+            console.log(userdetails)
           })
           commit('getKeysUsers', keysUsers)
         }, function (error) {

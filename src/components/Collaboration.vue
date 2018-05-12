@@ -1,5 +1,8 @@
 <template>
   <v-container fluid grid-list-md>
+    <v-alert :value="true" type="warning">
+      Adăugarea unei noi colaborări la cont duce la anularea colaborării deja active, fără posibilitatea recuperării sumei precedente.
+    </v-alert>
     <v-data-iterator
       content-tag="v-layout"
       row
@@ -229,13 +232,13 @@
     <v-dialog v-model="payment" max-width="250">
       <v-card>
        <v-flex xs12>
-          <form action="https://www.paypal.com/cgi-bin/webscr" @click="Payment()" target="_blank" method="post">
+          <form action="https://www.paypal.com/cgi-bin/webscr" target="_blank" method="post">
           <input type="hidden" name="cmd" value="_s-xclick">
           <input type="hidden" name="hosted_button_id" value="L9NBSYBQH32T4">
           <table>
             <tr><td><input type="hidden" name="on0" value="Alege tipul de colaborare">Alege tipul de colaborare</td></tr>
             <tr><td>
-              <select name="os0">
+              <select name="os0" v-model="selected">
                 <option value="1week">1week : €1.07 EUR</option>
                 <option value="HappyMonth">HappyMonth : €3.23 EUR</option>
                 <option value="BeOnline">BeOnline : €6.47 EUR</option>
@@ -245,7 +248,7 @@
             </td></tr>
           </table>
           <input type="hidden" name="currency_code" value="EUR">
-          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" @click="Payment">
           <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
           </form>
         </v-flex>
@@ -261,6 +264,7 @@
   export default {
     data () {
       return {
+        selected: null,
         DenumireCompanie: null,
         DescriereCompanie: null,
         CoordonataLatitudine: null,
@@ -318,8 +322,31 @@
         this.buy = true
       },
       Payment() {
+        var collaborationTypes =['1week','HappyMonth','BeOnline','What about six?','Forget about payment']
         this.buy = false
-        console.log("sadfcasef")
+        var index = collaborationTypes.indexOf(this.selected)
+        debugger
+        var day = new Date()
+        var dayWrapper = moment(day)
+        var dayString = dayWrapper.format("YYYY-MM-DD")
+        debugger
+        firebase.database().ref('/UserDetails/' + this.user.uid + '/Collaborations/').push({
+          StartDate: dayString,
+          TypesOfCollaboration: index,
+          DenumireCompanie: this.DenumireCompanie,
+          DescriereCompanie: this.DescriereCompanie,
+          CoordonataLatitudine: this.CoordonataLatitudine,
+          CoordonataLongitudine: this.CoordonataLongitudine
+        })
+        firebase.database().ref('/Collaborations/' + this.user.uid).set({
+          StartDate: dayString,
+          TypesOfCollaboration: index,
+          DenumireCompanie: this.DenumireCompanie,
+          DescriereCompanie: this.DescriereCompanie,
+          CoordonataLatitudine: this.CoordonataLatitudine,
+          CoordonataLongitudine: this.CoordonataLongitudine
+        })
+        debugger
       },
       userSignin () {
         this.$store.dispatch('signIn', {email: this.email, password: this.password})
