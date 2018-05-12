@@ -24,7 +24,7 @@
           <v-list dense>
             <v-list-tile>
               <v-list-tile-content>Durată:</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{ props.item.Duration }}</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.Duration }} zile</v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content>Preț:</v-list-tile-content>

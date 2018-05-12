@@ -32,6 +32,7 @@ export default new Vuex.Store({
       icon: null,
       temperature: null
     },
+    getCollaborationData: []
   },
   mutations: {
     setUser: (state, payload) => {
@@ -82,6 +83,9 @@ export default new Vuex.Store({
     },
     getAdmin: (state, payload) => {
       state.admin = payload
+    },
+    getCollaboration: (state, payload) => {
+      state.getCollaborationData = payload
     }
   },
   actions: {
@@ -242,6 +246,16 @@ export default new Vuex.Store({
         Date: dayString,
         Favourite: false
       })
+    },
+    getCollaborationData ({commit, state}) {
+      return firebase.database().ref('Collaborations/' + this.state.user.uid)
+      .on('value', snap => {
+        const myObj = snap.val()
+        console.log(myObj)
+          commit('getCollaboration', myObj)
+      }, function (error) {
+        console.log('Error: ' + error.message)
+      })
     }
   },
   getters: {
@@ -255,6 +269,7 @@ export default new Vuex.Store({
     Weather: state => state.Weather,
     destinationWeather: state => state.destinationWeather,
     TypesOfCollaborations: state => state.TypesOfCollaborations,
-    admin: state => state.admin
+    admin: state => state.admin,
+    getCollaborationData: state => state.getCollaborationData
   }
 })

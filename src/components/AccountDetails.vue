@@ -1,5 +1,9 @@
 <template>
   <v-container grid-list-sm class="pa-4">
+    <v-alert :value="true" type="warning" v-if="getCollaborationData">
+    Colaborarea ta {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Name}} pentru compania {{getCollaborationData.DenumireCompanie}} a fost activată în data de {{getCollaborationData.StartDate}}.
+    Aceasta are o durată totală de {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Duration}} zile până la reactivarea automată.
+    </v-alert>
     <v-layout wrap>
       <v-flex xs12>
         <v-text-field
@@ -126,6 +130,7 @@
         confirmPassword: '',
         OldPassword: '',
         user1: null,
+        ceva: null,
         rules: {
           email: (value) => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -134,12 +139,20 @@
         }
       }
     },
+    created: function () {
+      this.$store.dispatch('getCollaborationData')
+      this.$store.dispatch('getTypesOfCollaborations')
+
+    },
     computed: {
       user () {
         return this.$store.getters.user
       },
       userdetails () {
         return this.$store.getters.userdetails
+      },
+      getCollaborationData () {
+        return this.$store.getters.getCollaborationData
       },
       keysUsers () {
         return this.$store.getters.keysUsers
@@ -155,6 +168,25 @@
       userBirthDate () {
         return moment(String(this.getuserdetails.BirthDate)).format('YYYY-MM-DD')
       },
+      getTypesOfCollaborations () {
+        return this.$store.getters.TypesOfCollaborations
+      }
+      // getTimeCollaboration () {
+      //   var x = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Duration
+      //   console.log('x:' + x)
+      //   console.log(this.getTypesOfCollaborations)
+      //   console.log(this.getCollaborationData.TypesOfCollaboration)
+      //   var mydate = new Date(this.getCollaborationData.StartDate)
+      //   console.log('my date: ' + mydate)
+      //   var tomorrow = new Date()
+      //   tomorrow.setDate(mydate.getDate()+x)
+      //   console.log('tomorrow: ' + tomorrow)
+      //   var today = new Date()
+      //   var z = tomorrow.from(today, true);
+      //   debugger
+      //   console.log('z:' + z)
+      //   return x
+      // }
     },
     methods: {
       savenewdetails () {
