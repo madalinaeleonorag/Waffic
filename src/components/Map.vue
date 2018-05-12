@@ -73,8 +73,8 @@
           })
           // WEATHER
           // var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
-          var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
-          // var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
+          // var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
+          var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
           // var apikey = "Hl2mLAz2LxmKsiGn9YNJyKqlhbH69mJr"
           // var apikey = "FhkABGhGW6SPZDZFxamNnyK9j2gz4EhG"
           const latlong = this.location.lat + ',' + this.location.long
@@ -164,6 +164,22 @@
             }
         })
       }
+      // Markers () {
+      //   debugger
+      //   this.collaborationsData.forEach(key => {
+      //     debugger
+      //     var marker = new google.maps.Marker({
+      //       position: new google.maps.LatLng(this.collaborationsData[key].CoordonataLatitudine, this.collaborationsData[key].CoordonataLongitudine),
+      //       map: map,
+      //       title: this.collaborationsData[key].DenumireCompanie
+      //     })
+      //     debugger
+      //     google.maps.event.addListener( marker, 'click', function(e){
+      //             infowindow.setContent( this.collaborationsData[key].DenumireCompanie )
+      //             infowindow.open( map, this )
+      //           }.bind( marker ) )
+      //   })
+      // }
     },
     mounted () {
       this.$store.dispatch('getCollaborations')
