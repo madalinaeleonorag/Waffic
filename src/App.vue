@@ -77,19 +77,34 @@
           <!-- TOTAL USER COLABORARI -->
 
           <v-list-tile v-if="admin === true">
-            <router-link to="/UserCollaborations" tag="li" style="cursor:pointer">
+            <router-link to="/AllUsersCollaborations" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> dashboard
                 </v-icon>
               </v-list-tile-action>
             </router-link>
-            <router-link to="/UserCollaborations" tag="li" style="cursor:pointer">
+            <router-link to="/AllUsersCollaborations" tag="li" style="cursor:pointer">
               <v-list-tile-title>
-                Colaborări
+                Colaborări totale
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
 
+          <!-- COLABORARE 1 USER -->
+
+          <v-list-tile v-if="admin === true">
+            <router-link to="/UserCollaborationsHistory" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> calendar_today
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/UserCollaborationsHistory" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Istoric colaborări utilizator
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
 
           <v-divider inset></v-divider>
 

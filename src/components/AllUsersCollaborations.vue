@@ -32,7 +32,7 @@
   /* eslint-disable no-unused-vars */
   import firebase from '@/firebase'
   export default {
-    name: 'profil',
+    name: 'AllUsersCollaborations',
     data () {
       return {
         headers: [

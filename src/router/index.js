@@ -9,7 +9,9 @@ import Collaboration from '@/components/Collaboration'
 import Map from '@/components/Map'
 import AuthGuard from '@/store/authGuard'
 import AllUsers from '@/components/AllUsers'
-import UserCollaborations from '@/components/UserCollaborations'
+import AllUsersCollaborations from '@/components/AllUsersCollaborations'
+import UserCollaborationsHistory from '@/components/UserCollaborationsHistory'
+
 
 Vue.use(Router)
 
@@ -22,15 +24,15 @@ export default new Router({
       beforeEnter: AuthGuard
     },
     {
-      path: '/UserCollaborations',
-      name: 'UserCollaborations',
-      component: UserCollaborations,
+      path: '/UserCollaborationsHistory',
+      name: 'UserCollaborationsHistory',
+      component: UserCollaborationsHistory,
       beforeEnter: AuthGuard
     },
     {
-      path: '/UserCollaborations/:id',
-      name: 'UserCollaborations',
-      component: UserCollaborations,
+      path: '/AllUsersCollaborations',
+      name: 'AllUsersCollaborations',
+      component: AllUsersCollaborations,
       beforeEnter: AuthGuard
     },
     {
