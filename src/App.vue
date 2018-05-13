@@ -54,6 +54,45 @@
             </router-link>
           </v-list-tile>
 
+          <!-- ADMINISTRARE-->
+
+          <v-subheader inset v-if="admin === true">ADMINISTRARE</v-subheader>
+
+          <!-- TOTI UTILIZATORII -->
+
+          <v-list-tile v-if="admin === true">
+            <router-link to="/AllUsers" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> account_box
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/AllUsers" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Toți utilizatorii
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- TOTAL USER COLABORARI -->
+
+          <v-list-tile v-if="admin === true">
+            <router-link to="/UserCollaborations" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> dashboard
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/UserCollaborations" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Colaborări
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+
+          <v-divider inset></v-divider>
+
           <!-- COLABORARI -->
 
           <v-list-tile>
@@ -69,28 +108,6 @@
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
-
-          <!-- ADMINISTRARE-->
-
-          <v-subheader inset v-if="user && (admin === true)">ADMINISTRARE</v-subheader>
-
-          <!-- TOTI UTILIZATORII -->
-
-          <v-list-tile v-if="user && (admin === true)">
-            <router-link to="/AllAccounts" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> account_circle
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/AllAccounts" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Toți utilizatorii
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
 
           <!-- CONTACT -->
 
@@ -582,7 +599,7 @@ export default {
     * @param {Object} placeResultData PlaceResult object
     * @param {String} id Input container ID
     */
-   user () {
+    user () {
       return this.$store.getters.user
     },
     admin () {

@@ -136,7 +136,6 @@ export default new Vuex.Store({
             userdetails.Surname = myObj[key].Surname
             userdetails.Email = myObj[key].Email
             commit('gotUsers', userdetails)
-            console.log(userdetails)
           })
           commit('getKeysUsers', keysUsers)
         }, function (error) {
@@ -172,6 +171,14 @@ export default new Vuex.Store({
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           commit('setUser', user)
+          firebase.database().ref('UserDetails/' + this.state.user.uid)
+          .on('value', snap => {
+            const myObj = snap.val()
+            var admin = myObj.Admin
+            commit('getAdmin', admin)
+          }, function (error) {
+            console.log('Error: ' + error.message)
+          })
         } else {
           commit('setUser', null)
         }
@@ -260,7 +267,6 @@ export default new Vuex.Store({
       return firebase.database().ref('Collaborations/' + this.state.user.uid)
       .on('value', snap => {
         const myObj = snap.val()
-        console.log(myObj)
           commit('getCollaboration', myObj)
       }, function (error) {
         console.log('Error: ' + error.message)
@@ -280,7 +286,6 @@ export default new Vuex.Store({
           collaborations.StartDate = myObj[key].StartDate
           collaborations.TypesOfCollaboration = myObj[key].TypesOfCollaboration
           commit('getCollaborations', collaborations)
-          console.log(collaborations)
         })
       }, function (error) {
         console.log('Error: ' + error.message)

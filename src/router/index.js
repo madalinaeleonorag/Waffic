@@ -8,6 +8,8 @@ import News from '@/components/News'
 import Collaboration from '@/components/Collaboration'
 import Map from '@/components/Map'
 import AuthGuard from '@/store/authGuard'
+import AllUsers from '@/components/AllUsers'
+import UserCollaborations from '@/components/UserCollaborations'
 
 Vue.use(Router)
 
@@ -17,6 +19,18 @@ export default new Router({
       path: '/AccountDetails',
       name: 'AccountDetails',
       component: AccountDetails,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/UserCollaborations',
+      name: 'UserCollaborations',
+      component: UserCollaborations,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/UserCollaborations/:id',
+      name: 'UserCollaborations',
+      component: UserCollaborations,
       beforeEnter: AuthGuard
     },
     {

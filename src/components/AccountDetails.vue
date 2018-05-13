@@ -170,22 +170,6 @@
       getTypesOfCollaborations () {
         return this.$store.getters.TypesOfCollaborations
       }
-      // getTimeCollaboration () {
-      //   var x = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Duration
-      //   console.log('x:' + x)
-      //   console.log(this.getTypesOfCollaborations)
-      //   console.log(this.getCollaborationData.TypesOfCollaboration)
-      //   var mydate = new Date(this.getCollaborationData.StartDate)
-      //   console.log('my date: ' + mydate)
-      //   var tomorrow = new Date()
-      //   tomorrow.setDate(mydate.getDate()+x)
-      //   console.log('tomorrow: ' + tomorrow)
-      //   var today = new Date()
-      //   var z = tomorrow.from(today, true);
-      //   debugger
-      //   console.log('z:' + z)
-      //   return x
-      // }
     },
     methods: {
       savenewdetails () {
