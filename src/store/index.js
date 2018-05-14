@@ -56,7 +56,7 @@ export default new Vuex.Store({
       }
     },
     gotUsers: (state, payload) => {
-      state.userdetails.push(payload)
+      state.userdetails = payload
     },
     getLocation: (state, payload) => {
       state.location = payload
@@ -87,14 +87,6 @@ export default new Vuex.Store({
     },
     getCollaboration: (state, payload) => {
       state.getCollaborationData = payload
-    },
-    getCollaborations: (state, payload) => {
-      const index = state.collaborationsData.findIndex(obj => obj.key === payload.key)
-      if (index !== -1) {
-        Vue.set(state.collaborationsData, index, payload)
-      } else {
-        state.collaborationsData.push(payload)
-      }
     }
   },
   actions: {
@@ -126,8 +118,10 @@ export default new Vuex.Store({
     getUserData ({commit}, payload) {
       return firebase.database().ref('UserDetails')
         .on('value', snap => {
+          // commit('refreshUsers', [])
           const myObj = snap.val()
           const keysUsers = Object.keys(snap.val())
+          var allUsers = []
           keysUsers.forEach(key => {
             const userdetails = {}
             userdetails.BirthDate = myObj[key].BirthDate
@@ -135,8 +129,10 @@ export default new Vuex.Store({
             userdetails.Name = myObj[key].Name
             userdetails.Surname = myObj[key].Surname
             userdetails.Email = myObj[key].Email
-            commit('gotUsers', userdetails)
+            allUsers.push(userdetails)
+            
           })
+          commit('gotUsers', allUsers)
           commit('getKeysUsers', keysUsers)
         }, function (error) {
           console.log('Error: ' + error.message)
@@ -152,12 +148,13 @@ export default new Vuex.Store({
             commit('setUser', newUser)
             router.push({path: '/'})
             firebase.database().ref('/UserDetails/' + newUser.id).set({
-              nume: payload.nume,
-              prenume: payload.prenume,
-              localitate: payload.localitate,
-              datana: payload.datana,
-              email: payload.email,
-              Collaborations: ''
+              Name: payload.nume,
+              Surname: payload.prenume,
+              Locality: payload.localitate,
+              BirthDate: payload.datana,
+              Email: payload.email,
+              Collaborations: '',
+              Admin: false
             })
           }
         )

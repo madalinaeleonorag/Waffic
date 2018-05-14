@@ -1,18 +1,5 @@
 <template>
     <v-container fluid>
-            <v-menu
-            origin="center center"
-            transition="scale-transition"
-            bottom>
-            <v-btn slot="activator" color="primary" dark>
-                Alege utilizator pentru afișarea istoricului colaborărilor
-            </v-btn>
-            <v-list>
-                <v-list-tile v-for="(item, i) in keysUsers" :key="i" @click="index = i">
-                <v-list-tile-title>{{ item }}</v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-menu>
       <v-data-table
         :headers="headers"
         :items="items"
@@ -37,13 +24,14 @@
           <td class="text-xs-left">{{ props.item.CoordonataLongitudine }}</td>
         </template>
       </v-data-table>
+      <v-card-actions>
+        <v-btn flat color="primary" router to = "/AllUsers">Back</v-btn>
+      </v-card-actions>
     </v-container>
 </template>
 
-
-
 <script>
-import firebase from "@/firebase";
+import firebase from "@/firebase"
 export default {
   name: "UserCollaborationsHistory",
   data() {
@@ -57,52 +45,54 @@ export default {
         { text: "Coordonata Longitudine", value: "CoordonataLongitudine" }
       ],
       items: [],
-      index: 0
-    };
+      id: this.$route.params.id
+    }
+  },
+  watch: {
+    collaborationsDetails (value) {
+      this.items = value
+    }
   },
   computed: {
     keysUsers() {
-      return this.$store.getters.keysUsers;
+      return this.$store.getters.keysUsers
+    },
+    findIndex() {
+      return this.keysUsers.indexOf(this.id)
     },
     collaborationsDetails() {
-      return firebase
-        .database()
-        .ref("UserDetails")
-        .on(
-          "value",
-          snap => {
-            var myObj = snap.val();
-            console.log("myobj:" + myObj);
-            var ceva = myObj[this.keysUsers[this.index]].Collaborations;
-            console.log("ceva:" + ceva);
-            var keysCollaborations = Object.keys(ceva);
-            console.log("keyscolab:" + keysCollaborations);
-            if (ceva !== null) {
-              keysCollaborations.forEach(key2 => {
-                var details = {};
-                details.StartDate = myObj[this.keysUsers[this.index]].Collaborations[key2].StartDate;
-                details.TypesOfCollaboration = myObj[this.keysUsers[this.index]].Collaborations[key2].TypesOfCollaboration;
-                details.DenumireCompanie = myObj[this.keysUsers[this.index]].Collaborations[key2].DenumireCompanie;
-                details.DescriereCompanie = myObj[this.keysUsers[this.index]].Collaborations[key2].DescriereCompanie;
-                details.CoordonataLatitudine = myObj[this.keysUsers[this.index]].Collaborations[key2].CoordonataLatitudine;
-                details.CoordonataLongitudine = myObj[this.keysUsers[this.index]].Collaborations[key2].CoordonataLongitudine;
-                this.items.push(details);
-              });
+      return firebase.database().ref("UserDetails/" + this.id + '/Collaborations').on("value",snap => {
+            var myObj = snap.val()
+            console.log(myObj)
+            if (myObj) {
+              var keysCollaborations = Object.keys(snap.val())
+              console.log("keyscolab:" + keysCollaborations)
+                keysCollaborations.forEach(key => {
+                  var details = {}
+                  details.StartDate = myObj[key].StartDate
+                  details.TypesOfCollaboration = myObj[key].TypesOfCollaboration
+                  details.DenumireCompanie = myObj[key].DenumireCompanie
+                  details.DescriereCompanie = myObj[key].DescriereCompanie
+                  details.CoordonataLatitudine = myObj[key].CoordonataLatitudine
+                  details.CoordonataLongitudine = myObj[key].CoordonataLongitudine
+                  this.items.push(details)
+              })
             } else {
-              details.StartDate = "none";
-              details.TypesOfCollaboration = "none";
-              details.DenumireCompanie = "none";
-              details.DescriereCompanie = "none";
-              details.CoordonataLatitudine = "none";
-              details.CoordonataLongitudine = "none";
-              this.items.push(details);
+              var details = {}
+              details.StartDate = "none"
+              details.TypesOfCollaboration = "none"
+              details.DenumireCompanie = "none"
+              details.DescriereCompanie = "none"
+              details.CoordonataLatitudine = "none"
+              details.CoordonataLongitudine = "none"
+              this.items.push(details)
             }
           },
           function(error) {
-            console.log("Error: " + error.message);
+            console.log("Error: " + error.message)
           }
-        );
+        )
     }
   }
-};
+}
 </script>

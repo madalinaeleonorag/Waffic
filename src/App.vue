@@ -56,11 +56,11 @@
 
           <!-- ADMINISTRARE-->
 
-          <v-subheader inset v-if="admin === true">ADMINISTRARE</v-subheader>
+          <v-subheader inset v-if="admin === true && user">ADMINISTRARE</v-subheader>
 
           <!-- TOTI UTILIZATORII -->
 
-          <v-list-tile v-if="admin === true">
+          <v-list-tile v-if="admin === true  && user">
             <router-link to="/AllUsers" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> account_box
@@ -76,7 +76,7 @@
 
           <!-- TOTAL USER COLABORARI -->
 
-          <v-list-tile v-if="admin === true">
+          <v-list-tile v-if="admin === true && user">
             <router-link to="/AllUsersCollaborations" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> dashboard
@@ -92,7 +92,7 @@
 
           <!-- COLABORARE 1 USER -->
 
-          <v-list-tile v-if="admin === true">
+          <v-list-tile v-if="admin === true && user">
             <router-link to="/UserCollaborationsHistory" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> calendar_today
@@ -108,7 +108,7 @@
 
           <!-- MESAJE RECEPTIONATE -->
 
-          <v-list-tile v-if="admin === true">
+          <v-list-tile v-if="admin === true && user">
             <router-link to="/ReceivedMessages" tag="li" style="cursor:pointer">
               <v-list-tile-action>
                 <v-icon> question_answer

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-sm class="pa-4">
-    <v-alert :value="true" type="warning" v-if="getCollaborationData">
+    <v-alert :value="true" type="warning" v-if="getCollaborationData.length >0">
     Colaborarea ta {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Name}} pentru compania {{getCollaborationData.DenumireCompanie}} a fost activată în data de {{getCollaborationData.StartDate}}.
     Aceasta are o durată totală de {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Duration}} zile până la reactivarea automată.
     </v-alert>
@@ -142,6 +142,7 @@
     created: function () {
       this.$store.dispatch('getCollaborationData')
       this.$store.dispatch('getTypesOfCollaborations')
+      this.$store.dispatch('getUserData')
     },
     computed: {
       user () {

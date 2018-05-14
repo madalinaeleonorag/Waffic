@@ -24,7 +24,7 @@ export default new Router({
       beforeEnter: AuthGuard
     },
     {
-      path: '/UserCollaborationsHistory',
+      path: '/UserCollaborationsHistory/:id',
       name: 'UserCollaborationsHistory',
       component: UserCollaborationsHistory,
       beforeEnter: AuthGuard

@@ -22,6 +22,11 @@
           <td class="text-xs-left">{{ props.item.BirthDate }}</td>
           <td class="text-xs-left">{{ props.item.Email }}</td>
           <td class="text-xs-left">{{ props.item.Locality }}</td>
+          <td class="text-xs-left">
+            <router-link :to="{ name: 'UserCollaborationsHistory', params: { id: props.item.Key}}" style="cursor:pointer">
+              Vezi colaborări
+            </router-link>
+          </td>
         </template>
       </v-data-table>
     </v-container>
@@ -34,12 +39,13 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Key", align: "left", value: "key" },
-        { text: "Name", value: "Name" },
-        { text: "Surname", value: "Surname" },
-        { text: "BirthDate", value: "BirthDate" },
-        { text: "Email", value: "Email" },
-        { text: "Locality", value: "Locality" }
+        { text: 'Key', align: 'left', value: 'key' },
+        { text: 'Nume', value: 'Name' },
+        { text: 'Prenume', value: 'Surname' },
+        { text: 'Data nașterii', value: 'BirthDate' },
+        { text: 'Email', value: 'Email' },
+        { text: 'Localitate', value: 'Locality' },
+        { text: '', value: '' }
       ],
       items: []
     }
@@ -50,9 +56,6 @@ export default {
     }
   },
   computed: {
-    keysUsers() {
-      return this.$store.getters.keysUsers;
-    },
     userdetails () {
       return firebase.database().ref('UserDetails')
       .on('value', snap => {
@@ -75,4 +78,3 @@ export default {
   }
 }
 </script>
-
