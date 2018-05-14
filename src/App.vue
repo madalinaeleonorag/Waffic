@@ -106,6 +106,22 @@
             </router-link>
           </v-list-tile>
 
+          <!-- MESAJE RECEPTIONATE -->
+
+          <v-list-tile v-if="admin === true">
+            <router-link to="/ReceivedMessages" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> question_answer
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/ReceivedMessages" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Mesaje
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
           <v-divider inset></v-divider>
 
           <!-- COLABORARI -->

@@ -11,7 +11,7 @@ import AuthGuard from '@/store/authGuard'
 import AllUsers from '@/components/AllUsers'
 import AllUsersCollaborations from '@/components/AllUsersCollaborations'
 import UserCollaborationsHistory from '@/components/UserCollaborationsHistory'
-
+import ReceivedMessages from '@/components/ReceivedMessages'
 
 Vue.use(Router)
 
@@ -33,6 +33,12 @@ export default new Router({
       path: '/AllUsersCollaborations',
       name: 'AllUsersCollaborations',
       component: AllUsersCollaborations,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/ReceivedMessages',
+      name: 'ReceivedMessages',
+      component: ReceivedMessages,
       beforeEnter: AuthGuard
     },
     {
