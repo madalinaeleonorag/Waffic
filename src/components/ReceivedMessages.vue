@@ -19,6 +19,15 @@
         <td class='text-xs-left'>{{ props.item.Email }}</td>
         <td class='text-xs-left'>{{ props.item.Name }}</td>
         <td class='text-xs-left'>{{ props.item.Message }}</td>
+        <td>
+          <v-btn icon v-if="props.item.Responded === false" @click="toogleFavourite(props.item)">
+            <v-icon>chat_bubble_outline</v-icon>
+          </v-btn>
+          <v-btn icon v-else><v-icon>chat</v-icon></v-btn>
+          <v-btn icon class="text-xs-right" @click="deleteItem(props.item)">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </td>
       </template>
     </v-data-table>
   </v-container>
@@ -36,15 +45,17 @@ export default {
         { text: 'Email', align: 'left', value: 'Email' },
         { text: 'Nume', value: 'Name' },
         { text: 'mesaj', value: 'Message' },
-        { text: '', value: '' }
+        { text: '', value: 'delete' }
       ],
-      items: []
+      items: [],
+      keysItems: []
     }
   },
   computed: {
     messages() {
       return firebase.database().ref('ContactMessages').on('value',snap => {
         this.items = []
+        this.keysItems = []
         var myObj = snap.val()
         if (myObj) {
           var keysMessages = Object.keys(snap.val())
@@ -53,8 +64,10 @@ export default {
               messagesDetails.Email = myObj[key].Email
               messagesDetails.Name = myObj[key].Name
               messagesDetails.Message = myObj[key].Message
+              messagesDetails.Responded = myObj[key].Responded
               this.items.push(messagesDetails)
           })
+          this.keysItems = keysMessages
         } else {
           var messagesDetails = {}
           messagesDetails.Email = 'none'
@@ -69,29 +82,46 @@ export default {
     )}
   },
   mounted () {
-      return firebase.database().ref('ContactMessages').on('value',snap => {
-        this.items = []
-        var myObj = snap.val()
-        if (myObj) {
-          var keysMessages = Object.keys(snap.val())
-            keysMessages.forEach(key => {
-              var messagesDetails = {}
-              messagesDetails.Email = myObj[key].Email
-              messagesDetails.Name = myObj[key].Name
-              messagesDetails.Message = myObj[key].Message
-              this.items.push(messagesDetails)
+    return firebase.database().ref('ContactMessages').on('value',snap => {
+      this.items = []
+      this.keysMessages = []
+      var myObj = snap.val()
+      if (myObj) {
+        var keysMessages = Object.keys(snap.val())
+          keysMessages.forEach(key => {
+            var messagesDetails = {}
+            messagesDetails.Email = myObj[key].Email
+            messagesDetails.Name = myObj[key].Name
+            messagesDetails.Message = myObj[key].Message
+            messagesDetails.Responded = myObj[key].Responded
+            this.items.push(messagesDetails)
           })
-        } else {
-          var messagesDetails = {}
-          messagesDetails.Email = 'none'
-          messagesDetails.Name = 'none'
-          messagesDetails.Message = 'none'
-          this.items.push(messagesDetails)
-        }
-      },
-      function(error) {
-        console.log('Error: ' + error.message)
+        this.keysItems = keysMessages
+      } else {
+        var messagesDetails = {}
+        messagesDetails.Email = 'none'
+        messagesDetails.Name = 'none'
+        messagesDetails.Message = 'none'
+        this.items.push(messagesDetails)
       }
-    )}
+    },
+    function(error) {
+      console.log('Error: ' + error.message)
+    }
+  )},
+  methods: {
+    deleteItem (item) {
+      var index = this.items.indexOf(item)
+      confirm('Are you sure you want to delete this item?')
+      firebase.database().ref('/ContactMessages/' + this.keysItems[index]).remove()
+    },
+    toogleFavourite (item) {
+      var index = this.items.indexOf(item)
+      var thisMessage = this.items[index]
+      if(thisMessage.Responded === false) {
+        return firebase.database().ref('ContactMessages/' + this.keysItems[index]).update({Responded: true})
+        }
+      }
+    }
   }
 </script>
