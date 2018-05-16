@@ -94,11 +94,15 @@ export default new Vuex.Store({
       return firebase.database().ref('userDestinationsHistory/' + this.state.user.uid)
         .on('value', snap => {
           const myObj = snap.val()
-          const keys = Object.keys(snap.val())
-          keys.forEach(key => {
-            commit('gotuserHistory', {'key': key, ...myObj[key]})
-          })
-          commit('getKeys', keys)
+          try {
+            const keys = Object.keys(snap.val())
+            keys.forEach(key => {
+              commit('gotuserHistory', {'key': key, ...myObj[key]})
+            })
+            commit('getKeys', keys)
+          } catch (e) {
+            console.log('no more history')
+          }
         }, function (error) {
           console.log('Error: ' + error.message)
         })
@@ -129,7 +133,6 @@ export default new Vuex.Store({
             userdetails.Surname = myObj[key].Surname
             userdetails.Email = myObj[key].Email
             allUsers.push(userdetails)
-            
           })
           commit('gotUsers', allUsers)
           commit('getKeysUsers', keysUsers)

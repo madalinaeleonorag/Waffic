@@ -150,6 +150,11 @@
       this.$store.dispatch('getTypesOfCollaborations')
       this.$store.dispatch('getUserData')
     },
+    watch: {
+      getNameCollaboration (value) {
+        this.CollaborationWarning = value
+      }
+    },
     computed: {
       user () {
         return this.$store.getters.user
@@ -159,16 +164,6 @@
       },
       getCollaborationData () {
         return this.$store.getters.getCollaborationData
-      },
-      getNameCollaboration () {
-        try {
-          this.CollaborationWarning.Name = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Name
-          this.CollaborationWarning.CompanyName = this.getCollaborationData.DenumireCompanie
-          this.CollaborationWarning.StartDate = this.getCollaborationData.StartDate
-          this.CollaborationWarning.Duration = getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Duration
-        } catch (e) {
-          console.log('not yet', e)
-        }
       },
       keysUsers () {
         return this.$store.getters.keysUsers
@@ -186,7 +181,17 @@
       },
       getTypesOfCollaborations () {
         return this.$store.getters.TypesOfCollaborations
-      }
+      },
+      getNameCollaboration () {
+        try {
+          this.CollaborationWarning.Name = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Name
+          this.CollaborationWarning.CompanyName = this.getCollaborationData.DenumireCompanie
+          this.CollaborationWarning.StartDate = this.getCollaborationData.StartDate
+          this.CollaborationWarning.Duration = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Duration
+        } catch (e) {
+          console.log('')
+        }
+      },
     },
     methods: {
       savenewdetails () {
