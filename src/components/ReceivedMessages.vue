@@ -29,7 +29,7 @@
 <script>
 import firebase from '@/firebase'
 export default {
-  name: 'UserCollaborationsHistory',
+  name: 'ReceivedMessages',
   data() {
     return {
       headers: [
@@ -41,19 +41,39 @@ export default {
       items: []
     }
   },
-  watch: {
-    messages (value) {
-      this.items = value
-    }
-  },
   computed: {
     messages() {
       return firebase.database().ref('ContactMessages').on('value',snap => {
+        this.items = []
         var myObj = snap.val()
-        console.log(myObj)
         if (myObj) {
           var keysMessages = Object.keys(snap.val())
-          console.log('keyscolab:' + keysMessages)
+            keysMessages.forEach(key => {
+              var messagesDetails = {}
+              messagesDetails.Email = myObj[key].Email
+              messagesDetails.Name = myObj[key].Name
+              messagesDetails.Message = myObj[key].Message
+              this.items.push(messagesDetails)
+          })
+        } else {
+          var messagesDetails = {}
+          messagesDetails.Email = 'none'
+          messagesDetails.Name = 'none'
+          messagesDetails.Message = 'none'
+          this.items.push(messagesDetails)
+        }
+      },
+      function(error) {
+        console.log('Error: ' + error.message)
+      }
+    )}
+  },
+  mounted () {
+      return firebase.database().ref('ContactMessages').on('value',snap => {
+        this.items = []
+        var myObj = snap.val()
+        if (myObj) {
+          var keysMessages = Object.keys(snap.val())
             keysMessages.forEach(key => {
               var messagesDetails = {}
               messagesDetails.Email = myObj[key].Email
@@ -74,5 +94,4 @@ export default {
       }
     )}
   }
-}
 </script>
