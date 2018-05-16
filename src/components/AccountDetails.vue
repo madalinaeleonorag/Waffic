@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-sm class="pa-4">
-    <v-alert :value="true" type="warning" v-if="getCollaborationData.length >0">
-    Colaborarea ta {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Name}} pentru compania {{getCollaborationData.DenumireCompanie}} a fost activată în data de {{getCollaborationData.StartDate}}.
-    Aceasta are o durată totală de {{getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Duration}} zile până la reactivarea automată.
+    <v-alert :value="true" type="warning" v-if="getCollaborationData">
+    Colaborarea ta {{CollaborationWarning.Name}} pentru compania {{CollaborationWarning.CompanyName}} a fost activată în data de {{CollaborationWarning.StartDate}}.
+    Aceasta are o durată totală de {{CollaborationWarning.Duration}} zile până la reactivarea automată.
     </v-alert>
     <v-layout wrap>
       <v-flex xs12>
@@ -136,6 +136,12 @@
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'Email invalid.'
           }
+        },
+        CollaborationWarning: {
+          Name: null,
+          Duration: null,
+          CompanyName: null,
+          StartDate: null
         }
       }
     },
@@ -153,6 +159,16 @@
       },
       getCollaborationData () {
         return this.$store.getters.getCollaborationData
+      },
+      getNameCollaboration () {
+        try {
+          this.CollaborationWarning.Name = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Name
+          this.CollaborationWarning.CompanyName = this.getCollaborationData.DenumireCompanie
+          this.CollaborationWarning.StartDate = this.getCollaborationData.StartDate
+          this.CollaborationWarning.Duration = getTypesOfCollaborations[getCollaborationData.TypesOfCollaboration].Duration
+        } catch (e) {
+          console.log('not yet', e)
+        }
       },
       keysUsers () {
         return this.$store.getters.keysUsers
@@ -201,7 +217,7 @@
         }
         }).catch(function(error){
           console.log(error.message)
-        });
+        })
       }
     }
   }

@@ -118,7 +118,6 @@ export default new Vuex.Store({
     getUserData ({commit}, payload) {
       return firebase.database().ref('UserDetails')
         .on('value', snap => {
-          // commit('refreshUsers', [])
           const myObj = snap.val()
           const keysUsers = Object.keys(snap.val())
           var allUsers = []
