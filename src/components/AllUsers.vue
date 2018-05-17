@@ -27,6 +27,11 @@
               Vezi colaborări
             </router-link>
           </td>
+          <td class="text-xs-left">
+            <router-link :to="{ name: 'UsersHistory', params: { id: props.item.Key}}" style="cursor:pointer">
+              Vezi istoric
+            </router-link>
+          </td>
         </template>
       </v-data-table>
     </v-container>
