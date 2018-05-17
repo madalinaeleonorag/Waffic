@@ -44,7 +44,7 @@ export default {
       headers: [
         { text: 'Email', align: 'left', value: 'Email' },
         { text: 'Nume', value: 'Name' },
-        { text: 'mesaj', value: 'Message' },
+        { text: 'Mesaj', value: 'Message' },
         { text: '', value: 'delete' }
       ],
       items: [],
