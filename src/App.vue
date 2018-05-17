@@ -90,22 +90,6 @@
             </router-link>
           </v-list-tile>
 
-          <!-- COLABORARE 1 USER -->
-
-          <v-list-tile v-if="admin === true && user">
-            <router-link to="/UserCollaborationsHistory" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> calendar_today
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/UserCollaborationsHistory" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Istoric colaborări utilizator
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
           <!-- MESAJE RECEPTIONATE -->
 
           <v-list-tile v-if="admin === true && user">

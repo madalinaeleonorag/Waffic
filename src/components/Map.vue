@@ -72,9 +72,9 @@
             }
           })
           // WEATHER
-          // var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
+          var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
           // var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
-          var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
+          // var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
           // var apikey = "Hl2mLAz2LxmKsiGn9YNJyKqlhbH69mJr"
           // var apikey = "FhkABGhGW6SPZDZFxamNnyK9j2gz4EhG"
           const latlong = this.location.lat + ',' + this.location.long

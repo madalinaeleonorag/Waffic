@@ -63,10 +63,8 @@ export default {
     collaborationsDetails() {
       return firebase.database().ref("UserDetails/" + this.id + '/Collaborations').on("value",snap => {
             var myObj = snap.val()
-            console.log(myObj)
             if (myObj) {
               var keysCollaborations = Object.keys(snap.val())
-              console.log("keyscolab:" + keysCollaborations)
                 keysCollaborations.forEach(key => {
                   var details = {}
                   details.StartDate = myObj[key].StartDate
