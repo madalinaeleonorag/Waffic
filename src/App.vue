@@ -10,12 +10,9 @@
                 <v-icon color="primary"> account_circle
                 </v-icon>
               </v-list-tile-action>
-            <!-- </router-link>
-            <router-link to="/Auth" tag="li" style="cursor:pointer"> -->
               <v-list-tile-title @click="signin=true" style="cursor:pointer">
                 Intră în cont / Creează cont nou
               </v-list-tile-title>
-            <!-- </router-link> -->
           </v-list-tile>
 
           <!-- DETALII CONT -->
@@ -102,6 +99,22 @@
             <router-link to="/ReceivedMessages" tag="li" style="cursor:pointer">
               <v-list-tile-title>
                 Mesaje
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
+          <!-- STATISTICI -->
+
+          <v-list-tile v-if="admin === true && user">
+            <router-link to="/Statistics" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> donut_large
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Statistics" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Statistici
               </v-list-tile-title>
             </router-link>
           </v-list-tile>

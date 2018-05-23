@@ -13,6 +13,7 @@ import AllUsersCollaborations from '@/components/AllUsersCollaborations'
 import UserCollaborationsHistory from '@/components/UserCollaborationsHistory'
 import ReceivedMessages from '@/components/ReceivedMessages'
 import UsersHistory from '@/components/UsersHistory'
+import Statistics from '@/components/Statistics'
 
 Vue.use(Router)
 
@@ -22,6 +23,12 @@ export default new Router({
       path: '/AccountDetails',
       name: 'AccountDetails',
       component: AccountDetails,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/Statistics',
+      name: 'Statistics',
+      component: Statistics,
       beforeEnter: AuthGuard
     },
     {
