@@ -8,9 +8,11 @@ import 'vuetify/dist/vuetify.min.css'
 import store from './store'
 import Vuex from 'vuex'
 import * as firebase from '@/firebase'
+import Bars from 'vuebars'
 
 Vue.use(Vuex)
 Vue.use(Vuetify)
+Vue.use(Bars)
 
 Vue.config.productionTip = false
 
