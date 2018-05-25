@@ -36,9 +36,10 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs6>
+        <v-flex xs12>
           <v-card>
             <v-card-title>
+              Raport toate destinațiile căutate de utilizatori
             </v-card-title>
             <v-card-text>
             </v-card-text>
@@ -75,24 +76,29 @@ export default {
       allDestinations: []
     }
   },
-  computed: {
-    getAllDestinations() {
-      return firebase.database().ref('userDestinationsHistory')
-          .on('value', snap => {
-            var allDest = []
-            const myObj = snap.val()
-            const keysUsers = Object.keys(snap.val())
-            keysUsers.forEach(key => {
-              const keysHistory = Object.keys(myObj[key])
-              keysHistory.forEach(key1 => {
-                allDest.push(myObj[key][key1].Finish)
-              })
-            })
-            this.allDestinations = allDest
-          }, error => {
-            console.log('Error: ' + error.message)
+  mounted () {
+     return firebase.database().ref('userDestinationsHistory')
+      .on('value', snap => {
+        var allDest = []
+        const myObj = snap.val()
+        const keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          const keysHistory = Object.keys(myObj[key])
+          keysHistory.forEach(key1 => {
+            allDest.push(myObj[key][key1].Finish)
           })
-    }
+        })
+        this.allDestinations = allDest
+        var uniqueArray = allDest.filter(function(item, pos) {
+            return allDest.indexOf(item) == pos;
+        })
+        console.log(uniqueArray)
+      }, error => {
+        console.log('Error: ' + error.message)
+      })
+  },
+  computed: {
+    
   }
 }
 </script>
