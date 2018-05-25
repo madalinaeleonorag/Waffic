@@ -159,7 +159,7 @@
                   v-model="password"
                   min="8"
                   :append-icon-cb="() => (e1 = !e1)"
-                  :type="e1 ? 'password' : 'text'"
+                  :type="'password'"
                   :rules="[rules.required]"
                   counter
                 >
@@ -172,7 +172,7 @@
                   hint="Minim 8 caractere"
                   v-model="confirmPassword"
                   min="8"
-                  :type="e1 ? 'password' : 'text'"
+                  :type="'password'"
                   :rules="[comparePasswords]"
                 >
                 </v-text-field>

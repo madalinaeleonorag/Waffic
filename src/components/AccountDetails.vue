@@ -72,7 +72,7 @@
           hint="Minim 6 caractere"
           v-model="OldPassword"
           min="6"
-          :type="e1 ? 'password' : 'text'"
+          :type="'password'"
           id = "OldPassword"
           required>
         </v-text-field>
@@ -85,7 +85,7 @@
             v-model="password"
             min="6"
             :append-icon-cb="() => (e1 = !e1)"
-            :type="e1 ? 'password' : 'text'"
+            :type="'password'"
             counter
           >
           </v-text-field>
@@ -97,7 +97,7 @@
             hint="Minim 6 caractere"
             v-model="confirmPassword"
             min="6"
-            :type="e1 ? 'password' : 'text'"
+            :type="'password'"
             :rules="[comparePasswords]"
             id = "NewPassword"
           >

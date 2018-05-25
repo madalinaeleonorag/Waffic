@@ -119,7 +119,7 @@
 -->
 
            <!-- COLABORARI -->
- 
+
            <v-list-tile>
              <router-link to="/Collaboration" tag="li" style="cursor:pointer">
                <v-list-tile-action>
@@ -133,7 +133,7 @@
                </v-list-tile-title>
              </router-link>
            </v-list-tile>
-           
+
           <!-- AJUTOR -->
 
           <v-list-tile>
@@ -326,7 +326,7 @@
                   v-model="password"
                   min="8"
                   :append-icon-cb="() => (e1 = !e1)"
-                  :type="e1 ? 'password' : 'text'"
+                  :type="'password'"
                   :rules="[rules.required]"
                   counter
                 >
@@ -339,7 +339,7 @@
                   hint="Minim 8 caractere"
                   v-model="confirmPassword"
                   min="8"
-                  :type="e1 ? 'password' : 'text'"
+                  :type="'password'"
                   :rules="[comparePasswords]"
                 >
                 </v-text-field>
@@ -631,6 +631,9 @@ export default {
         Responded: false
       })
       this.contactform=false
+      this.emailcontact = null
+      this.mesajcontact = null
+      this.numecontact = null
     },
     userRecover () {
       const emailprompt = prompt("Introdu emailul pentru care dorești recuperarea parolei", "");
