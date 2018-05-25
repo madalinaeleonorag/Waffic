@@ -8,8 +8,6 @@ import News from '@/components/News'
 import Collaboration from '@/components/Collaboration'
 import Map from '@/components/Map'
 import AuthGuard from '@/store/authGuard'
-import AllUsers from '@/components/AllUsers'
-import AllUsersCollaborations from '@/components/AllUsersCollaborations'
 import UserCollaborationsHistory from '@/components/UserCollaborationsHistory'
 import ReceivedMessages from '@/components/ReceivedMessages'
 import UsersHistory from '@/components/UsersHistory'
@@ -44,12 +42,6 @@ export default new Router({
       beforeEnter: AuthGuard
     },
     {
-      path: '/AllUsersCollaborations',
-      name: 'AllUsersCollaborations',
-      component: AllUsersCollaborations,
-      beforeEnter: AuthGuard
-    },
-    {
       path: '/ReceivedMessages',
       name: 'ReceivedMessages',
       component: ReceivedMessages,
@@ -75,12 +67,6 @@ export default new Router({
       path: '/History',
       name: 'History',
       component: History,
-      beforeEnter: AuthGuard
-    },
-    {
-      path: '/AllUsers',
-      name: 'AllUsers',
-      component: AllUsers,
       beforeEnter: AuthGuard
     },
     {

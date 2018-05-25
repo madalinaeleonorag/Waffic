@@ -55,38 +55,6 @@
 
           <v-subheader inset v-if="admin === true && user">ADMINISTRARE</v-subheader>
 
-          <!-- TOTI UTILIZATORII -->
-
-          <v-list-tile v-if="admin === true  && user">
-            <router-link to="/AllUsers" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> account_box
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/AllUsers" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Toți utilizatorii
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
-          <!-- TOTAL USER COLABORARI -->
-
-          <v-list-tile v-if="admin === true && user">
-            <router-link to="/AllUsersCollaborations" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon> dashboard
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/AllUsersCollaborations" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Colaborări totale
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-
           <!-- MESAJE RECEPTIONATE -->
 
           <v-list-tile v-if="admin === true && user">
@@ -114,28 +82,12 @@
             </router-link>
             <router-link to="/Statistics" tag="li" style="cursor:pointer">
               <v-list-tile-title>
-                Statistici
+                Statistici și rapoarte
               </v-list-tile-title>
             </router-link>
           </v-list-tile>
 
           <v-divider inset></v-divider>
-
-          <!-- COLABORARI -->
-
-          <v-list-tile>
-            <router-link to="/Collaboration" tag="li" style="cursor:pointer">
-              <v-list-tile-action>
-                <v-icon color="primary"> add_shopping_cart
-                </v-icon>
-              </v-list-tile-action>
-            </router-link>
-            <router-link to="/Collaboration" tag="li" style="cursor:pointer">
-              <v-list-tile-title>
-                Colaborări
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
 
           <!-- CONTACT -->
 
