@@ -12,7 +12,6 @@ import Bars from 'vuebars'
 
 Vue.use(Vuex)
 Vue.use(Vuetify)
-Vue.use(Bars)
 
 Vue.config.productionTip = false
 

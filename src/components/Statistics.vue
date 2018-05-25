@@ -112,20 +112,20 @@
           </v-card>
         </v-flex>
 
-<!-- STATISTICA: Top utilizatori activi -->
-        <!-- <v-flex xs4>
+<!-- RAPORT: Top utilizatori activi -->
+        <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="warning"> sentiment_very_satisfied
+              <v-icon color="primary"> sentiment_very_satisfied
               </v-icon>
               Top utilizatori activi
             </v-card-title>
             <v-card-text>
               <v-card>
               <v-list>
-                <v-list-tile v-for="(item, index) in topDestination" :key="index">
+                <v-list-tile v-for="(item, index) in topusersHistory" :key="index">
                   <v-list-tile-action>
-                    <v-icon v-if="index === 0" color="warning">star</v-icon>
+                    <v-icon v-if="index === 0" color="primary">star</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -135,47 +135,47 @@
               </v-card>
             </v-card-text>
           </v-card>
-        </v-flex> -->
+        </v-flex>
 
-<!-- STATISTICA: Top destinatii dupa cautari -->
+<!-- RAPORT: Top destinatii dupa cautari -->
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="warning"> directions_car
+              <v-icon color="primary"> directions_car
               </v-icon>
               Top destinații căutate
             </v-card-title>
             <v-card-text>
               <v-card>
-              <v-list>
-                <v-list-tile v-for="(item, index) in topDestination" :key="index">
-                  <v-list-tile-action>
-                    <v-icon v-if="index === 0" color="warning">star</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-text="item"></v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
+                <v-list>
+                  <v-list-tile v-for="(item, index) in topDestination" :key="index">
+                    <v-list-tile-action>
+                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title v-text="item"></v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
               </v-card>
             </v-card-text>
-          </v-card>
+           </v-card>
         </v-flex>
 
-<!-- STATISTICA: Top cei mai activi colaboratori -->
-        <!-- <v-flex xs4>
+<!-- RAPORT: Top cei mai activi colaboratori -->
+        <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="warning"> business_center
+              <v-icon color="primary"> business_center
               </v-icon>
-              Top cei mai activi colaboratori
+              Top colaboratori
             </v-card-title>
             <v-card-text>
               <v-card>
               <v-list>
-                <v-list-tile v-for="(item, index) in topDestination" :key="index">
+                <v-list-tile v-for="(item, index) in topusersCollab" :key="index">
                   <v-list-tile-action>
-                    <v-icon v-if="index === 0" color="warning">star</v-icon>
+                    <v-icon v-if="index === 0" color="primary">star</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -185,23 +185,34 @@
               </v-card>
             </v-card-text>
           </v-card>
-        </v-flex> -->
+        </v-flex>
 
+<!-- STATISTICA: Useri CU/FARA colaborari -->
         <v-flex xs6>
           <v-card>
             <v-card-title>
+              <v-icon color="warning">
+                work
+              </v-icon>
+              Utilizatori cu/fără colaborări
             </v-card-title>
             <v-card-text>
-              
+              <div id="piechart1"></div>
             </v-card-text>
           </v-card>
         </v-flex>
 
+<!-- STATISTICA: Useri CU/FARA istoric -->
         <v-flex xs6>
           <v-card>
             <v-card-title>
+              <v-icon color="warning">
+                history
+              </v-icon>
+              Utilizatori cu/fără istoric
             </v-card-title>
             <v-card-text>
+              <div id="piechart2"></div>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -214,9 +225,7 @@
 
 <script>
 import Vue from 'vue'
-import Chart from 'chart.js'
 import firebase from "@/firebase"
-
 export default {
   name: "Statistics",
   data() {
@@ -247,14 +256,24 @@ export default {
         { text: 'Descriere companie', value: ''}
       ],
       items2: [],
-      topDestination: []
+      topDestination: [],
+      topusersHistory: [],
+      topusersCollab: [],
+      usersWithCollab: 0,
+      usersWithoutCollab: 0,
+      usersWithHistory: 0,
+      usersWithoutHistory: 0
     }
   },
   mounted () {
+    this.topusersbyCollaborations()
     this.userdetails()
     this.allUsersDestinations()
     this.collaborationsDetails()
     this.topDestinations()
+    this.topUsersbySearch()
+    this.piechart1()
+    this.piechart2()
   },
   methods: {
     userdetails () {
@@ -324,7 +343,7 @@ export default {
         console.log('Error: ' + error.message)
       })
     },
-    topDestinations() {
+    topDestinations () {
       return firebase.database().ref('userDestinationsHistory')
       .on('value', snap => {
         var allDest = []
@@ -364,6 +383,113 @@ export default {
       }, error => {
         console.log('Error: ' + error.message)
       })
+    },
+    topUsersbySearch () {
+      return firebase.database().ref('userDestinationsHistory')
+      .on('value', snap => {
+        const myObj = snap.val()
+        const topSearch = []
+        const numbers = []
+        const keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          numbers.push(Object.keys(myObj[key]).length)
+        })
+        this.usersWithHistory = keysUsers.length
+        for(var i = 0; i < 3; i ++) {
+          for(var j = 0; j < numbers.length; j ++) {
+            if(numbers.length == 0) console.log('e gol')
+              if(Math.max(...numbers) !== 0) {
+              var a = numbers.indexOf(Math.max(...numbers))
+              topSearch.push(keysUsers[a])
+              numbers[a] = 0
+              }
+            }
+          }
+         this.topusersHistory = topSearch
+        }, error => {
+        console.log('Error: ' + error.message)
+      })
+    },
+    topusersbyCollaborations () {
+      return firebase.database().ref('UserDetails')
+      .on('value', snap => {
+        const topSearch = []
+        const numbers = []
+        var myObj = snap.val()
+        var keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          numbers.push(Object.keys(myObj[key].Collaborations).length)
+          if(Object.keys(myObj[key].Collaborations).length === 0) {
+            this.usersWithoutCollab = +this.usersWithoutCollab + 1
+          } else {
+            this.usersWithCollab = +this.usersWithCollab + 1
+          }
+        })
+        for(var i = 0; i < 3; i ++) {
+          for(var j = 0; j < numbers.length; j ++) {
+            if(numbers.length == 0) console.log('e gol')
+              if(Math.max(...numbers) !== 0) {
+              var a = numbers.indexOf(Math.max(...numbers))
+              topSearch.push(keysUsers[a])
+              numbers[a] = 0
+              }
+            }
+          }
+        this.topusersCollab = topSearch
+      }, function (error) {
+        console.log('Error: ' + error.message)
+      })
+    },
+    piechart1 () {
+      var withCollab = this.usersWithCollab
+      var WithoutCollab = this.usersWithoutCollab
+      window.google.charts.load('current', {packages: ['corechart']})
+      window.google.charts.setOnLoadCallback(drawChart)
+      function drawChart () {
+        var data = window.google.visualization.arrayToDataTable([
+          ['Tip', 'Numar'],
+          ['Cu Colaborări', withCollab],
+          ['Fără Colaborări', WithoutCollab]
+        ])
+        var options = {
+          is3D: false
+        }
+        var chart = new window.google.visualization.PieChart(document.getElementById('piechart1'))
+        chart.draw(data, options)
+      }
+    },
+    piechart2 () {
+      var keysLength
+      var withHistory
+      firebase.database().ref('UserDetails')
+      .on('value', snap => {
+        keysLength = Object.keys(snap.val()).length
+        })
+      , error => {
+      console.log('Error: ' + error.message)
+      }
+      firebase.database().ref('userDestinationsHistory')
+      .on('value', snap => {
+        withHistory = Object.keys(snap.val()).length
+        })
+      , error => {
+      console.log('Error: ' + error.message)
+      }
+      var WithoutHistory = keysLength - withHistory
+      window.google.charts.load('current', {packages: ['corechart']})
+      window.google.charts.setOnLoadCallback(drawChart)
+      function drawChart () {
+        var data = window.google.visualization.arrayToDataTable([
+          ['Tip', 'Numar'],
+          ['Cu Istoric', withHistory],
+          ['Fără Istoric', WithoutHistory]
+        ])
+        var options = {
+          is3D: false
+        }
+        var chart = new window.google.visualization.PieChart(document.getElementById('piechart2'))
+        chart.draw(data, options)
+      }
     }
   }
 }
