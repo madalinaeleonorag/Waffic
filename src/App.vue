@@ -117,6 +117,23 @@
             </router-link>
           </v-list-tile>
 -->
+
+           <!-- COLABORARI -->
+ 
+           <v-list-tile>
+             <router-link to="/Collaboration" tag="li" style="cursor:pointer">
+               <v-list-tile-action>
+                 <v-icon color="primary"> add_shopping_cart
+                 </v-icon>
+               </v-list-tile-action>
+             </router-link>
+             <router-link to="/Collaboration" tag="li" style="cursor:pointer">
+               <v-list-tile-title>
+                 Colaborări
+               </v-list-tile-title>
+             </router-link>
+           </v-list-tile>
+           
           <!-- AJUTOR -->
 
           <v-list-tile>

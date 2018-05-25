@@ -396,13 +396,11 @@ export default {
         })
         this.usersWithHistory = keysUsers.length
         for(var i = 0; i < 3; i ++) {
-          for(var j = 0; j < numbers.length; j ++) {
-            if(numbers.length == 0) console.log('e gol')
-              if(Math.max(...numbers) !== 0) {
-              var a = numbers.indexOf(Math.max(...numbers))
-              topSearch.push(keysUsers[a])
-              numbers[a] = 0
-              }
+          if(numbers.length == 0) console.log('e gol')
+            if(Math.max(...numbers) !== 0) {
+            var a = numbers.indexOf(Math.max(...numbers))
+            topSearch.push(keysUsers[a])
+            numbers[a] = 0
             }
           }
          this.topusersHistory = topSearch
@@ -426,13 +424,11 @@ export default {
           }
         })
         for(var i = 0; i < 3; i ++) {
-          for(var j = 0; j < numbers.length; j ++) {
-            if(numbers.length == 0) console.log('e gol')
-              if(Math.max(...numbers) !== 0) {
-              var a = numbers.indexOf(Math.max(...numbers))
-              topSearch.push(keysUsers[a])
-              numbers[a] = 0
-              }
+          if(numbers.length == 0) console.log('e gol')
+            if(Math.max(...numbers) !== 0) {
+            var a = numbers.indexOf(Math.max(...numbers))
+            topSearch.push(keysUsers[a])
+            numbers[a] = 0
             }
           }
         this.topusersCollab = topSearch
