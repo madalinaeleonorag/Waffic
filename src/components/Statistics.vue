@@ -243,7 +243,7 @@
         </v-flex>
 
 
-        
+    
       </v-layout>
     </v-container>
 
@@ -275,6 +275,7 @@ export default {
         { text: '--', value: 'b' }
       ],
       items: [],
+      usersLocations: [],
       headers2: [
         { text: 'Utilizator', align: 'left', value: 'utilizator'},
         { text: 'Data start', align: 'left', value: 'dataStart'},
@@ -284,7 +285,6 @@ export default {
       ],
       items2: [],
       topDestination: [],
-      usersLocations: [],
       topusersHistory: [],
       topusersCollab: [],
       usersWithCollab: 0,
@@ -516,6 +516,47 @@ export default {
         chart.draw(data, options)
       }
     },
+    topDestinations () {
+      return firebase.database().ref('userDestinationsHistory')
+      .on('value', snap => {
+        var allDest = []
+        const myObj = snap.val()
+        const keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          const keysHistory = Object.keys(myObj[key])
+          keysHistory.forEach(key1 => {
+            allDest.push(myObj[key][key1].Finish)
+          })
+        })
+        for(var j = 0; j < 3; j ++) {
+          if(allDest.length == 0) console.log('e gol')
+          var modeMap = {}
+          var maxEl = allDest[0], maxCount = 1
+          for(var i = 0; i < allDest.length; i++)
+            {
+              var el = allDest[i]
+              if(modeMap[el] == null)
+                modeMap[el] = 1
+              else
+                modeMap[el]++
+              if(modeMap[el] > maxCount)
+              {
+                maxEl = el
+                maxCount = modeMap[el]
+              }
+            }
+            for(var i = 0; i < allDest.length; i++)
+            {
+              if(maxEl.localeCompare(allDest[i]) == 0) {
+                allDest.splice(i,1)
+              }
+            }
+          this.topDestination.push(maxEl)
+        }
+      }, error => {
+        console.log('Error: ' + error.message)
+      })
+    },
     topUsersLocations () {
       return firebase.database().ref('UserDetails')
       .on('value', snap => {
@@ -536,7 +577,7 @@ export default {
                 modeMap[el] = 1
               else
                 modeMap[el]++
-              if(modeMap[el] > maxCount)
+             if(modeMap[el] > maxCount)
               {
                 maxEl = el
                 maxCount = modeMap[el]
