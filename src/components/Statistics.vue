@@ -267,6 +267,31 @@
            </v-card>
         </v-flex>
 
+<!-- RAPORT: Top tipuri colaborari active -->
+        <v-flex xs4>
+          <v-card>
+            <v-card-title>
+              <v-icon color="primary"> calendar_today
+              </v-icon>
+              Top vârste utilizatori
+            </v-card-title>
+            <v-card-text>
+              <v-card>
+                <v-list>
+                  <v-list-tile v-for="(item, index) in userAges" :key="index">
+                    <v-list-tile-action>
+                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title v-text="item"></v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+              </v-card>
+            </v-card-text>
+           </v-card>
+        </v-flex>
+
       </v-layout>
     </v-container>
 
@@ -276,6 +301,7 @@
 <script>
 import Vue from 'vue'
 import firebase from "@/firebase"
+import moment from "moment"
 export default {
   name: "Statistics",
   data() {
@@ -314,7 +340,8 @@ export default {
       usersWithoutCollab: 0,
       usersWithHistory: 0,
       usersWithoutHistory: 0,
-      topCollabs: []
+      topCollabs: [],
+      userAges: []
     }
   },
   mounted () {
@@ -328,6 +355,7 @@ export default {
     this.piechart2()
     this.topUsersLocations()
     this.topCollaborations()
+    this.usersAges()
   },
   methods: {
     userdetails () {
@@ -647,7 +675,6 @@ export default {
             }
             for(var i = 0; i < allCollabs.length; i++)
             {
-              debugger
               if(maxEl === allCollabs[i]) {
                 allCollabs.splice(i,1)
               }
@@ -657,7 +684,51 @@ export default {
       }, error => {
         console.log('Error: ' + error.message)
       })
-    }
+    },
+    usersAges () {
+      return firebase.database().ref('UserDetails')
+      .on('value', snap => {
+        var allAgesinNumber = []
+        var allAges = []
+        const myObj = snap.val()
+        const keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          var x = myObj[key].BirthDate
+          allAges.push(moment(x).format())
+        })
+        console.log(allAges)
+        for(var i = 0; i < allAges.length; i ++) {
+          allAges[i] = Math.round(moment.duration(moment(new Date()).diff(moment(allAges[i]))).asYears())
+        }
+        for(var j = 0; j < 3; j ++) {
+          if(allAges.length == 0) console.log('e gol')
+          var modeMap = {}
+          var maxEl = allAges[0], maxCount = 1
+          for(var i = 0; i < allAges.length; i++)
+            {
+              var el = allAges[i]
+              if(modeMap[el] == null)
+                modeMap[el] = 1
+              else
+                modeMap[el]++
+             if(modeMap[el] > maxCount)
+              {
+                maxEl = el
+                maxCount = modeMap[el]
+              }
+            }
+            for(var i = 0; i < allAges.length; i++)
+            {
+              if(maxEl === allAges[i]) {
+                allAges.splice(i,1)
+              }
+            }
+          this.userAges.push(maxEl)
+        }
+      }, error => {
+        console.log('Error: ' + error.message)
+      })
+    },
   }
 }
 </script>
