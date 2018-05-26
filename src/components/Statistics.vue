@@ -404,23 +404,24 @@ export default {
       return firebase.database().ref('UserDetails')
       .on('value', snap => {
         var myObj = snap.val()
+        var alldetails = []
         var keysUsers = Object.keys(snap.val())
         keysUsers.forEach(key => {
-            if(myObj[key].Collaborations) {
-              var alldetails = []
-              var keysCollaborations = Object.keys(myObj[key].Collaborations)
-              keysCollaborations.forEach(key2 => {
-                  var details = {}
-                  details.Utilizator = key
-                  details.StartDate = myObj[key].Collaborations[key2].StartDate
-                  details.TypesOfCollaboration = myObj[key].Collaborations[key2].TypesOfCollaboration
-                  details.DenumireCompanie = myObj[key].Collaborations[key2].DenumireCompanie
-                  details.DescriereCompanie = myObj[key].Collaborations[key2].DescriereCompanie
-                  alldetails.push(details)
-              })
-            this.items2 = alldetails
+          if(myObj[key].Collaborations) {
+            console.log(alldetails)
+            var keysCollaborations = Object.keys(myObj[key].Collaborations)
+            keysCollaborations.forEach(key2 => {
+              var details = {}
+              details.Utilizator = key
+              details.StartDate = myObj[key].Collaborations[key2].StartDate
+              details.TypesOfCollaboration = myObj[key].Collaborations[key2].TypesOfCollaboration
+              details.DenumireCompanie = myObj[key].Collaborations[key2].DenumireCompanie
+              details.DescriereCompanie = myObj[key].Collaborations[key2].DescriereCompanie
+              alldetails.push(details)
+            })
           }
         })
+        this.items2 = alldetails
       }, function (error) {
         console.log('Error: ' + error.message)
       })
