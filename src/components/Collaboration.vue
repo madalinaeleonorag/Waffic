@@ -319,17 +319,19 @@
     },
     methods: {
       BuyColaboration () {
-        this.buy = true
+        if(this.user) {
+          this.buy = true
+            } else {
+          this.signin = true
+        }
       },
       Payment() {
         var collaborationTypes =['1week','HappyMonth','BeOnline','What about six?','Forget about payment']
         this.buy = false
         var index = collaborationTypes.indexOf(this.selected)
-        debugger
         var day = new Date()
         var dayWrapper = moment(day)
         var dayString = dayWrapper.format("YYYY-MM-DD")
-        debugger
         firebase.database().ref('/UserDetails/' + this.user.uid + '/Collaborations/').push({
           StartDate: dayString,
           TypesOfCollaboration: index,
@@ -346,7 +348,6 @@
           CoordonataLatitudine: this.CoordonataLatitudine,
           CoordonataLongitudine: this.CoordonataLongitudine
         })
-        debugger
       },
       userSignin () {
         this.$store.dispatch('signIn', {email: this.email, password: this.password})
