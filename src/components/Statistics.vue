@@ -217,6 +217,33 @@
           </v-card>
         </v-flex>
 
+<!-- RAPORT: Top locații utilizatori -->
+        <v-flex xs4>
+          <v-card>
+            <v-card-title>
+              <v-icon color="primary"> location_city
+              </v-icon>
+              Top domicilii utilizatori
+            </v-card-title>
+            <v-card-text>
+              <v-card>
+                <v-list>
+                  <v-list-tile v-for="(item, index) in usersLocations" :key="index">
+                    <v-list-tile-action>
+                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title v-text="item"></v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+              </v-card>
+            </v-card-text>
+           </v-card>
+        </v-flex>
+
+
+        
       </v-layout>
     </v-container>
 
@@ -257,6 +284,7 @@ export default {
       ],
       items2: [],
       topDestination: [],
+      usersLocations: [],
       topusersHistory: [],
       topusersCollab: [],
       usersWithCollab: 0,
@@ -274,6 +302,7 @@ export default {
     this.topUsersbySearch()
     this.piechart1()
     this.piechart2()
+    this.topUsersLocations()
   },
   methods: {
     userdetails () {
@@ -486,7 +515,45 @@ export default {
         var chart = new window.google.visualization.PieChart(document.getElementById('piechart2'))
         chart.draw(data, options)
       }
-    }
+    },
+    topUsersLocations () {
+      return firebase.database().ref('UserDetails')
+      .on('value', snap => {
+        var allLocations = []
+        const myObj = snap.val()
+        const keysUsers = Object.keys(snap.val())
+        keysUsers.forEach(key => {
+          allLocations.push(myObj[key].Locality)
+        })
+        for(var j = 0; j < 3; j ++) {
+          if(allLocations.length == 0) console.log('e gol')
+          var modeMap = {}
+          var maxEl = allLocations[0], maxCount = 1
+          for(var i = 0; i < allLocations.length; i++)
+            {
+              var el = allLocations[i]
+              if(modeMap[el] == null)
+                modeMap[el] = 1
+              else
+                modeMap[el]++
+              if(modeMap[el] > maxCount)
+              {
+                maxEl = el
+                maxCount = modeMap[el]
+              }
+            }
+            for(var i = 0; i < allLocations.length; i++)
+            {
+              if(maxEl.localeCompare(allLocations[i]) == 0) {
+                allLocations.splice(i,1)
+              }
+            }
+          this.usersLocations.push(maxEl)
+        }
+      }, error => {
+        console.log('Error: ' + error.message)
+      })
+    },
   }
 }
 </script>
