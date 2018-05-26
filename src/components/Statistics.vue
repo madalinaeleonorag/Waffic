@@ -242,8 +242,31 @@
            </v-card>
         </v-flex>
 
+<!-- RAPORT: Top tipuri colaborari active -->
+        <v-flex xs4>
+          <v-card>
+            <v-card-title>
+              <v-icon color="primary"> attach_money
+              </v-icon>
+              Top tip colaborari active
+            </v-card-title>
+            <v-card-text>
+              <v-card>
+                <v-list>
+                  <v-list-tile v-for="(item, index) in topCollabs" :key="index">
+                    <v-list-tile-action>
+                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title v-text="item"></v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+              </v-card>
+            </v-card-text>
+           </v-card>
+        </v-flex>
 
-    
       </v-layout>
     </v-container>
 
@@ -290,7 +313,8 @@ export default {
       usersWithCollab: 0,
       usersWithoutCollab: 0,
       usersWithHistory: 0,
-      usersWithoutHistory: 0
+      usersWithoutHistory: 0,
+      topCollabs: []
     }
   },
   mounted () {
@@ -303,6 +327,7 @@ export default {
     this.piechart1()
     this.piechart2()
     this.topUsersLocations()
+    this.topCollaborations()
   },
   methods: {
     userdetails () {
@@ -595,6 +620,44 @@ export default {
         console.log('Error: ' + error.message)
       })
     },
+    topCollaborations () {
+      return firebase.database().ref('Collaborations')
+      .on('value', snap => {
+        var allCollabs = []
+        const myObj = snap.val()
+        const keysCollabs = Object.keys(snap.val())
+        keysCollabs.forEach(key => {
+          allCollabs.push(myObj[key].TypesOfCollaboration)
+        })
+        for(var j = 0; j < 3; j ++) {
+          var modeMap = {}
+          var maxEl = allCollabs[0], maxCount = 1
+          for(var i = 0; i < allCollabs.length; i++)
+            {
+              var el = allCollabs[i]
+              if(modeMap[el] == null)
+                modeMap[el] = 1
+              else
+                modeMap[el]++
+             if(modeMap[el] > maxCount)
+              {
+                maxEl = el
+                maxCount = modeMap[el]
+              }
+            }
+            for(var i = 0; i < allCollabs.length; i++)
+            {
+              debugger
+              if(maxEl === allCollabs[i]) {
+                allCollabs.splice(i,1)
+              }
+            }
+          this.topCollabs.push(maxEl)
+        }
+      }, error => {
+        console.log('Error: ' + error.message)
+      })
+    }
   }
 }
 </script>
