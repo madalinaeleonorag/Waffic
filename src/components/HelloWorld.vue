@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <template>
-          <v-parallax src="/assets/HelloWorld/accountdetails.png" height="300"></v-parallax>
+          <v-parallax :src="require('../assets/HelloWorld/accountdetails.PNG')"></v-parallax>
         </template>
         <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5">
       </v-layout>
