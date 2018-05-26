@@ -408,7 +408,6 @@ export default {
         var keysUsers = Object.keys(snap.val())
         keysUsers.forEach(key => {
           if(myObj[key].Collaborations) {
-            console.log(alldetails)
             var keysCollaborations = Object.keys(myObj[key].Collaborations)
             keysCollaborations.forEach(key2 => {
               var details = {}
@@ -652,6 +651,8 @@ export default {
     topCollaborations () {
       return firebase.database().ref('Collaborations')
       .on('value', snap => {
+        var collaborationTypes =['1week','HappyMonth','BeOnline','What about six?','Forget about payment']
+        var allTopCollabs = []
         var allCollabs = []
         const myObj = snap.val()
         const keysCollabs = Object.keys(snap.val())
@@ -680,8 +681,13 @@ export default {
                 allCollabs.splice(i,1)
               }
             }
-          this.topCollabs.push(maxEl)
+          allTopCollabs.push(maxEl)
         }
+        for(var i = 0; i < allTopCollabs.length; i++)
+        {
+          allTopCollabs[i] = collaborationTypes[i]
+        }
+        this.topCollabs = allTopCollabs
       }, error => {
         console.log('Error: ' + error.message)
       })
@@ -697,7 +703,6 @@ export default {
           var x = myObj[key].BirthDate
           allAges.push(moment(x).format())
         })
-        console.log(allAges)
         for(var i = 0; i < allAges.length; i ++) {
           allAges[i] = Math.round(moment.duration(moment(new Date()).diff(moment(allAges[i]))).asYears())
         }
