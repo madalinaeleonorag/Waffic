@@ -87,7 +87,13 @@ export default new Vuex.Store({
     },
     getCollaboration: (state, payload) => {
       state.getCollaborationData = payload
-    }
+    },
+    setNullWT: (state, payload) => {
+      state.destinationWeather.icon = payload
+      state.destinationWeather.temperature = payload
+      state.Weather.icon = payload
+      state.Weather.temperature = payload
+    },
   },
   actions: {
     getData ({commit}, payload) {
@@ -225,6 +231,7 @@ export default new Vuex.Store({
     signOut ({commit}) {
       firebase.auth().signOut().then(function () {
         commit('setUser', null)
+        commit('setNullWT', null)
         router.push({ path: '/' })
       }).catch(
         error => {

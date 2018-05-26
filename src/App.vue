@@ -178,7 +178,9 @@
       <v-toolbar-title style="width: 20%" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer">
         </v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">WAFFIC</span>
+        <router-link to="/" style="cursor:pointer">
+          <span class="hidden-sm-and-down">WAFFIC</span>
+        </router-link>
       </v-toolbar-title>
       <v-toolbar-title style="width: 10%" v-if="(this.Weather.temperature) && (this.user)">
         {{Weather.temperature}} &ordm;C
