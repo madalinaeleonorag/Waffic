@@ -292,6 +292,20 @@
            </v-card>
         </v-flex>
 
+<!-- STATISTICA: Barchart frecventa varste -->
+        <v-flex>
+          <v-card>
+            <v-card-title>
+              <v-icon color="warning">
+                perm_identity
+              </v-icon>
+              Frecvența vârstelor utilizatorilor
+            </v-card-title>
+            <v-card-text>
+              <div id="barchart1"></div>
+            </v-card-text>
+          </v-card>
+        </v-flex>
       </v-layout>
     </v-container>
 
@@ -357,6 +371,7 @@ export default {
     this.topUsersLocations()
     this.topCollaborations()
     this.usersAges()
+    this.barchart()
   },
   methods: {
     userdetails () {
@@ -722,6 +737,40 @@ export default {
         console.log('Error: ' + error.message)
       })
     },
+    barchart () {
+        var a = []
+        var b = []
+        var prev
+        this.allUsersAges.sort()
+        for ( var i = 0; i < this.allUsersAges.length; i++ ) {
+            if ( this.allUsersAges[i] !== prev ) {
+                a.push(this.allUsersAges[i])
+                b.push(1)
+            } else {
+                b[b.length-1]++
+            }
+            prev = this.allUsersAges[i]
+        }
+        var x = [[ 'Ani', 'Frecvență', { role: 'style' } ]]
+        for (var i = 0; i < a.length; i++) {
+          x.push([a[i], b[i], 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')'])
+        }
+        window.google.charts.setOnLoadCallback(() => {
+          var view = new window.google.visualization.DataView(
+            window.google.visualization.arrayToDataTable(x))
+           view.setColumns([0, 1,
+             { calc: 'stringify',
+               sourceColumn: 1,
+               type: 'string',
+               role: 'annotation' },
+             2])
+          var chart = new window.google.visualization.ColumnChart(document.getElementById('barchart1'))
+          chart.draw(view, {
+             height: 400,
+             bar: {groupWidth: '95%'},
+            legend: { position: 'none' }})
+        })
+    }
   }
 }
 </script>
