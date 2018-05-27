@@ -28,12 +28,6 @@
                   </v-tooltip>
                 </template>
                 <template slot="items" slot-scope="props">
-                  <td class="text-xs-left">{{ props.item.Key }}</td>
-                  <td class="text-xs-left">{{ props.item.Name }}</td>
-                  <td class="text-xs-left">{{ props.item.Surname }}</td>
-                  <td class="text-xs-left">{{ props.item.BirthDate }}</td>
-                  <td class="text-xs-left">{{ props.item.Email }}</td>
-                  <td class="text-xs-left">{{ props.item.Locality }}</td>
                   <td class="text-xs-left">
                     <router-link :to="{ name: 'UserCollaborationsHistory', params: { id: props.item.Key}}" style="cursor:pointer">
                       Vezi colaborări
@@ -44,6 +38,12 @@
                       Vezi istoric
                     </router-link>
                   </td>
+                  <td class="text-xs-left">{{ props.item.Key }}</td>
+                  <td class="text-xs-left">{{ props.item.Name }}</td>
+                  <td class="text-xs-left">{{ props.item.Surname }}</td>
+                  <td class="text-xs-left">{{ props.item.BirthDate }}</td>
+                  <td class="text-xs-left">{{ props.item.Email }}</td>
+                  <td class="text-xs-left">{{ props.item.Locality }}</td>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -314,14 +314,14 @@ export default {
       allDestinations: [],
       allUniqueDestinations: [],
       headers: [
+        { text: '-', value: 'a' },
+        { text: '--', value: 'b' },
         { text: 'Key', align: 'left', value: 'key' },
         { text: 'Nume', value: 'Name' },
         { text: 'Prenume', value: 'Surname' },
         { text: 'Data nașterii', value: 'BirthDate' },
         { text: 'Email', value: 'Email' },
-        { text: 'Localitate', value: 'Locality' },
-        { text: '-', value: 'a' },
-        { text: '--', value: 'b' }
+        { text: 'Localitate', value: 'Locality' }
       ],
       items: [],
       usersLocations: [],
@@ -341,7 +341,8 @@ export default {
       usersWithHistory: 0,
       usersWithoutHistory: 0,
       topCollabs: [],
-      userAges: []
+      userAges: [],
+      allUsersAges: []
     }
   },
   mounted () {
@@ -706,6 +707,8 @@ export default {
         for(var i = 0; i < allAges.length; i ++) {
           allAges[i] = Math.round(moment.duration(moment(new Date()).diff(moment(allAges[i]))).asYears())
         }
+        console.log(allAges)
+        this.allUsersAges.push(allAges)
         for(var j = 0; j < 3; j ++) {
           if(allAges.length == 0) console.log('e gol')
           var modeMap = {}
