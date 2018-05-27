@@ -520,55 +520,40 @@ export default {
       })
     },
     piechart1 () {
-      var withCollab = this.usersWithCollab
-      var WithoutCollab = this.usersWithoutCollab
-      window.google.charts.load('current', {packages: ['corechart']})
-      window.google.charts.setOnLoadCallback(drawChart)
-      function drawChart () {
-        var data = window.google.visualization.arrayToDataTable([
-          ['Tip', 'Numar'],
-          ['Cu Colaborări', withCollab],
-          ['Fără Colaborări', WithoutCollab]
-        ])
-        var options = {
-          is3D: false
-        }
+      google.charts.load('visualization', '1.0',
+     { packages: ['corechart', 'bar', 'table'], callback: () => {
         var chart = new window.google.visualization.PieChart(document.getElementById('piechart1'))
-        chart.draw(data, options)
-      }
+        chart.draw(window.google.visualization.arrayToDataTable([
+          ['Tip', 'Numar'],
+          ['Cu Colaborări', this.usersWithCollab],
+          ['Fără Colaborări', this.usersWithoutCollab]
+        ]), { is3D: false })
+     }})
     },
     piechart2 () {
-      var keysLength
-      var withHistory
+      var myObjwith = []
+      var myObj = []
       firebase.database().ref('UserDetails')
-      .on('value', snap => {
-        keysLength = Object.keys(snap.val()).length
-        })
-      , error => {
-      console.log('Error: ' + error.message)
+        .on('value', snap => {
+          myObj = snap.val()
+        }), error => {
+        console.log('Error: ' + error.message)
       }
       firebase.database().ref('userDestinationsHistory')
-      .on('value', snap => {
-        withHistory = Object.keys(snap.val()).length
-        })
-      , error => {
-      console.log('Error: ' + error.message)
+        .on('value', snap => {
+          myObjwith = snap.val()
+        }), error => {
+        console.log('Error: ' + error.message)
       }
-      var WithoutHistory = keysLength - withHistory
-      window.google.charts.load('current', {packages: ['corechart']})
-      window.google.charts.setOnLoadCallback(drawChart)
-      function drawChart () {
-        var data = window.google.visualization.arrayToDataTable([
-          ['Tip', 'Numar'],
-          ['Cu Istoric', withHistory],
-          ['Fără Istoric', WithoutHistory]
-        ])
-        var options = {
-          is3D: false
-        }
+      google.charts.load('visualization', '1.0',
+     { packages: ['corechart', 'bar', 'table'], callback: () => {
         var chart = new window.google.visualization.PieChart(document.getElementById('piechart2'))
-        chart.draw(data, options)
-      }
+        chart.draw(window.google.visualization.arrayToDataTable([
+          ['Tip', 'Numar'],
+          ['Cu Istoric', Object.keys(myObjwith).length],
+          ['Fără Istoric', Object.keys(myObj).length - Object.keys(myObjwith).length]
+        ]), { is3D: false})
+      }})
     },
     topDestinations () {
       return firebase.database().ref('userDestinationsHistory')
@@ -706,9 +691,8 @@ export default {
         })
         for(var i = 0; i < allAges.length; i ++) {
           allAges[i] = Math.round(moment.duration(moment(new Date()).diff(moment(allAges[i]))).asYears())
+          this.allUsersAges.push(allAges[i])
         }
-        console.log(allAges)
-        this.allUsersAges.push(allAges)
         for(var j = 0; j < 3; j ++) {
           if(allAges.length == 0) console.log('e gol')
           var modeMap = {}

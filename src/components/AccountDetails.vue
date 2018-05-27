@@ -189,7 +189,7 @@
           this.CollaborationWarning.StartDate = this.getCollaborationData.StartDate
           this.CollaborationWarning.Duration = this.getTypesOfCollaborations[this.getCollaborationData.TypesOfCollaboration].Duration
         } catch (e) {
-          console.log('')
+          //
         }
       },
     },
