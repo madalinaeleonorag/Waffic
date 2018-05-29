@@ -181,6 +181,7 @@ export default new Vuex.Store({
             const myObj = snap.val()
             var admin = myObj.Admin
             commit('getAdmin', admin)
+            commit('setNullWT', null)
           }, function (error) {
             console.log('Error: ' + error.message)
           })
@@ -202,6 +203,7 @@ export default new Vuex.Store({
                 const myObj = snap.val()
                 var admin = myObj.Admin
                 commit('getAdmin', admin)
+                commit('setNullWT', null)
               }, function (error) {
                 console.log('Error: ' + error.message)
               })
