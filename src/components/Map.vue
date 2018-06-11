@@ -1,12 +1,14 @@
 <template>
-  <v-layout>
+  <v-container fluid grid-list-md>
     <v-flex>
       <div id="map"></div>
     </v-flex>
-  </v-layout>
+
+  </v-container>
 </template>
 
 <script>
+  import firebase from '@/firebase'
   export default {
     name: 'Map',
     data () {
@@ -41,6 +43,33 @@
       collaborationsData () {
         return this.$store.getters.collaborationsData
       },
+      mapPins () {
+        var alCollabs = []
+        firebase.database().ref('Collaborations')
+        .on('value', snap => {
+          const myObj = snap.val()
+          const keysCollaborations = Object.keys(snap.val())
+          keysCollaborations.forEach(key => {
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(+myObj[key].CoordonataLatitudine, +myObj[key].CoordonataLongitudine),
+              map: this.map,
+              title: myObj[key].DenumireCompanie
+            })
+            const distanta = (Math.sqrt(Math.pow((+this.coords.lat - myObj[key].CoordonataLatitudine), 2) + Math.pow((+this.coords.long - myObj[key].CoordonataLongitudine), 2)) * 100 * 1000)
+            console.log(distanta)
+            if (distanta < 100) {
+              alert("Ești aproape de "+ myObj[key].DenumireCompanie + " (" + myObj[key].DescriereCompanie + ")");
+            }
+            var infowindow = new google.maps.InfoWindow()
+            google.maps.event.addListener( marker, 'click', function(){
+              infowindow.setContent( myObj[key].DenumireCompanie )
+              infowindow.open( this.map, this )
+            }.bind( marker ) )
+          })
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+      }
     },
     watch: {
       Destination: {
@@ -72,8 +101,8 @@
             }
           })
           // WEATHER
-          var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
-          // var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
+          // var apikey = "nIT7Uk4fHN82eVK6A6RoTOz1ABFZv6WN"
+          var apikey = "gUErMQHAYCriONeCNTM7FhzxSz8wGygD"
           // var apikey = "MCkhPDniBk1LXiAVoHQF8oBcBfcMR250"
           // var apikey = "Hl2mLAz2LxmKsiGn9YNJyKqlhbH69mJr"
           // var apikey = "FhkABGhGW6SPZDZFxamNnyK9j2gz4EhG"
@@ -164,22 +193,6 @@
             }
         })
       }
-      // Markers () {
-      //   debugger
-      //   this.collaborationsData.forEach(key => {
-      //     debugger
-      //     var marker = new google.maps.Marker({
-      //       position: new google.maps.LatLng(this.collaborationsData[key].CoordonataLatitudine, this.collaborationsData[key].CoordonataLongitudine),
-      //       map: map,
-      //       title: this.collaborationsData[key].DenumireCompanie
-      //     })
-      //     debugger
-      //     google.maps.event.addListener( marker, 'click', function(e){
-      //             infowindow.setContent( this.collaborationsData[key].DenumireCompanie )
-      //             infowindow.open( map, this )
-      //           }.bind( marker ) )
-      //   })
-      // }
     },
     mounted () {
       this.$store.dispatch('getCollaborations')
@@ -195,6 +208,11 @@
       this.directions.end = this.Destination.geometry.location
       this.directions.display.setMap(this.map)
       this.renderDirections()
+      try {
+        this.mapPins()
+      } catch (e) {
+        //
+      }
     }
   }
 </script>
@@ -202,7 +220,7 @@
 <style scoped>
  #map {
    width: 100%;
-   height: 570px;
+   min-height: 570px;
    background-color: grey;
  }
 </style>

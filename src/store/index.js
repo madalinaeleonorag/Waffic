@@ -94,6 +94,9 @@ export default new Vuex.Store({
       state.Weather.icon = payload
       state.Weather.temperature = payload
     },
+    getCollaborationsData: (state, payload) => {
+      state.collaborationsData = payload
+    }
   },
   actions: {
     getData ({commit}, payload) {
@@ -284,6 +287,7 @@ export default new Vuex.Store({
       return firebase.database().ref('Collaborations')
       .on('value', snap => {
         const myObj = snap.val()
+        var alCollabs = []
         const keysCollaborations = Object.keys(snap.val())
         keysCollaborations.forEach(key => {
           const collaborations = {}
@@ -293,8 +297,9 @@ export default new Vuex.Store({
           collaborations.DescriereCompanie = myObj[key].DescriereCompanie
           collaborations.StartDate = myObj[key].StartDate
           collaborations.TypesOfCollaboration = myObj[key].TypesOfCollaboration
-          commit('getCollaborations', collaborations)
+          alCollabs.push(collaborations)
         })
+        commit('getCollaborationsData', alCollabs)
       }, function (error) {
         console.log('Error: ' + error.message)
       })
