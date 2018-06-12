@@ -28,16 +28,6 @@
                   </v-tooltip>
                 </template>
                 <template slot="items" slot-scope="props">
-                  <td class="text-xs-left">
-                    <router-link :to="{ name: 'UserCollaborationsHistory', params: { id: props.item.Key}}" style="cursor:pointer">
-                      Vezi colaborări
-                    </router-link>
-                  </td>
-                  <td class="text-xs-left">
-                    <router-link :to="{ name: 'UsersHistory', params: { id: props.item.Key}}" style="cursor:pointer">
-                      Vezi istoric
-                    </router-link>
-                  </td>
                   <td class="text-xs-left">{{ props.item.Key }}</td>
                   <td class="text-xs-left">{{ props.item.Name }}</td>
                   <td class="text-xs-left">{{ props.item.Surname }}</td>
@@ -330,8 +320,6 @@ export default {
       allDestinations: [],
       allUniqueDestinations: [],
       headers: [
-        { text: '-', value: 'a' },
-        { text: '--', value: 'b' },
         { text: 'Key', align: 'left', value: 'key' },
         { text: 'Nume', value: 'Name' },
         { text: 'Prenume', value: 'Surname' },
@@ -624,6 +612,7 @@ export default {
         keysUsers.forEach(key => {
           allLocations.push(myObj[key].Locality)
         })
+                 console.log(allLocations)
         for(var j = 0; j < 3; j ++) {
           if(allLocations.length == 0) console.log('e gol')
           var modeMap = {}

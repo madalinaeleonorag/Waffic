@@ -25,7 +25,7 @@
         </template>
       </v-data-table>
       <v-card-actions>
-        <v-btn flat color="primary" router to = "/Statistics">Back</v-btn>
+        <v-btn flat color="primary" router to = "/Search">Back</v-btn>
       </v-card-actions>
     </v-container>
 </template>
