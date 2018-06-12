@@ -568,7 +568,7 @@
 import firebase from '@/firebase'
 import VueGoogleAutocomplete from 'vue-google-autocomplete'
 import moment from "moment"
-import LocalitatiRO from '@/assets'
+import LocalitatiRO from "@/components"
 export default {
   components: { VueGoogleAutocomplete },
   name: "profil",
