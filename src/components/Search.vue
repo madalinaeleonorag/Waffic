@@ -150,7 +150,7 @@
                   <v-text-field
                     id="id3"
                     name="input3"
-                    label="Caută utilizator după nume sau prenume"
+                    label="Caută destinația"
                     v-model= "input3"
                   ></v-text-field>
                 </v-flex>
@@ -173,8 +173,8 @@
                   </v-tooltip>
                 </template>
                 <template slot="items" slot-scope="props">
-                  <td class="text-xs-left">{{ props.item }}</td>
-                  <td class="text-xs-left">{{ props.item }}</td>
+                  <td class="text-xs-left">{{ props.item.name }}</td>
+                  <td class="text-xs-left" value>{{ props.item.freq}}</td>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -238,7 +238,7 @@ export default {
     filteredDestinations () {
       if (this.input3) {
         return this.allUniqueDestinations.filter(post => {
-          return post.toLowerCase().includes(this.input3.toLowerCase())
+          return post.name.toLowerCase().includes(this.input3.toLowerCase())
         })
       } else return this.allUniqueDestinations
     },
@@ -261,9 +261,9 @@ export default {
         }
         return beforeData && afterData && betweenData
       })
-      }
+    }
   },
-  mounted () {
+  created () {
     this.userdetails()
     this.allUsersDestinations()
     this.collaborationsDetails()
@@ -306,7 +306,17 @@ export default {
         var uniqueArray = allDest.filter(function(item, pos) {
             return allDest.indexOf(item) == pos;
         })
-        this.allUniqueDestinations = uniqueArray
+        var allDestt =[]
+        for (var j=0; j < uniqueArray.length; j++) {
+          var count = 0
+          for (var i=0; i < allDest.length; i++) {
+            if(allDest[i] === uniqueArray[j]) {
+              count++
+            }
+          }
+          allDestt.push({ name: uniqueArray[j], freq: count})
+        }
+        this.allUniqueDestinations = allDestt
       }, error => {
         console.log('Error: ' + error.message)
       })
