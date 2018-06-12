@@ -87,6 +87,22 @@
             </router-link>
           </v-list-tile>
 
+          <!-- CAUTA -->
+
+          <v-list-tile v-if="admin === true && user">
+            <router-link to="/Search" tag="li" style="cursor:pointer">
+              <v-list-tile-action>
+                <v-icon> search
+                </v-icon>
+              </v-list-tile-action>
+            </router-link>
+            <router-link to="/Search" tag="li" style="cursor:pointer">
+              <v-list-tile-title>
+                Caută...
+              </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+
           <v-divider inset></v-divider>
 
           <!-- CONTACT -->

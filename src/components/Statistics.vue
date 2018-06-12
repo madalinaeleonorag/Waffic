@@ -86,32 +86,6 @@
           </v-card>
         </v-flex>
 
-<!-- RAPORT: Toate destinatiile -->
-        <v-flex xs12>
-          <v-card>
-            <v-card-title>
-              <v-icon color="primary">
-                location_on
-              </v-icon>
-              Toate destinațiile căutate de utilizatori
-            </v-card-title>
-            <v-card-text>
-            <v-select
-              v-model="allUniqueDestinations"
-              chips
-              tags
-              solo
-              disabled>
-              <template slot="selection" slot-scope="data">
-                <v-chip color="primary" label outline>
-                 {{ data.item }}
-                </v-chip>
-              </template>
-            </v-select>
-          </v-card-text>
-          </v-card>
-        </v-flex>
-
 <!-- RAPORT: Top utilizatori activi -->
         <v-flex xs4>
           <v-card>
@@ -306,9 +280,35 @@
             </v-card-text>
           </v-card>
         </v-flex>
+
+<!-- RAPORT: Toate destinatiile -->
+        <v-flex xs12>
+          <v-card>
+            <v-card-title>
+              <v-icon color="primary">
+                location_on
+              </v-icon>
+              Toate destinațiile căutate de utilizatori
+            </v-card-title>
+            <v-card-text>
+            <v-select
+              v-model="allUniqueDestinations"
+              chips
+              tags
+              solo
+              disabled>
+              <template slot="selection" slot-scope="data">
+                <v-chip color="primary" label outline>
+                 {{ data.item }}
+                </v-chip>
+              </template>
+            </v-select>
+          </v-card-text>
+          </v-card>
+        </v-flex>
+
       </v-layout>
     </v-container>
-
   </v-layout>
 </template>
 
@@ -325,6 +325,8 @@ export default {
         { title: 'Travis Howard', avatar: '/static/doc-images/lists/2.jpg' },
         { title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' }
       ],
+      nr1: [3, 5, 10],
+      e1: 3,
       allDestinations: [],
       allUniqueDestinations: [],
       headers: [
@@ -535,6 +537,7 @@ export default {
       })
     },
     piechart1 () {
+      var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
       google.charts.load('visualization', '1.0',
      { packages: ['corechart', 'bar', 'table'], callback: () => {
         var chart = new window.google.visualization.PieChart(document.getElementById('piechart1'))
@@ -542,12 +545,13 @@ export default {
           ['Tip', 'Numar'],
           ['Cu Colaborări', this.usersWithCollab],
           ['Fără Colaborări', this.usersWithoutCollab]
-        ]), { is3D: false })
+        ]), { is3D: false, colors: ['#ffc107', colors[Math.floor(Math.random() * colors.length)]] })
      }})
     },
     piechart2 () {
       var myObjwith = []
       var myObj = []
+      var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
       firebase.database().ref('UserDetails')
         .on('value', snap => {
           myObj = snap.val()
@@ -567,7 +571,7 @@ export default {
           ['Tip', 'Numar'],
           ['Cu Istoric', Object.keys(myObjwith).length],
           ['Fără Istoric', Object.keys(myObj).length - Object.keys(myObjwith).length]
-        ]), { is3D: false})
+        ]), { is3D: false, colors: ['#ffc107', colors[Math.floor(Math.random() * colors.length)]]})
       }})
     },
     topDestinations () {
@@ -740,6 +744,7 @@ export default {
     barchart () {
         var a = []
         var b = []
+        var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
         var prev
         this.allUsersAges.sort()
         for ( var i = 0; i < this.allUsersAges.length; i++ ) {
@@ -753,7 +758,7 @@ export default {
         }
         var x = [[ 'Ani', 'Frecvență', { role: 'style' } ]]
         for (var i = 0; i < a.length; i++) {
-          x.push([a[i], b[i], 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')'])
+          x.push([a[i], b[i], colors[Math.floor(Math.random() * colors.length)]])
         }
         window.google.charts.setOnLoadCallback(() => {
           var view = new window.google.visualization.DataView(
