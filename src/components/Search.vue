@@ -13,7 +13,7 @@
                     id="id1"
                     name="input1"
                     label="Caută utilizator după nume sau prenume"
-                    v-model= input1
+                    v-model= "input1"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -21,7 +21,7 @@
             <v-card-text>
               <v-data-table
                 :headers="headers"
-                :items="items"
+                :items="filteredUsers"
                 item-key="name"
                 class="elevation-1">
                 <template slot="headerCell" slot-scope="props">
@@ -150,25 +150,34 @@
                   <v-text-field
                     id="id3"
                     name="input3"
-                    label="Caută destinație"
+                    label="Caută utilizator după nume sau prenume"
+                    v-model= "input3"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
             </v-card-title>
             <v-card-text>
-            <v-select
-              v-model="allUniqueDestinations"
-              chips
-              tags
-              solo
-              disabled>
-              <template slot="selection" slot-scope="data">
-                <v-chip color="primary" label outline>
-                 {{ data.item }}
-                </v-chip>
-              </template>
-            </v-select>
-          </v-card-text>
+              <v-data-table
+                :headers="headers3"
+                :items="filteredDestinations"
+                item-key="name"
+                class="elevation-1">
+                <template slot="headerCell" slot-scope="props">
+                  <v-tooltip bottom>
+                    <span slot="activator">
+                      {{ props.header.text }}
+                    </span>
+                    <span>
+                      {{ props.header.text }}
+                    </span>
+                  </v-tooltip>
+                </template>
+                <template slot="items" slot-scope="props">
+                  <td class="text-xs-left">{{ props.item }}</td>
+                  <td class="text-xs-left">{{ props.item }}</td>
+                </template>
+              </v-data-table>
+            </v-card-text>
           </v-card>
         </v-flex>
 
@@ -191,11 +200,6 @@ export default {
       date: null,
       menu1: false,
       date1: null,
-      items1: [
-        { icon: true, title: 'Jason Oner', avatar: '/static/doc-images/lists/1.jpg' },
-        { title: 'Travis Howard', avatar: '/static/doc-images/lists/2.jpg' },
-        { title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' }
-      ],
       allDestinations: [],
       allUniqueDestinations: [],
       headers: [
@@ -216,15 +220,28 @@ export default {
         { text: 'Companie', value: 'data'},
         { text: 'Descriere companie', value: ''}
       ],
+      headers3: [
+        { text: 'Destinație', value: 'destination' },
+        { text: 'Frecvență (căutări)', value: 'frequence' }
+      ],
       items2: []
     }
   },
   computed: {
-    // filteredList() {
-    //   return this.postList.filter(post => {
-    //     return post.title.toLowerCase().includes(this.search.toLowerCase())
-    //   })
-    // },
+    filteredUsers () {
+      if (this.input1) {
+        return this.items.filter(post => {
+          return post.Name.toLowerCase().includes(this.input1.toLowerCase()) || post.Surname.toLowerCase().includes(this.input1.toLowerCase())
+        })
+      } else return this.items
+    },
+    filteredDestinations () {
+      if (this.input3) {
+        return this.allUniqueDestinations.filter(post => {
+          return post.toLowerCase().includes(this.input3.toLowerCase())
+        })
+      } else return this.allUniqueDestinations
+    },
     filterCollabs () {
       return this.items2.filter(item => {
         let beforeData = true
