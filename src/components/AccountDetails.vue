@@ -11,8 +11,8 @@
           name="email"
           :value= getuserdetails.Email
           id="Email"
-          :rules="[rules.email]"
-        ></v-text-field>
+          :rules="[rules.email]">
+        </v-text-field>
       </v-flex>
       <v-flex xs6>
         <v-text-field
@@ -209,17 +209,17 @@
           firebase.auth().currentUser.updatePassword(NewPassword).then(function() {
             console.log("Parola a fost schimbată")
           }).catch(function(error) {
-            console.log(error.message)
-          })
+                  console.log(error.message)
+            })
           }
-           if(Email !== null) {
+          if(Email !== null) {
           firebase.auth().currentUser.updateEmail(Email).then(function () {
             console.log('Emailul a fost schimbat')
             cale.update({Email: Email})
           }).catch(function (error) {
-            console.log(error.message)
-          })
-        }
+              console.log(error.message)
+            })
+          }
         }).catch(function(error){
           console.log(error.message)
         })

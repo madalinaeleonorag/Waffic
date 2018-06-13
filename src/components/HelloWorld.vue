@@ -270,7 +270,7 @@
         }
       }
     },
-    created: function () {
+    created () {
       this.$store.dispatch('getTypesOfCollaborations')
     },
     watch: {
@@ -305,7 +305,7 @@
       userSignUp () {
         this.$store.dispatch('signUp', {email: this.email, password: this.password, nume: this.nume, prenume: this.prenume, localitate: this.localitate, datana: this.datana})
         this.signup=false
-      },
+      }
     }
   }
 </script>

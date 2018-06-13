@@ -550,6 +550,18 @@
       </v-card>
     </v-dialog>
 
+    <!-- GDPR -->
+    <v-dialog v-model="userGDRP" v-if="user" persistent max-width="290">
+      <v-card>
+        <v-card-text>Acest site utilizează module cookie pentru a vă asigura că beneficiați de cea mai bună experiență pe site-ul nostru.</v-card-text>
+        <v-card-actions>
+          <a v-bind:href="cookies" target ="_blank">Află mai multe</a>
+          <v-spacer></v-spacer>
+          <v-btn primary flat="flat" @click.native="agreeGdpr">Agree</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- FOOTER -->
 
     <v-footer app font-size="3px">
@@ -602,7 +614,8 @@ export default {
           return pattern.test(value) || 'Email invalid.'
         }
       },
-      locations: []
+      locations: [],
+      cookies: "https://cookiesandyou.com/"
     }
   },
   created () {
@@ -637,6 +650,9 @@ export default {
     },
     destinationWeather () {
       return this.$store.getters.destinationWeather
+    },
+    userGDRP () {
+      return !this.$store.getters.userGDPR
     }
   },
   methods: {
@@ -685,6 +701,15 @@ export default {
       this.address = addressData
       this.$store.dispatch('getDestination', placeResultData)
       this.$router.push('/map')
+    },
+    agreeGdpr () {
+      const user = this.user.uid
+      const cale = firebase.database().ref('UserDetails/' + user)
+      cale.update({GDPR: true})
+      .catch( error => {
+        console.log(error.message)
+      })
+      this.GDPRdialog = false
     }
   },
   props: {

@@ -33,7 +33,8 @@ export default new Vuex.Store({
       temperature: null
     },
     getCollaborationData: [],
-    collaborationsData: []
+    collaborationsData: [],
+    userGDPR: null
   },
   mutations: {
     setUser: (state, payload) => {
@@ -84,6 +85,9 @@ export default new Vuex.Store({
     },
     getAdmin: (state, payload) => {
       state.admin = payload
+    },
+    getGDPR: (state, payload) => {
+      state.userGDPR = payload
     },
     getCollaboration: (state, payload) => {
       state.getCollaborationData = payload
@@ -141,6 +145,7 @@ export default new Vuex.Store({
             userdetails.Name = myObj[key].Name
             userdetails.Surname = myObj[key].Surname
             userdetails.Email = myObj[key].Email
+            userdetails.GDPR = myObj[key].GDPR
             allUsers.push(userdetails)
           })
           commit('gotUsers', allUsers)
@@ -165,7 +170,8 @@ export default new Vuex.Store({
               BirthDate: payload.datana,
               Email: payload.email,
               Collaborations: '',
-              Admin: false
+              Admin: false,
+              GDPR: false
             })
           }
         )
@@ -183,7 +189,9 @@ export default new Vuex.Store({
           .on('value', snap => {
             const myObj = snap.val()
             var admin = myObj.Admin
+            var GDPR = myObj.GDPR
             commit('getAdmin', admin)
+            commit('getGDPR', GDPR)
             commit('setNullWT', null)
           }, function (error) {
             console.log('Error: ' + error.message)
@@ -205,7 +213,9 @@ export default new Vuex.Store({
               .on('value', snap => {
                 const myObj = snap.val()
                 var admin = myObj.Admin
+                var GDPR = myObj.GDPR
                 commit('getAdmin', admin)
+                commit('getGDPR', GDPR)
                 commit('setNullWT', null)
               }, function (error) {
                 console.log('Error: ' + error.message)
@@ -318,6 +328,7 @@ export default new Vuex.Store({
     TypesOfCollaborations: state => state.TypesOfCollaborations,
     admin: state => state.admin,
     getCollaborationData: state => state.getCollaborationData,
-    collaborationsData: state => state.collaborationsData
+    collaborationsData: state => state.collaborationsData,
+    userGDPR: state => state.userGDPR
   }
 })
