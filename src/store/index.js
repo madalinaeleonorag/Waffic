@@ -161,7 +161,7 @@ export default new Vuex.Store({
             firebase.database().ref('/UserDetails/' + newUser.id).set({
               Name: payload.nume,
               Surname: payload.prenume,
-              Locality: payload.localitate.toUpperCase(),
+              Locality: payload.localitate,
               BirthDate: payload.datana,
               Email: payload.email,
               Collaborations: '',

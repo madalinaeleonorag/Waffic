@@ -612,7 +612,6 @@ export default {
         keysUsers.forEach(key => {
           allLocations.push(myObj[key].Locality)
         })
-                 console.log(allLocations)
         for(var j = 0; j < 3; j ++) {
           if(allLocations.length == 0) console.log('e gol')
           var modeMap = {}
