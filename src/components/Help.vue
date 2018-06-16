@@ -7,7 +7,7 @@
       </p><p>
       <img :src="require('../assets/Help/1.png')"/>
       </p><p>
-      Apăsarea butonului de ”Intră în cont / Creează cont nou” conduce la fereastra ce oferă posibilitatea utilizatorului să intre în contul personal prin completarea câmpurilor ”Email” și ”Parolă”, să își creeze un cont nou apăsând butonul de ”Cont nou” sau să recupereze parola, urmând să introducă în câmpul din Figura 57, adresa electronică aferentă contului pentru care se dorește recuperarea parolei.
+      Apăsarea butonului de ”Intră în cont / Creează cont nou” conduce la fereastra ce oferă posibilitatea utilizatorului să intre în contul personal prin completarea câmpurilor ”Email” și ”Parolă”, să își creeze un cont nou apăsând butonul de ”Cont nou” sau să recupereze parola și adresa electronică aferentă contului pentru care se dorește recuperarea parolei.
       </p><p>
       <img :src="require('../assets/Help/2.png')"/>
       </p><p>
@@ -43,7 +43,7 @@
       </p><p>
       <img :src="require('../assets/Help/10.png')"/>
       </p><p>
-        Câmpurile considerate obligatorii pentru crearea contului sunt adresa electronică și parola. În cazul omiterii completării acestora, noul utilizator va fi notificat. Dacă acesta apasă pe butonul ”Înregistrare” cu omiterea acestor câmpuri, va fi notificat iar înregistrarea nu va avea loc. În cazul în care se dorește anularea acțiunii de creare a unui cont nou, acesta poate apăsa butonul ”Înapoi”.
+      Câmpurile considerate obligatorii pentru crearea contului sunt adresa electronică și parola. În cazul omiterii completării acestora, noul utilizator va fi notificat. Dacă acesta apasă pe butonul ”Înregistrare” cu omiterea acestor câmpuri, va fi notificat iar înregistrarea nu va avea loc. În cazul în care se dorește anularea acțiunii de creare a unui cont nou, acesta poate apăsa butonul ”Înapoi”.
       </p><p>
       <img :src="require('../assets/Help/11.png')"/>
       </p><p>
@@ -51,8 +51,8 @@
       </p><p>
       <img :src="require('../assets/Help/12.png')"/>
       </p><p>
-        Pentru a obține diverse beneficii pe contul său, utilizatorul poate accesa butonul ”Abonamente”, vizibil și în cazul inexistenței unui cont. Pentru achiziționarea unui astfel de abonament, acesta trebuie să intre în cont și să completeze datele necesare finalizării plății în pagina către care va fi trimis.
-        Abonamentele disponibile sunt:
+      Pentru a obține diverse beneficii pe contul său, utilizatorul poate accesa butonul ”Abonamente”, vizibil și în cazul inexistenței unui cont. Pentru achiziționarea unui astfel de abonament, acesta trebuie să intre în cont și să completeze datele necesare finalizării plății în pagina către care va fi trimis.
+      Abonamentele disponibile sunt:
       </p><p>
       1.	1week: abonament valabil 7 zile, începând din ziua confirmării plății, cu prețul de 5 ron;
       <br>2.	Happy Month: abonament valabil 30 de zile, începând din ziua confirmării plății, cu prețul de 15 ron;

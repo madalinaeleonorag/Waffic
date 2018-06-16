@@ -51,7 +51,7 @@
           min-width="290px"
           :return-value.sync="BirthDate">
           <v-text-field
-            :label= userBirthDate
+            :label= getuserdetails.BirthDate
             name="Data nașterii"
             slot="activator"
             v-model="BirthDate"
@@ -176,9 +176,6 @@
       comparePasswords () {
         return this.password !== this.confirmPassword ? 'Parolele nu corespund' : ''
       },
-      userBirthDate () {
-        return moment(String(this.getuserdetails.BirthDate)).format('YYYY-MM-DD')
-      },
       getTypesOfCollaborations () {
         return this.$store.getters.TypesOfCollaborations
       },
@@ -200,11 +197,15 @@
         const Surname = document.getElementById('Surname').value
         const Email = document.getElementById('Email').value
         const Locality = document.getElementById('Locality').value
-        const BirthDate = this.BirthDate
+        if (this.BirthDate) {
+          const Birth = this.BirthDate
+        } else {
+          const Birth = this.getuserdetails.BirthDate
+        }
         const NewPassword = document.getElementById('NewPassword').value
         const cale = firebase.database().ref('UserDetails/' + user)
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.OldPassword).then( function () {
-          cale.update({Name: Name, Surname: Surname, Locality: Locality, BirthDate: BirthDate})
+          cale.update({Name: Name, Surname: Surname, Locality: Locality, BirthDate: Birth})
           if(NewPassword !== null) {
           firebase.auth().currentUser.updatePassword(NewPassword).then(function() {
             console.log("Parola a fost schimbată")
