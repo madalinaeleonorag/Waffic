@@ -97,6 +97,7 @@ export default new Vuex.Store({
       state.destinationWeather.temperature = payload
       state.Weather.icon = payload
       state.Weather.temperature = payload
+      state.userHistory = []
     },
     getCollaborationsData: (state, payload) => {
       state.collaborationsData = payload
