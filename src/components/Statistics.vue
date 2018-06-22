@@ -443,6 +443,7 @@ export default {
             allDest.push(myObj[key][key1].Finish)
           })
         })
+        allDest.sort()
         for(var j = 0; j < 3; j ++) {
           if(allDest.length == 0) console.log('e gol')
           var modeMap = {}
@@ -463,7 +464,7 @@ export default {
             for(var i = 0; i < allDest.length; i++)
             {
               if(maxEl.localeCompare(allDest[i]) == 0) {
-                allDest.splice(i,1)
+                allDest.splice(i,maxCount)
               }
             }
           this.topDestination.push(maxEl)
@@ -562,47 +563,6 @@ export default {
         ]), { is3D: false, colors: ['#ffc107', colors[Math.floor(Math.random() * colors.length)]]})
       }})
     },
-    topDestinations () {
-      return firebase.database().ref('userDestinationsHistory')
-      .on('value', snap => {
-        var allDest = []
-        const myObj = snap.val()
-        const keysUsers = Object.keys(snap.val())
-        keysUsers.forEach(key => {
-          const keysHistory = Object.keys(myObj[key])
-          keysHistory.forEach(key1 => {
-            allDest.push(myObj[key][key1].Finish)
-          })
-        })
-        for(var j = 0; j < 3; j ++) {
-          if(allDest.length == 0) console.log('e gol')
-          var modeMap = {}
-          var maxEl = allDest[0], maxCount = 1
-          for(var i = 0; i < allDest.length; i++)
-            {
-              var el = allDest[i]
-              if(modeMap[el] == null)
-                modeMap[el] = 1
-              else
-                modeMap[el]++
-              if(modeMap[el] > maxCount)
-              {
-                maxEl = el
-                maxCount = modeMap[el]
-              }
-            }
-            for(var i = 0; i < allDest.length; i++)
-            {
-              if(maxEl.localeCompare(allDest[i]) == 0) {
-                allDest.splice(i,1)
-              }
-            }
-          this.topDestination.push(maxEl)
-        }
-      }, error => {
-        console.log('Error: ' + error.message)
-      })
-    },
     topUsersLocations () {
       return firebase.database().ref('UserDetails')
       .on('value', snap => {
@@ -612,6 +572,7 @@ export default {
         keysUsers.forEach(key => {
           allLocations.push(myObj[key].Locality)
         })
+        allLocations.sort()
         for(var j = 0; j < 3; j ++) {
           if(allLocations.length == 0) console.log('e gol')
           var modeMap = {}
@@ -632,7 +593,7 @@ export default {
             for(var i = 0; i < allLocations.length; i++)
             {
               if(maxEl.localeCompare(allLocations[i]) == 0) {
-                allLocations.splice(i,1)
+                allLocations.splice(i,maxCount)
               }
             }
           this.usersLocations.push(maxEl)
@@ -652,6 +613,7 @@ export default {
         keysCollabs.forEach(key => {
           allCollabs.push(myObj[key].TypesOfCollaboration)
         })
+        allCollabs.sort()
         for(var j = 0; j < 3; j ++) {
           var modeMap = {}
           var maxEl = allCollabs[0], maxCount = 1
@@ -671,7 +633,7 @@ export default {
             for(var i = 0; i < allCollabs.length; i++)
             {
               if(maxEl === allCollabs[i]) {
-                allCollabs.splice(i,1)
+                allCollabs.splice(i,maxCount)
               }
             }
           allTopCollabs.push(maxEl)
@@ -700,6 +662,7 @@ export default {
           allAges[i] = Math.round(moment.duration(moment(new Date()).diff(moment(allAges[i]))).asYears())
           this.allUsersAges.push(allAges[i])
         }
+        allAges.sort()
         for(var j = 0; j < 3; j ++) {
           if(allAges.length == 0) console.log('e gol')
           var modeMap = {}
@@ -720,7 +683,7 @@ export default {
             for(var i = 0; i < allAges.length; i++)
             {
               if(maxEl === allAges[i]) {
-                allAges.splice(i,1)
+                allAges.splice(i,maxCount)
               }
             }
           this.userAges.push(maxEl)

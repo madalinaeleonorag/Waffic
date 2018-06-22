@@ -189,19 +189,20 @@
       color="primary"
       dark
       app
+      id= "toolb"
       :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
-      <v-toolbar-title style="width: 20%" class="ml-0 pl-3">
+      <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer">
         </v-toolbar-side-icon>
-        <router-link to="/" style="cursor:pointer">
-          <span class="hidden-sm-and-down">WAFFIC</span>
+        <router-link to="/" style="cursor:pointer" class="white--text">
+          WAFFIC
         </router-link>
       </v-toolbar-title>
-      <v-toolbar-title style="width: 10%" v-if="(this.Weather.temperature) && (this.user)">
+      <v-toolbar-title v-if="(this.Weather.temperature) && (this.user)">
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
-      <img style="width: 10%" v-if="(this.Weather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
+      <img v-if="(this.Weather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
       <v-icon v-if="this.user"> directions_car
       </v-icon>
       <v-icon v-if="this.user">
@@ -218,8 +219,8 @@
         @placechanged="getAddressData">
       </vue-google-autocomplete>
       <v-spacer></v-spacer>
-      <img style="width: 10%" v-if="(this.destinationWeather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
-      <v-toolbar-title style="width: 10%" v-if="(this.destinationWeather.temperature) && (this.user)">
+      <img v-if="(this.destinationWeather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + destinationWeather.icon + '.png')"/>
+      <v-toolbar-title v-if="(this.destinationWeather.temperature) && (this.user)">
         {{destinationWeather.temperature}} &ordm;C
       </v-toolbar-title>
     </v-toolbar>
@@ -718,7 +719,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 a, ul, li {
   text-decoration: none;
   list-style-type: none;

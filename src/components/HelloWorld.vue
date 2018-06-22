@@ -1,17 +1,9 @@
 <template>
-<v-layout>
+<v-layout column align-center>
   <v-container fluid>
-    <img src="@/assets/LOGO-EXTINS.png" alt="Waffic">
-    <br>
-    <v-card>
-    <img  src="@/assets/HelloWorld/map.jpg">
-    </v-card>
-    <!-- <img src="@/assets/HelloWorld/map.jpg" alt="Waffic"> -->
 <!-- ACCES FARA CONT -->
-    <v-layout column align-center justify-center>
-      <h3 class="primary--text">Acces fără cont</h3>
-    </v-layout>
     <v-layout row align-center justify-center>
+      <h3 class="primary--text">Acces fără cont:</h3>
       <v-btn fab dark large color="primary" @click="dialog2 = !dialog2">
         <v-icon dark>account_circle</v-icon>
       </v-btn>
@@ -24,12 +16,7 @@
       <v-btn fab dark large color="primary" @click="dialog5 = !dialog5">
         <v-icon dark>list_alt</v-icon>
       </v-btn>
-    </v-layout>
-<!-- ACCES CU CONT -->
-    <v-layout column align-center justify-center>
-      <h3 class="primary--text">Acces cu cont</h3>
-    </v-layout>
-    <v-layout row align-center justify-center>
+      <h3 class="primary--text">Acces cu cont:</h3>
       <v-btn fab dark large color="primary" @click="dialog1 = !dialog1">
         <v-icon dark>map</v-icon>
       </v-btn>
@@ -43,6 +30,7 @@
         <v-icon dark>monetization_on</v-icon>
       </v-btn>
     </v-layout>
+    <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5">
 <!-- SIGN IN -->
     <v-dialog v-model="signin" max-width="490">
       <v-card>
