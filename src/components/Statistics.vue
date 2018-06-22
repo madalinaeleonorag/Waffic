@@ -7,7 +7,7 @@
         <v-flex xs12>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> account_box
+              <v-icon style="color: #433d6b;" > account_box
               </v-icon>
               Toți utilizatorii
             </v-card-title>
@@ -44,7 +44,7 @@
         <v-flex xs12>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> add_shopping_cart
+              <v-icon style="color: #433d6b;" > add_shopping_cart
               </v-icon>
               Toate colaborările
             </v-card-title>
@@ -80,7 +80,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> sentiment_very_satisfied
+              <v-icon style="color: #433d6b;" > sentiment_very_satisfied
               </v-icon>
               Top utilizatori activi
             </v-card-title>
@@ -89,7 +89,7 @@
               <v-list>
                 <v-list-tile v-for="(item, index) in topusersHistory" :key="index">
                   <v-list-tile-action>
-                    <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -105,7 +105,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> directions_car
+              <v-icon style="color: #433d6b;" > directions_car
               </v-icon>
               Top destinații căutate
             </v-card-title>
@@ -114,7 +114,7 @@
                 <v-list>
                   <v-list-tile v-for="(item, index) in topDestination" :key="index">
                     <v-list-tile-action>
-                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                      <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                       <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -130,7 +130,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> business_center
+              <v-icon style="color: #433d6b;" > business_center
               </v-icon>
               Top colaboratori
             </v-card-title>
@@ -139,7 +139,7 @@
               <v-list>
                 <v-list-tile v-for="(item, index) in topusersCollab" :key="index">
                   <v-list-tile-action>
-                    <v-icon v-if="index === 0" color="primary">star</v-icon>
+                    <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -155,7 +155,7 @@
         <v-flex xs6>
           <v-card>
             <v-card-title>
-              <v-icon color="warning">
+              <v-icon style="color: #f86c5c;">
                 work
               </v-icon>
               Utilizatori cu/fără colaborări
@@ -170,7 +170,7 @@
         <v-flex xs6>
           <v-card>
             <v-card-title>
-              <v-icon color="warning">
+              <v-icon style="color: #f86c5c;">
                 history
               </v-icon>
               Utilizatori cu/fără istoric
@@ -185,7 +185,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> location_city
+              <v-icon style="color: #433d6b;" > location_city
               </v-icon>
               Top domicilii utilizatori
             </v-card-title>
@@ -194,7 +194,7 @@
                 <v-list>
                   <v-list-tile v-for="(item, index) in usersLocations" :key="index">
                     <v-list-tile-action>
-                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                      <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                       <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -210,7 +210,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> attach_money
+              <v-icon style="color: #433d6b;" > attach_money
               </v-icon>
               Top tip colaborari active
             </v-card-title>
@@ -219,7 +219,7 @@
                 <v-list>
                   <v-list-tile v-for="(item, index) in topCollabs" :key="index">
                     <v-list-tile-action>
-                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                      <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                       <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -235,7 +235,7 @@
         <v-flex xs4>
           <v-card>
             <v-card-title>
-              <v-icon color="primary"> calendar_today
+              <v-icon style="color: #433d6b;" > calendar_today
               </v-icon>
               Top vârste utilizatori
             </v-card-title>
@@ -244,7 +244,7 @@
                 <v-list>
                   <v-list-tile v-for="(item, index) in userAges" :key="index">
                     <v-list-tile-action>
-                      <v-icon v-if="index === 0" color="primary">star</v-icon>
+                      <v-icon v-if="index === 0" style="color: #433d6b;" >star</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                       <v-list-tile-title v-text="item"></v-list-tile-title>
@@ -260,7 +260,7 @@
         <v-flex>
           <v-card>
             <v-card-title>
-              <v-icon color="warning">
+              <v-icon style="color: #f86c5c;">
                 perm_identity
               </v-icon>
               Frecvența vârstelor utilizatorilor
@@ -275,7 +275,7 @@
         <v-flex xs12>
           <v-card>
             <v-card-title>
-              <v-icon color="primary">
+              <v-icon style="color: #433d6b;" >
                 location_on
               </v-icon>
               Toate destinațiile căutate de utilizatori
@@ -288,7 +288,7 @@
               solo
               disabled>
               <template slot="selection" slot-scope="data">
-                <v-chip color="primary" label outline>
+                <v-chip style="color: #433d6b;"  label outline>
                  {{ data.item }}
                 </v-chip>
               </template>
@@ -526,7 +526,7 @@ export default {
       })
     },
     piechart1 () {
-      var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
+      var colors = ['#9c5463', '#7b4c67', '#c86060', '#5e4469', '#7f4c66','#b25a62']
       google.charts.load('visualization', '1.0',
      { packages: ['corechart', 'bar', 'table'], callback: () => {
         var chart = new window.google.visualization.PieChart(document.getElementById('piechart1'))
@@ -534,13 +534,13 @@ export default {
           ['Tip', 'Numar'],
           ['Cu Colaborări', this.usersWithCollab],
           ['Fără Colaborări', this.usersWithoutCollab]
-        ]), { is3D: false, colors: ['#ffc107', colors[Math.floor(Math.random() * colors.length)]] })
+        ]), { is3D: false, colors: ['#f86c5c', colors[Math.floor(Math.random() * colors.length)]] })
      }})
     },
     piechart2 () {
       var myObjwith = []
       var myObj = []
-      var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
+      var colors = ['#9c5463', '#7b4c67', '#c86060', '#5e4469', '#7f4c66','#b25a62']
       firebase.database().ref('UserDetails')
         .on('value', snap => {
           myObj = snap.val()
@@ -560,7 +560,7 @@ export default {
           ['Tip', 'Numar'],
           ['Cu Istoric', Object.keys(myObjwith).length],
           ['Fără Istoric', Object.keys(myObj).length - Object.keys(myObjwith).length]
-        ]), { is3D: false, colors: ['#ffc107', colors[Math.floor(Math.random() * colors.length)]]})
+        ]), { is3D: false, colors: ['#f86c5c', colors[Math.floor(Math.random() * colors.length)]]})
       }})
     },
     topUsersLocations () {
@@ -695,7 +695,7 @@ export default {
     barchart () {
         var a = []
         var b = []
-        var colors = ['#ffbf09', '#D4E157', '#EEFF41', '#FF9800', '#F9A825','#FFC400','#FF6E40']
+        var colors = ['#9c5463', '#7b4c67', '#c86060', '#5e4469', '#7f4c66','#b25a62','#f86c5c']
         var prev
         this.allUsersAges.sort()
         for ( var i = 0; i < this.allUsersAges.length; i++ ) {

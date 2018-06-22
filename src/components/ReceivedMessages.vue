@@ -21,10 +21,10 @@
         <td class='text-xs-left'>{{ props.item.Message }}</td>
         <td>
           <v-btn icon v-if="props.item.Responded === false" @click="toogleFavourite(props.item)">
-            <v-icon>chat_bubble_outline</v-icon>
+            <v-icon style="color: #f86c5c;">chat_bubble_outline</v-icon>
           </v-btn>
-          <v-btn icon v-else><v-icon>chat</v-icon></v-btn>
-          <v-btn icon class="text-xs-right" @click="deleteItem(props.item)">
+          <v-btn icon v-else><v-icon style="color: #f86c5c;">chat</v-icon></v-btn>
+          <v-btn icon class="text-xs-right" @click="deleteItem(props.item)" style="color: #433d6b;">
             <v-icon>delete</v-icon>
           </v-btn>
         </td>

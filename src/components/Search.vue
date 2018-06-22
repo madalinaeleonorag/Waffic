@@ -85,7 +85,7 @@
               </v-menu>
               <v-spacer>
               </v-spacer>
-              <v-btn flat color="primary" @click = "date = null, date1 = null">
+              <v-btn flat style="color: #f86c5c;" @click = "date = null, date1 = null">
                   Reset
               </v-btn>
               <v-spacer>

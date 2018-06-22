@@ -32,7 +32,7 @@
             </v-list-tile>
           </v-list>
           <v-card-actions>
-            <v-icon @click="BuyColaboration()" style="cursor:pointer"> shopping_cart </v-icon>
+            <v-icon @click="BuyColaboration()" style="cursor:pointer; color: #f86c5c;"> shopping_cart </v-icon>
               <v-spacer></v-spacer>
               <v-btn icon @click.native="show = !show">
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -51,7 +51,7 @@
     <v-dialog v-model="signin" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Intră în cont
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -80,10 +80,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
-          <v-btn color="primary" type="submit" @click="userSignin">Intră în cont</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="userSignin">Intră în cont</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -92,7 +92,7 @@
     <v-dialog v-model="signup" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Crează cont nou
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -184,9 +184,9 @@
         Prin crearea contului declar că sunt de acord cu Termenii și Condițiile de utilizare a aplicației, cât și cu Politica de Confidențialitate.
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="userSignUp">Înregistrare</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -195,7 +195,7 @@
     <v-dialog v-model="buy" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Achiziționează colaborarea
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -227,9 +227,9 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="buy=false">Înapoi</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="buy=false">Înapoi</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="submit" @click="(payment=true) && (buy=false)">Continuare</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="(payment=true) && (buy=false)">Continuare</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

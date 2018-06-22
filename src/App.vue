@@ -7,7 +7,7 @@
 
           <v-list-tile v-if="!user">
               <v-list-tile-action @click="signin=true" style="cursor:pointer">
-                <v-icon color="primary"> account_circle
+                <v-icon style="color: #f86c5c;"> account_circle
                 </v-icon>
               </v-list-tile-action>
               <v-list-tile-title @click="signin=true" style="cursor:pointer">
@@ -24,7 +24,7 @@
           <v-list-tile v-if="user">
             <router-link to="/AccountDetails" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> person
+                <v-icon style="color: #433d6b;"> person
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -40,7 +40,7 @@
           <v-list-tile v-if="user">
             <router-link to="/History/:uid" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> directions
+                <v-icon style="color: #433d6b;"> directions
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -60,7 +60,7 @@
           <v-list-tile v-if="admin === true && user">
             <router-link to="/ReceivedMessages" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> question_answer
+                <v-icon style="color: #433d6b;"> question_answer
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -76,7 +76,7 @@
           <v-list-tile v-if="admin === true && user">
             <router-link to="/Statistics" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> donut_large
+                <v-icon style="color: #433d6b;"> donut_large
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -92,7 +92,7 @@
           <v-list-tile v-if="admin === true && user">
             <router-link to="/Search" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> search
+                <v-icon style="color: #433d6b;"> search
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -108,13 +108,13 @@
           <!-- CONTACT -->
 
           <v-list-tile>
-              <v-list-tile-action @click="contactform=true" style="cursor:pointer">
-                <v-icon> chat
-                </v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title @click="contactform=true" style="cursor:pointer">
-                Contact
-              </v-list-tile-title>
+            <v-list-tile-action @click="contactform=true" style="cursor:pointer">
+              <v-icon style="color: #433d6b;"> chat
+              </v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title @click="contactform=true" style="cursor:pointer">
+              Contact
+            </v-list-tile-title>
           </v-list-tile>
 
           <!-- STIRI -->
@@ -139,7 +139,7 @@
            <v-list-tile>
              <router-link to="/Collaboration" tag="li" style="cursor:pointer">
                <v-list-tile-action>
-                 <v-icon color="primary"> add_shopping_cart
+                 <v-icon style="color: #f86c5c;"> add_shopping_cart
                  </v-icon>
                </v-list-tile-action>
              </router-link>
@@ -155,7 +155,7 @@
           <v-list-tile>
             <router-link to="/Help" tag="li" style="cursor:pointer">
               <v-list-tile-action>
-                <v-icon> help
+                <v-icon style="color: #433d6b;"> help
                 </v-icon>
               </v-list-tile-action>
             </router-link>
@@ -186,16 +186,16 @@
     </v-navigation-drawer>
 
     <v-toolbar
-      color="primary"
       dark
       app
+      style="background: linear-gradient(to right, #433d6b , #f86c5c);"
       id= "toolb"
       :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
       <v-toolbar-title class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer">
+        <v-toolbar-side-icon @click.stop="drawer = !drawer" style="color: white;">
         </v-toolbar-side-icon>
-        <router-link to="/" style="cursor:pointer" class="white--text">
+        <router-link to="/" style="cursor:pointer; color: white;">
           WAFFIC
         </router-link>
       </v-toolbar-title>
@@ -203,9 +203,9 @@
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
       <img v-if="(this.Weather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
-      <v-icon v-if="this.user"> directions_car
+      <v-icon v-if="this.user" style="color: white;"> directions_car
       </v-icon>
-      <v-icon v-if="this.user">
+      <v-icon v-if="this.user" style="color: white;">
         play_arrow
       </v-icon>
       <vue-google-autocomplete
@@ -234,7 +234,7 @@
     <v-dialog v-model="signin" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Intră în cont
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -263,10 +263,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
-          <v-btn color="primary" type="submit" @click="userSignin">Intră în cont</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="userSignin">Intră în cont</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -275,7 +275,7 @@
     <v-dialog v-model="signup" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Crează cont nou
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -367,9 +367,9 @@
         Prin crearea contului declar că sunt de acord cu Termenii și Condițiile de utilizare a aplicației, cât și cu Politica de Confidențialitate.
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="userSignUp">Înregistrare</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -379,7 +379,7 @@
     <v-dialog v-model="termeni" fullscreen>
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Termeni și condiții de utilizare
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -417,7 +417,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="termeni = false">Înapoi</v-btn>
+          <v-btn flat style="color: #f86c5c;" @click="termeni = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -427,7 +427,7 @@
     <v-dialog v-model="confidențialitate" fullscreen>
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Politica de confidențialitate
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -466,7 +466,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="confidențialitate = false">Înapoi</v-btn>
+          <v-btn flat style="color: #f86c5c;" @click="confidențialitate = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -476,7 +476,7 @@
     <v-dialog v-model="drepturiautor" fullscreen>
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
           Politica privind drepturile de autor
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -505,7 +505,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="drepturiautor = false">Înapoi</v-btn>
+          <v-btn flat style="color: #f86c5c;" @click="drepturiautor = false">Înapoi</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -515,7 +515,7 @@
     <v-dialog v-model="contactform" max-width="490">
       <v-card>
         <v-card-title
-          class="primary">
+          style="background: linear-gradient(to right, #433d6b , #f86c5c); color: white;">
           Trimite-ne un mesaj
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
@@ -544,9 +544,9 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" type="submit" @click="contactform=false">Anulează</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="contactform=false">Anulează</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" type="submit" @click="contactForm">Trimite</v-btn>
+          <v-btn style="color: #f86c5c;" type="submit" @click="contactForm">Trimite</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -556,9 +556,9 @@
       <v-card>
         <v-card-text>Acest site utilizează module cookie pentru a vă asigura că beneficiați de cea mai bună experiență pe site-ul nostru.</v-card-text>
         <v-card-actions>
-          <a v-bind:href="cookies" target ="_blank">Află mai multe</a>
+          <a v-bind:href="cookies" style="color: #433d6b;" target ="_blank">Află mai multe</a>
           <v-spacer></v-spacer>
-          <v-btn primary flat="flat" @click.native="agreeGdpr">Agree</v-btn>
+          <v-btn style="color: #f86c5c;" flat="flat" @click.native="agreeGdpr">Sunt de acord</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -567,10 +567,10 @@
 
     <v-footer app font-size="3px">
       <v-spacer></v-spacer>
-      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat color="primary">Mădălina-Eleonora Gheorghe</v-btn>
-      - <v-btn flat color="primary" @click="drepturiautor = true">Drepturi de autor</v-btn>
-      - <v-btn flat color="primary" @click="termeni = true">Termeni și condiții</v-btn>
-      - <v-btn flat color="primary" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
+      &#169; Creat de<v-btn href="https://www.facebook.com/mdx.madalinaeleonora" target="_blank" flat style="color: #f86c5c;">Mădălina-Eleonora Gheorghe</v-btn>
+      - <v-btn flat style="color: #f86c5c;" @click="drepturiautor = true">Drepturi de autor</v-btn>
+      - <v-btn flat style="color: #f86c5c;" @click="termeni = true">Termeni și condiții</v-btn>
+      - <v-btn flat style="color: #f86c5c;" @click="confidențialitate = true">Politica de confidențialitate</v-btn>
       <v-spacer></v-spacer>
     </v-footer>
 

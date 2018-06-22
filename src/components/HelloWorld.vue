@@ -1,8 +1,13 @@
 <template>
 <v-layout column align-center>
   <v-container fluid>
-<!-- ACCES FARA CONT -->
-    <v-layout row align-center justify-center>
+    <v-jumbotron
+      gradient='to right, rgba(67, 61, 107, 0.7), rgba(248, 108, 92, 0.7)'
+      :src="require('../assets/HelloWorld/HelloWorld.jpg')"
+      style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
+      dark>
+    </v-jumbotron>
+    <!-- <v-layout row align-center justify-center>
       <h3 class="primary--text">Acces fără cont:</h3>
       <v-btn fab dark large color="primary" @click="dialog2 = !dialog2">
         <v-icon dark>account_circle</v-icon>
@@ -29,8 +34,8 @@
       <v-btn fab dark large color="primary" @click="dialog8 = !dialog8">
         <v-icon dark>monetization_on</v-icon>
       </v-btn>
-    </v-layout>
-    <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5">
+    </v-layout> -->
+    <!-- <img src="@/assets/HelloWorld/HelloWorld.jpg" alt="Waffic" style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0; background-color: rgba(255,0,0,0.5);"/> -->
 <!-- SIGN IN -->
     <v-dialog v-model="signin" max-width="490">
       <v-card>
