@@ -1,225 +1,169 @@
 <template>
-<v-layout column align-center>
-  <v-container fluid>
-    <v-jumbotron
-      gradient='to right, rgba(67, 61, 107, 0.7), rgba(248, 108, 92, 0.7)'
-      :src="require('../assets/HelloWorld/HelloWorld.jpg')"
-      style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
-      dark>
-    </v-jumbotron>
-    <!-- <v-layout row align-center justify-center>
-      <h3 class="primary--text">Acces fără cont:</h3>
-      <v-btn fab dark large color="primary" @click="dialog2 = !dialog2">
-        <v-icon dark>account_circle</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog3 = !dialog3">
-        <v-icon dark>message</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog4 = !dialog4">
-        <v-icon dark>help</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog5 = !dialog5">
-        <v-icon dark>list_alt</v-icon>
-      </v-btn>
-      <h3 class="primary--text">Acces cu cont:</h3>
-      <v-btn fab dark large color="primary" @click="dialog1 = !dialog1">
-        <v-icon dark>map</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog6 = !dialog6">
-        <v-icon dark>account_box</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog7 = !dialog7">
-        <v-icon dark>history</v-icon>
-      </v-btn>
-      <v-btn fab dark large color="primary" @click="dialog8 = !dialog8">
-        <v-icon dark>monetization_on</v-icon>
-      </v-btn>
-    </v-layout> -->
-    <!-- <img src="@/assets/HelloWorld/HelloWorld.jpg" alt="Waffic" style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0; background-color: rgba(255,0,0,0.5);"/> -->
-<!-- SIGN IN -->
-    <v-dialog v-model="signin" max-width="490">
-      <v-card>
-        <v-card-title
-          class="primary">
-          Intră în cont
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-            <v-text-field
-            label="Email"
-            v-model="email"
-            :rules="[rules.required, rules.email]"
-            >
-            </v-text-field>
-            <v-text-field
-              name="input-10-1"
-              label="Parola"
-              hint="Minim 8 caractere"
-              v-model="password"
-              min="8"
-              :append-icon="e1 ? 'visibility' : 'visibility_off'"
-              :append-icon-cb="() => (e1 = !e1)"
-              :type="e1 ? 'password' : 'text'"
-              :rules="[rules.required]"
-              counter
-            >
-            </v-text-field>
-          </v-flex>
+  <v-layout column align-center>
+    <v-container fluid>
+      <v-jumbotron
+        gradient='to right, rgba(67, 61, 107, 0.7), rgba(248, 108, 92, 0.7)'
+        :src="require('../assets/HelloWorld/HelloWorld.jpg')"
+        style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
+        dark>
+        <v-container fill-height>
+          <v-layout align-center>
+            <v-flex text-xs-right>
+              <div class="title mb-3">
+                <v-icon style="color: white;" x-large>
+                  add_location
+                </v-icon>
+              </div>
+              <v-btn style="color: #f86c5c; background-color: white;" @click="(signin=true) && (signup=false)">Intră în cont</v-btn>
+              sau
+              <v-btn style="color: #f86c5c; background-color: white;" @click="(signup=true) && (signin=false)">Crează un cont nou</v-btn>
+            </v-flex>
           </v-layout>
         </v-container>
-        <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
-          <v-btn color="primary" type="submit" @click="userSignin">Intră în cont</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-<!-- SIGNUP -->
-    <v-dialog v-model="signup" max-width="490">
-      <v-card>
-        <v-card-title
-          class="primary">
-          Crează cont nou
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout wrap>
-            <v-flex xs12 align-center justify-space-between>
+      </v-jumbotron>
+
+  <!-- SIGN IN -->
+      <v-dialog v-model="signin" max-width="490">
+        <v-card>
+          <v-card-title
+            style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
+            Intră în cont
+          </v-card-title>
+          <v-container grid-list-sm class="pa-4">
+            <v-layout row wrap>
+              <v-flex xs12 align-center justify-space-between>
               <v-text-field
-                label="Email"
-                v-model="email"
-                :rules="[rules.required, rules.email]"
+              label="Email"
+              v-model="email"
+              :rules="[rules.required, rules.email]"
               >
-            </v-text-field>
+              </v-text-field>
+              <v-text-field
+                name="input-10-1"
+                label="Parola"
+                hint="Minim 8 caractere"
+                v-model="password"
+                min="8"
+                :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                :append-icon-cb="() => (e1 = !e1)"
+                :type="e1 ? 'password' : 'text'"
+                :rules="[rules.required]"
+                counter
+              >
+              </v-text-field>
             </v-flex>
-              <v-flex xs6>
+            </v-layout>
+          </v-container>
+          <v-card-actions>
+            <v-btn style="color: #f86c5c;" type="submit" @click="(signup=true) && (signin=false)">Cont nou</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="normal" type="submit" @click="userRecover">Am uitat parola</v-btn>
+            <v-btn style="color: #f86c5c;" type="submit" @click="userSignin">Intră în cont</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+  <!-- SIGNUP -->
+      <v-dialog v-model="signup" max-width="490">
+        <v-card>
+          <v-card-title
+            style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
+            Crează cont nou
+          </v-card-title>
+          <v-container grid-list-sm class="pa-4">
+            <v-layout wrap>
+              <v-flex xs12 align-center justify-space-between>
                 <v-text-field
-                  label="Nume"
-                  v-model="nume"
+                  label="Email"
+                  v-model="email"
+                  :rules="[rules.required, rules.email]"
                 >
-                </v-text-field>
+              </v-text-field>
               </v-flex>
-              <v-flex xs6>
-                <v-text-field
-                  label="Prenume"
-                  v-model="prenume"
-                >
-                </v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-text-field
-                  label="Localitate"
-                  v-model="localitate"
-                >
-                </v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-menu
-                  ref="datanamenu"
-                  lazy
-                  :close-on-content-click="false"
-                  v-model="datanamenu"
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  :nudge-right="40"
-                  min-width="290px"
-                  :return-value.sync="datana"
-                >
+                <v-flex xs6>
                   <v-text-field
-                    slot="activator"
-                    label="Data nașterii"
-                    v-model="datana"
-                    prepend-icon="event"
-                    readonly
+                    label="Nume"
+                    v-model="nume"
                   >
                   </v-text-field>
-                  <v-date-picker v-model="datana" no-title scrollable @change="$refs.datanamenu.save(datana)">
-                    <v-spacer>
-                    </v-spacer>
-                  </v-date-picker>
-                </v-menu>
-              </v-flex>
-              <v-flex xs6>
-                <v-text-field
-                  name="input-10-1"
-                  label="Parolă"
-                  hint="Minim 8 caractere"
-                  v-model="password"
-                  min="8"
-                  :append-icon-cb="() => (e1 = !e1)"
-                  :type="'password'"
-                  :rules="[rules.required]"
-                  counter
-                >
-                </v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-text-field
-                  name="input-10-1"
-                  label="Confirmă parolă"
-                  hint="Minim 8 caractere"
-                  v-model="confirmPassword"
-                  min="8"
-                  :type="'password'"
-                  :rules="[comparePasswords]"
-                >
-                </v-text-field>
-              </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-btn color="primary" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" type="submit" @click="userSignUp">Înregistrare</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-<!-- DIALOGS PHOTOS -->
-    <v-dialog v-model="dialog1">
-      <v-card>
-        <img src="@/assets/HelloWorld/map.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog2">
-      <v-card>
-        <img src="@/assets/HelloWorld/signin.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog3">
-      <v-card>
-        <img src="@/assets/HelloWorld/contact.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog4">
-      <v-card>
-        <img src="@/assets/HelloWorld/help.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog5">
-      <v-card>
-        <img src="@/assets/HelloWorld/legal.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog6">
-      <v-card>
-        <img src="@/assets/HelloWorld/accountdetails.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog7">
-      <v-card>
-        <img src="@/assets/HelloWorld/historyuser.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog8">
-      <v-card>
-        <img src="@/assets/HelloWorld/collaborations.jpg" alt="Waffic">
-      </v-card>
-    </v-dialog>
-
-  </v-container>
-</v-layout>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    label="Prenume"
+                    v-model="prenume"
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    label="Localitate"
+                    v-model="localitate"
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-menu
+                    ref="datanamenu"
+                    lazy
+                    :close-on-content-click="false"
+                    v-model="datanamenu"
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    :nudge-right="40"
+                    min-width="290px"
+                    :return-value.sync="datana"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      label="Data nașterii"
+                      v-model="datana"
+                      prepend-icon="event"
+                      readonly
+                    >
+                    </v-text-field>
+                    <v-date-picker v-model="datana" no-title scrollable @change="$refs.datanamenu.save(datana)">
+                      <v-spacer>
+                      </v-spacer>
+                    </v-date-picker>
+                  </v-menu>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    name="input-10-1"
+                    label="Parolă"
+                    hint="Minim 8 caractere"
+                    v-model="password"
+                    min="8"
+                    :append-icon-cb="() => (e1 = !e1)"
+                    :type="'password'"
+                    :rules="[rules.required]"
+                    counter
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    name="input-10-1"
+                    label="Confirmă parolă"
+                    hint="Minim 8 caractere"
+                    v-model="confirmPassword"
+                    min="8"
+                    :type="'password'"
+                    :rules="[comparePasswords]"
+                  >
+                  </v-text-field>
+                </v-flex>
+            </v-layout>
+          </v-container>
+          <v-card-actions>
+            <v-btn style="color: #f86c5c;" type="submit" @click="(signin=true) && (signup=false)">Înapoi</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn style="color: #f86c5c;" type="submit" @click="userSignUp">Înregistrare</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-container>
+  </v-layout>
 </template>
 
 <script>
@@ -229,19 +173,6 @@
     name: 'HOME',
     data () {
       return {
-        dialog1: false,
-        dialog2: false,
-        dialog3: false,
-        dialog4: false,
-        dialog5: false,
-        dialog6: false,
-        dialog7: false,
-        dialog8: false,
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 8
-        },
-        items: [],
         e1: true,
         signin: false,
         password: '',
@@ -263,18 +194,7 @@
         }
       }
     },
-    created () {
-      this.$store.dispatch('getTypesOfCollaborations')
-    },
-    watch: {
-      getTypesOfCollaborations (value) {
-        this.items = value
-      }
-    },
     computed: {
-      getTypesOfCollaborations () {
-        return this.$store.getters.TypesOfCollaborations
-      },
       user () {
         return this.$store.getters.user
       },
