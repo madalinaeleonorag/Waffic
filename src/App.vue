@@ -203,6 +203,7 @@
         {{Weather.temperature}} &ordm;C
       </v-toolbar-title>
       <img v-if="(this.Weather.icon) && (this.user)" :src="require('./assets/WeatherIcons/' + Weather.icon + '.png')"/>
+      <v-spacer></v-spacer>
       <v-icon v-if="this.user" style="color: white;"> directions_car
       </v-icon>
       <v-icon v-if="this.user" style="color: white;">

@@ -2,35 +2,35 @@
   <v-layout>
     <v-container fluid>
       <v-data-table
-    :headers="headers"
-    :items="items"
-    item-key="name"
-    class="elevation-1">
-    <template slot="headerCell" slot-scope="props">
-      <v-tooltip bottom>
-        <span slot="activator">
-          {{ props.header.text }}
-        </span>
-        <span>
-          {{ props.header.text }}
-        </span>
-      </v-tooltip>
-    </template>
-    <template slot="items" slot-scope="props">
-      <td class="text-xs-left">{{ props.item.Start }}</td>
-      <td class="text-xs-left">{{ props.item.Finish }}</td>
-      <td class="text-xs-left">{{ props.item.Date }}</td>
-      <td>
-        <v-btn icon class="text-xs-right" @click="deleteItem(props.item)">
-          <v-icon style="color: #433d6b;">delete</v-icon>
-        </v-btn>
-      </td>
-      <td>
-        <v-icon v-if="props.item.Favourite === false" @click="toogleFavourite(props.item)" style="color: #f86c5c;">star_border</v-icon>
-        <v-icon v-else @click="toogleFavourite(props.item)" style="color: #f86c5c;">star</v-icon>
-      </td>
-    </template>
-  </v-data-table>
+        :headers="headers"
+        :items="items"
+        item-key="name"
+        class="elevation-1">
+        <template slot="headerCell" slot-scope="props">
+          <v-tooltip bottom>
+            <span slot="activator">
+              {{ props.header.text }}
+            </span>
+            <span>
+              {{ props.header.text }}
+            </span>
+          </v-tooltip>
+        </template>
+        <template slot="items" slot-scope="props">
+          <td class="text-xs-left">{{ props.item.Start }}</td>
+          <td class="text-xs-left">{{ props.item.Finish }}</td>
+          <td class="text-xs-left">{{ props.item.Date }}</td>
+          <td>
+            <v-btn icon class="text-xs-right" @click="deleteItem(props.item)">
+              <v-icon style="color: #433d6b;">delete</v-icon>
+            </v-btn>
+          </td>
+          <td>
+            <v-icon v-if="props.item.Favourite === false" @click="toogleFavourite(props.item)" style="color: #f86c5c;">star_border</v-icon>
+            <v-icon v-else @click="toogleFavourite(props.item)" style="color: #f86c5c;">star</v-icon>
+          </td>
+        </template>
+      </v-data-table>
     </v-container>
   </v-layout>
 </template>
