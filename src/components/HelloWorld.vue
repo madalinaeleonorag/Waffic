@@ -13,7 +13,6 @@
                 <img :src="require('../assets/LOGO-EXTINS.png')"/>
               </div>
               <v-btn style="color: #f86c5c; background-color: white;" @click="(signin=true) && (signup=false)" v-if="!user">Intră în cont</v-btn>
-              sau
               <v-btn style="color: #f86c5c; background-color: white;" @click="(signup=true) && (signin=false)" v-if="!user">Crează un cont nou</v-btn>
             </v-flex>
           </v-layout>
