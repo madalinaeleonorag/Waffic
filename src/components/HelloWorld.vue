@@ -6,17 +6,15 @@
         :src="require('../assets/HelloWorld/HelloWorld.jpg')"
         style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
         dark>
-        <v-container fill-height v-if="!user">
+        <v-container fill-height>
           <v-layout align-center>
             <v-flex text-xs-right>
               <div class="title mb-3">
-                <v-icon style="color: white;" x-large>
-                  add_location
-                </v-icon>
+                <img :src="require('../assets/LOGO-EXTINS.png')"/>
               </div>
-              <v-btn style="color: #f86c5c; background-color: white;" @click="(signin=true) && (signup=false)">Intră în cont</v-btn>
+              <v-btn style="color: #f86c5c; background-color: white;" @click="(signin=true) && (signup=false)" v-if="!user">Intră în cont</v-btn>
               sau
-              <v-btn style="color: #f86c5c; background-color: white;" @click="(signup=true) && (signin=false)">Crează un cont nou</v-btn>
+              <v-btn style="color: #f86c5c; background-color: white;" @click="(signup=true) && (signin=false)" v-if="!user">Crează un cont nou</v-btn>
             </v-flex>
           </v-layout>
         </v-container>

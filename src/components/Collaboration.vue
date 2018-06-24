@@ -19,8 +19,6 @@
         lg3>
         <v-card>
           <v-card-title><h4>{{ props.item.Name }}</h4></v-card-title>
-          <img v-if="this.item.icon" :src="require('../assets/TypesOfCollaborationsPictures/' + collaboration.Picture + '.png')"/>
-          <v-divider></v-divider>
           <v-list dense>
             <v-list-tile>
               <v-list-tile-content>Durată:</v-list-tile-content>
