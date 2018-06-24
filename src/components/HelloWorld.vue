@@ -6,7 +6,7 @@
         :src="require('../assets/HelloWorld/HelloWorld.jpg')"
         style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
         dark>
-        <v-container fill-height>
+        <v-container fill-height v-if="!user">
           <v-layout align-center>
             <v-flex text-xs-right>
               <div class="title mb-3">
