@@ -58,6 +58,7 @@
             <v-text-field
             label="Email"
             v-model="email"
+            color="normal"
             :rules="[rules.required, rules.email]"
             >
             </v-text-field>
@@ -66,6 +67,7 @@
               label="Parola"
               hint="Minim 8 caractere"
               v-model="password"
+              color="normal"
               min="8"
               :append-icon="e1 ? 'visibility' : 'visibility_off'"
               :append-icon-cb="() => (e1 = !e1)"
@@ -99,12 +101,14 @@
               <v-text-field
                 label="Email"
                 v-model="email"
+                color="normal"
                 :rules="[rules.required, rules.email]">
               </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 label="Nume"
+                color="normal"
                 v-model="nume"
               >
               </v-text-field>
@@ -112,6 +116,7 @@
             <v-flex xs6>
               <v-text-field
                 label="Prenume"
+                color="normal"
                 v-model="prenume"
               >
               </v-text-field>
@@ -119,6 +124,7 @@
             <v-flex xs6>
               <v-select
                 :items="locations"
+                color="normal"
                 v-model="localitate"
                 label="Localitate"
                 autocomplete
@@ -140,6 +146,7 @@
                   slot="activator"
                   v-model="datana"
                   label="Birthday date"
+                  color="normal"
                   prepend-icon="event"
                   readonly
                 ></v-text-field>
@@ -156,6 +163,7 @@
               <v-text-field
                 name="input-10-1"
                 label="Parolă"
+                color="normal"
                 hint="Minim 8 caractere"
                 v-model="password"
                 min="8"
@@ -171,6 +179,7 @@
                 name="input-10-1"
                 label="Confirmă parolă"
                 hint="Minim 8 caractere"
+                color="normal"
                 v-model="confirmPassword"
                 min="8"
                 :type="'password'"
@@ -201,61 +210,53 @@
             <v-flex xs12>
               <v-text-field
                 label="Denumire companie"
+                color="normal"
                 v-model="DenumireCompanie">
               </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
                 label="Descriere companie"
+                color="normal"
                 v-model="DescriereCompanie">
               </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 label="Coordonata latitudine"
+                color="normal"
                 v-model="CoordonataLatitudine">
               </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 label="Coordonata longitudine"
+                color="normal"
                 v-model="CoordonataLongitudine">
               </v-text-field>
             </v-flex>
+            <v-flex xs12>
+              <form action="https://www.paypal.com/cgi-bin/webscr" target="_blank" method="post">
+              <input type="hidden" name="cmd" value="_s-xclick">
+              <input type="hidden" name="hosted_button_id" value="L9NBSYBQH32T4">
+              <table>
+                <tr><td>
+                  <select name="os0" v-model="selected">
+                    <option value="1week">1week : €1.07 EUR</option>
+                    <option value="HappyMonth">HappyMonth : €3.23 EUR</option>
+                    <option value="BeOnline">BeOnline : €6.47 EUR</option>
+                    <option value="What about six?">What about six? : €10.78 EUR</option>
+                    <option value="Forget about payment">Forget about payment : €16.18 EUR</option>
+                  </select>
+                </td></tr>
+              </table>
+              <input type="hidden" name="currency_code" value="EUR">
+              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" @click="Payment">
+              <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+              </form>
+            </v-flex>
           </v-layout>
         </v-container>
-        <v-card-actions>
-          <v-btn style="color: #f86c5c;" type="submit" @click="buy=false">Înapoi</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn style="color: #f86c5c;" type="submit" @click="(payment=true) && (buy=false)">Continuare</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- PAYMENT -->
-    <v-dialog v-model="payment" max-width="250">
-      <v-card>
-       <v-flex xs12>
-          <form action="https://www.paypal.com/cgi-bin/webscr" target="_blank" method="post">
-          <input type="hidden" name="cmd" value="_s-xclick">
-          <input type="hidden" name="hosted_button_id" value="L9NBSYBQH32T4">
-          <table>
-            <tr><td><input type="hidden" name="on0" value="Alege tipul de colaborare">Alege tipul de colaborare</td></tr>
-            <tr><td>
-              <select name="os0" v-model="selected">
-                <option value="1week">1week : €1.07 EUR</option>
-                <option value="HappyMonth">HappyMonth : €3.23 EUR</option>
-                <option value="BeOnline">BeOnline : €6.47 EUR</option>
-                <option value="What about six?">What about six? : €10.78 EUR</option>
-                <option value="Forget about payment">Forget about payment : €16.18 EUR</option>
-              </select>
-            </td></tr>
-          </table>
-          <input type="hidden" name="currency_code" value="EUR">
-          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" @click="Payment">
-          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-          </form>
-        </v-flex>
       </v-card>
     </v-dialog>
 
@@ -288,7 +289,6 @@
         nume: null,
         prenume: null,
         buy: false,
-        payment: false,
         localitate: null,
         datana: null,
         datanamenu: false,

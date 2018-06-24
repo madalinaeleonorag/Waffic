@@ -11,6 +11,7 @@
                 <v-flex xs12>
                   <v-text-field
                     id="id1"
+                    color="normal"
                     name="input1"
                     label="Caută utilizator după nume sau prenume"
                     v-model= "input1"
@@ -36,12 +37,12 @@
                 </template>
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
-                    <router-link :to="{ name: 'UserCollaborationsHistory', params: { id: props.item.Key}}" style="cursor:pointer">
+                    <router-link :to="{ name: 'UserCollaborationsHistory', params: { id: props.item.Key}}" style="cursor:pointer;color: #433d6b;">
                       Vezi colaborări
                     </router-link>
                   </td>
                   <td class="text-xs-left">
-                    <router-link :to="{ name: 'UsersHistory', params: { id: props.item.Key}}" style="cursor:pointer">
+                    <router-link :to="{ name: 'UsersHistory', params: { id: props.item.Key}}" style="cursor:pointer;color: #433d6b;">
                       Vezi istoric
                     </router-link>
                   </td>
@@ -76,6 +77,7 @@
                   slot="activator"
                   label="De la"
                   v-model="date"
+                  color="normal"
                   prepend-icon="event"
                   readonly
                 >
@@ -105,6 +107,7 @@
                   slot="activator"
                   label="Până la"
                   v-model="date1"
+                  color="normal"
                   prepend-icon="event"
                   readonly
                 >
@@ -152,6 +155,7 @@
                     name="input3"
                     label="Caută destinația"
                     v-model= "input3"
+                    color="normal"
                   ></v-text-field>
                 </v-flex>
               </v-layout>

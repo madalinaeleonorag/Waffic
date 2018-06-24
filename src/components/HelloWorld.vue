@@ -32,6 +32,7 @@
               <v-flex xs12 align-center justify-space-between>
               <v-text-field
               label="Email"
+              color="normal"
               v-model="email"
               :rules="[rules.required, rules.email]"
               >
@@ -41,6 +42,7 @@
                 label="Parola"
                 hint="Minim 8 caractere"
                 v-model="password"
+                color="normal"
                 min="8"
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
@@ -73,6 +75,7 @@
                 <v-text-field
                   label="Email"
                   v-model="email"
+                  color="normal"
                   :rules="[rules.required, rules.email]"
                 >
               </v-text-field>
@@ -81,6 +84,7 @@
                   <v-text-field
                     label="Nume"
                     v-model="nume"
+                    color="normal"
                   >
                   </v-text-field>
                 </v-flex>
@@ -88,6 +92,7 @@
                   <v-text-field
                     label="Prenume"
                     v-model="prenume"
+                    color="normal"
                   >
                   </v-text-field>
                 </v-flex>
@@ -95,6 +100,7 @@
                   <v-text-field
                     label="Localitate"
                     v-model="localitate"
+                    color="normal"
                   >
                   </v-text-field>
                 </v-flex>
@@ -114,6 +120,7 @@
                     <v-text-field
                       slot="activator"
                       label="Data nașterii"
+                      color="normal"
                       v-model="datana"
                       prepend-icon="event"
                       readonly
@@ -130,6 +137,7 @@
                     name="input-10-1"
                     label="Parolă"
                     hint="Minim 8 caractere"
+                    color="normal"
                     v-model="password"
                     min="8"
                     :append-icon-cb="() => (e1 = !e1)"
@@ -144,6 +152,7 @@
                     name="input-10-1"
                     label="Confirmă parolă"
                     hint="Minim 8 caractere"
+                    color="normal"
                     v-model="confirmPassword"
                     min="8"
                     :type="'password'"

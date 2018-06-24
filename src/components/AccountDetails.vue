@@ -10,6 +10,7 @@
           label="Email"
           name="email"
           :value= getuserdetails.Email
+          color="normal"
           id="Email"
           :rules="[rules.email]">
         </v-text-field>
@@ -18,6 +19,7 @@
         <v-text-field
           label="Nume"
           name="nume"
+          color="normal"
           :value= getuserdetails.Name
           id="Name"
         ></v-text-field>
@@ -26,6 +28,7 @@
         <v-text-field
           label="Prenume"
           name="prenume"
+          color="normal"
           :value= getuserdetails.Surname
           id="Surname"
         ></v-text-field>
@@ -34,6 +37,7 @@
         <v-text-field
           label="Localitate"
           name="localitate"
+          color="normal"
           :value= getuserdetails.Locality
           id="Locality"
         ></v-text-field>
@@ -54,6 +58,7 @@
             :label= getuserdetails.BirthDate
             name="Data nașterii"
             slot="activator"
+            color="normal"
             v-model="BirthDate"
             prepend-icon="event"
             readonly
@@ -71,6 +76,7 @@
           label="Parolă actuală"
           hint="Minim 6 caractere"
           v-model="OldPassword"
+          color="normal"
           min="6"
           :type="'password'"
           id = "OldPassword"
@@ -82,6 +88,7 @@
             label="Parolă nouă"
             name="NewPassword"
             hint="Minim 6 caractere"
+            color="normal"
             v-model="password"
             min="6"
             :append-icon-cb="() => (e1 = !e1)"
@@ -95,6 +102,7 @@
             name="NewPasswordconfirm"
             label="Confirmă parolă nouă"
             hint="Minim 6 caractere"
+            color="normal"
             v-model="confirmPassword"
             min="6"
             :type="'password'"
