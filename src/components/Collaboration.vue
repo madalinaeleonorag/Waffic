@@ -30,7 +30,7 @@
             </v-list-tile>
           </v-list>
           <v-card-actions>
-            <v-icon @click="BuyColaboration()" style="cursor:pointer; color: #f86c5c;"> shopping_cart </v-icon>
+            <v-icon @click="BuyColaboration(props.index)" style="cursor:pointer; color: #f86c5c;"> shopping_cart </v-icon>
               <v-spacer></v-spacer>
               <v-btn icon @click.native="show = !show">
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -203,7 +203,10 @@
       <v-card>
         <v-card-title
           style="background: linear-gradient(to right, #433d6b , #f86c5c);color: white;">
-          Achiziționează colaborarea
+          Achiziționează colaborarea 
+          <span v-if="items">
+            "{{items[selected].Name}}"
+          </span>
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout wrap>
@@ -211,49 +214,38 @@
               <v-text-field
                 label="Denumire companie"
                 color="normal"
-                v-model="DenumireCompanie">
+                v-model="DenumireCompanie"
+                :rules="[rules.required]">
               </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
                 label="Descriere companie"
                 color="normal"
-                v-model="DescriereCompanie">
+                v-model="DescriereCompanie"
+                :rules="[rules.required]">
               </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 label="Coordonata latitudine"
                 color="normal"
-                v-model="CoordonataLatitudine">
+                v-model="CoordonataLatitudine"
+                :rules="[rules.required]">
               </v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 label="Coordonata longitudine"
                 color="normal"
-                v-model="CoordonataLongitudine">
+                v-model="CoordonataLongitudine"
+                :rules="[rules.required]">
               </v-text-field>
             </v-flex>
-            <v-flex xs12>
-              <form action="https://www.paypal.com/cgi-bin/webscr" target="_blank" method="post">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="hosted_button_id" value="L9NBSYBQH32T4">
-              <table>
-                <tr><td>
-                  <select name="os0" v-model="selected">
-                    <option value="1week">1week : €1.07 EUR</option>
-                    <option value="HappyMonth">HappyMonth : €3.23 EUR</option>
-                    <option value="BeOnline">BeOnline : €6.47 EUR</option>
-                    <option value="What about six?">What about six? : €10.78 EUR</option>
-                    <option value="Forget about payment">Forget about payment : €16.18 EUR</option>
-                  </select>
-                </td></tr>
-              </table>
-              <input type="hidden" name="currency_code" value="EUR">
-              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" @click="Payment">
-              <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+            <v-flex xs12 class='text-xs-center'>
+              <v-btn v-bind:href='items[selected].payLink' target='_blank' flat style='color: #f86c5c;'  @click='Payment'>
+                Înregistrează colaborarea
+              </v-btn>
             </v-flex>
           </v-layout>
         </v-container>
@@ -265,12 +257,11 @@
 
 <script>
   import firebase from '@/firebase'
-  import moment from "moment"
-  import LocalitatiRO from "@/components/LocalitatiRO"
+  import moment from 'moment'
+  import LocalitatiRO from '@/components/LocalitatiRO'
   export default {
     data () {
       return {
-        selected: null,
         DenumireCompanie: null,
         DescriereCompanie: null,
         CoordonataLatitudine: null,
@@ -289,6 +280,7 @@
         nume: null,
         prenume: null,
         buy: false,
+        e3: null,
         localitate: null,
         datana: null,
         datanamenu: false,
@@ -301,7 +293,8 @@
             return pattern.test(value) || 'Email invalid.'
           }
         },
-        locations: []
+        locations: [],
+        selected: 0
       }
     },
     created: function () {
@@ -325,23 +318,23 @@
       }
     },
     methods: {
-      BuyColaboration () {
+      BuyColaboration (index) {
         if(this.user) {
           this.buy = true
             } else {
           this.signin = true
         }
+        this.selected = index
       },
       Payment() {
-        var collaborationTypes =['1week','HappyMonth','BeOnline','What about six?','Forget about payment']
+        console.log("do it "+ this.items[this.selected].payLink)
         this.buy = false
-        var index = collaborationTypes.indexOf(this.selected)
         var day = new Date()
         var dayWrapper = moment(day)
         var dayString = dayWrapper.format("YYYY-MM-DD")
         firebase.database().ref('/UserDetails/' + this.user.uid + '/Collaborations/').push({
           StartDate: dayString,
-          TypesOfCollaboration: index,
+          TypesOfCollaboration: this.selected,
           DenumireCompanie: this.DenumireCompanie,
           DescriereCompanie: this.DescriereCompanie,
           CoordonataLatitudine: this.CoordonataLatitudine,
@@ -349,7 +342,7 @@
         })
         firebase.database().ref('/Collaborations/' + this.user.uid).set({
           StartDate: dayString,
-          TypesOfCollaboration: index,
+          TypesOfCollaboration: this.selected,
           DenumireCompanie: this.DenumireCompanie,
           DescriereCompanie: this.DescriereCompanie,
           CoordonataLatitudine: this.CoordonataLatitudine,
@@ -375,3 +368,10 @@
     }
   }
 </script>
+
+<style scoped>
+a, ul, li {
+  text-decoration: none;
+  list-style-type: none;
+}
+</style>

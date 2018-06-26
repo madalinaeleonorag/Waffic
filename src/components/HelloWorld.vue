@@ -96,12 +96,13 @@
                   </v-text-field>
                 </v-flex>
                 <v-flex xs6>
-                  <v-text-field
-                    label="Localitate"
-                    v-model="localitate"
+                  <v-select
+                    :items="locations"
                     color="normal"
-                  >
-                  </v-text-field>
+                    v-model="localitate"
+                    label="Localitate"
+                    autocomplete
+                  ></v-select>
                 </v-flex>
                 <v-flex xs6>
                   <v-menu
@@ -175,6 +176,7 @@
 <script>
   import firebase from '@/firebase'
   import moment from "moment"
+  import LocalitatiRO from "@/components/LocalitatiRO"
   export default {
     name: 'HOME',
     data () {
@@ -191,6 +193,7 @@
         datanamenu: false,
         signup: false,
         confirmPassword: '',
+        locations: [],
         rules: {
           required: (value) => !!value || 'Obligatoriu.',
           email: (value) => {
@@ -225,6 +228,9 @@
         this.$store.dispatch('signUp', {email: this.email, password: this.password, nume: this.nume, prenume: this.prenume, localitate: this.localitate, datana: this.datana})
         this.signup=false
       }
+    },
+    created () {
+      this.locations = LocalitatiRO
     }
   }
 </script>
