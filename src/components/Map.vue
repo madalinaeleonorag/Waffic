@@ -57,7 +57,7 @@
             })
             const distanta = (Math.sqrt(Math.pow((+this.coords.lat - myObj[key].CoordonataLatitudine), 2) + Math.pow((+this.coords.long - myObj[key].CoordonataLongitudine), 2)) * 100 * 1000)
             console.log(distanta)
-            if (distanta < 100) {
+            if (distanta < 500) {
               alert("Ești aproape de "+ myObj[key].DenumireCompanie + " (" + myObj[key].DescriereCompanie + ")");
             }
             var infowindow = new google.maps.InfoWindow()
