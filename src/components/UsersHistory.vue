@@ -23,7 +23,7 @@
         </template>
       </v-data-table>
       <v-card-actions>
-        <v-btn flat color="primary" router to = "/Search">Back</v-btn>
+        <v-btn flat style="color: #f86c5c;" router to = "/Search">Back</v-btn>
       </v-card-actions>
     </v-container>
 </template>
