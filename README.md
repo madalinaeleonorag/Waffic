@@ -14,31 +14,31 @@ To run the project on your machine use `npm run dev` for a dev server. Navigate 
 ## Screenshots
 * General access
     * Homepage<br>
-    ![''](./src/assets/Presentation/homepage.png)
+    ![''](./src/assets/Presentation/homepage.jpg)
     * Signup<br>
-    ![''](./src/assets/Presentation/signup.png)
+    ![''](./src/assets/Presentation/signup.jpg)
     * Collaborations<br>
-    ![''](./src/assets/Presentation/collaborations.png)
+    ![''](./src/assets/Presentation/collaborations.jpg)
     * Contact<br>
-    ![''](./src/assets/Presentation/contact.png)
+    ![''](./src/assets/Presentation/contact.jpg)
     * Tutorial<br>
-    ![''](./src/assets/Presentation/tutorial.png)
+    ![''](./src/assets/Presentation/tutorial.jpg)
 * Users with general account access
     * User details<br>
-    ![''](./src/assets/Presentation/user-profile.png)
+    ![''](./src/assets/Presentation/user-profile.jpg)
     * Travel history<br>
-    ![''](./src/assets/Presentation/travel-history.png)
+    ![''](./src/assets/Presentation/travel-history.jpg)
     * Map<br>
-    ![''](./src/assets/Presentation/map.png)
+    ![''](./src/assets/Presentation/map.jpg)
 * Administrators access
     * Menu <br>
-    ![''](./src/assets/Presentation/admin-account.png)
+    ![''](./src/assets/Presentation/admin-account.jpg)
     * Messages <br>
-    ![''](./src/assets/Presentation/messages.png)
+    ![''](./src/assets/Presentation/messages.jpg)
     * Statistics <br>
-    ![''](./src/assets/Presentation/statistics.png)
+    ![''](./src/assets/Presentation/statistics.jpg)
     * Database search <br>
-    ![''](./src/assets/Presentation/search.png)
+    ![''](./src/assets/Presentation/search.jpg)
 
 * Database <br>
-![''](./src/assets/Presentation/database.png)
+![''](./src/assets/Presentation/database.jpg)
