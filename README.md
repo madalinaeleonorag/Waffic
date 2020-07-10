@@ -36,9 +36,9 @@ To run the project on your machine use `npm run dev` for a dev server. Navigate 
     * Messages <br>
     ![''](./src/assets/Presentation/messages.jpg)
     * Statistics <br>
-    ![''](./src/assets/Presentation/statistics.jpg)
+    ![''](./src/assets/Presentation/statistics.png)
     * Database search <br>
-    ![''](./src/assets/Presentation/search.jpg)
+    ![''](./src/assets/Presentation/search.png)
 
 * Database <br>
 ![''](./src/assets/Presentation/database.jpg)
