@@ -2,7 +2,7 @@
   <v-layout column align-center>
     <v-container fluid>
       <v-jumbotron
-        gradient='to right, rgba(67, 61, 107, 0.7), rgba(248, 108, 92, 0.7)'
+        gradient='to right, rgba(67, 61, 107), rgba(248, 108, 92)'
         :src="require('../assets/HelloWorld/HelloWorld.jpg')"
         style="position: absolute; top:0; left:0; width:100%; height:100%; display: block; z-index:0;"
         dark>

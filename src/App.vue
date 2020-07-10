@@ -613,13 +613,7 @@
     <!-- FOOTER -->
 
     <v-footer app font-size="3px">
-      <v-spacer></v-spacer>&#169; Creat de
-      <v-btn
-        href="https://www.facebook.com/mdx.madalinaeleonora"
-        target="_blank"
-        flat
-        style="color: #f86c5c;"
-      >Mădălina-Eleonora Gheorghe</v-btn>-
+      <v-spacer></v-spacer>
       <v-btn flat style="color: #f86c5c;" @click="drepturiautor = true">Drepturi de autor</v-btn>-
       <v-btn flat style="color: #f86c5c;" @click="termeni = true">Termeni și condiții</v-btn>-
       <v-btn
