@@ -5,7 +5,7 @@ Integrated application for tracking weather and traffic conditions, using AccuWe
 ## Development
 
 The application is also live [HERE](https://universityraking.web.app/).<br>
-This project was created using [Vue.js CLI](https://vuejs.org/) version 2.5.2.<br>
+This project was created using [Vue.js CLI](https://vuejs.org/) version 2.5.2 with [Vuetify](https://vuetifyjs.com/en/), [Google Maps API](https://developers.google.com/maps/documentation), [Google Charts](https://developers.google.com/chart), [VUEX](https://vuex.vuejs.org/) and [Router](https://router.vuejs.org/)<br>
 For database used to store the data is [Firebase Realtime Database](https://firebase.google.com/docs/database).<br>
 <br>
 To run the project on your machine use `npm run dev` for a dev server. Navigate to `http://localhost:8081/`. The app will automatically reload if you change any of the source files.
